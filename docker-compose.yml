@@ -1,0 +1,40 @@
+version: '3.4'
+
+services:
+  ##
+  # Web server container
+  #
+  nginx:
+    image: nginx:1.17.3
+    volumes:
+      - ${PWD}/nginx/:/etc/nginx/
+      - ${PWD}/srv:/srv/http/
+      - logs:/var/log/
+    ports:
+      - "0.0.0.0:80:80"
+      - "0.0.0.0:443:443"
+    labels:
+      - sh.acme.autoload.domain=dejonckhee.re
+    restart: always
+
+  ##
+  # ACME.sh container
+  #
+  acme.sh:
+    image: neilpang/acme.sh
+    container_name: acme.sh
+    command: daemon
+    volumes:
+      - ./acmeout:/acme.sh
+      - /var/run/docker.sock:/var/run/docker.sock
+    environment:
+      - DEPLOY_DOCKER_CONTAINER_LABEL=sh.acme.autoload.domain=dejonckhee.re
+      - DEPLOY_DOCKER_CONTAINER_KEY_FILE=/etc/nginx/ssl/dejonckhee.re/key.pem
+      - DEPLOY_DOCKER_CONTAINER_CERT_FILE="/etc/nginx/ssl/dejonckhee.re/cert.pem"
+      - DEPLOY_DOCKER_CONTAINER_CA_FILE="/etc/nginx/ssl/dejonckhee.re/ca.pem"
+      - DEPLOY_DOCKER_CONTAINER_FULLCHAIN_FILE="/etc/nginx/ssl/dejonckhee.re/full.pem"
+      - DEPLOY_DOCKER_CONTAINER_RELOAD_CMD="service nginx force-reload"
+
+volumes:
+  # NGINX logs
+  logs:
