@@ -9,7 +9,6 @@ services:
     volumes:
       - ${PWD}/nginx/:/etc/nginx/
       - ${PWD}/srv:/srv/http/
-      - logs:/var/log/
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
@@ -34,7 +33,3 @@ services:
       - DEPLOY_DOCKER_CONTAINER_CA_FILE="/etc/nginx/ssl/dejonckhee.re/ca.pem"
       - DEPLOY_DOCKER_CONTAINER_FULLCHAIN_FILE="/etc/nginx/ssl/dejonckhee.re/full.pem"
       - DEPLOY_DOCKER_CONTAINER_RELOAD_CMD="service nginx force-reload"
-
-volumes:
-  # NGINX logs
-  logs:
