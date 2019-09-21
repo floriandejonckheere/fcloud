@@ -9,11 +9,12 @@ services:
     volumes:
       - ${PWD}/nginx/:/etc/nginx/
       - ${PWD}/srv:/srv/http/
+      - letsencrypt:/letsencrypt
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
     labels:
-      - sh.acme.autoload.domain=dejonckhee.re
+      - sh.acme.autoload.domain=florian.dejonckhee.re
     restart: always
 
   ##
@@ -26,10 +27,14 @@ services:
     volumes:
       - ./acmeout:/acme.sh
       - /var/run/docker.sock:/var/run/docker.sock
+      - letsencrypt:/letsencrypt
     environment:
-      - DEPLOY_DOCKER_CONTAINER_LABEL=sh.acme.autoload.domain=dejonckhee.re
-      - DEPLOY_DOCKER_CONTAINER_KEY_FILE=/etc/nginx/ssl/dejonckhee.re/key.pem
-      - DEPLOY_DOCKER_CONTAINER_CERT_FILE="/etc/nginx/ssl/dejonckhee.re/cert.pem"
-      - DEPLOY_DOCKER_CONTAINER_CA_FILE="/etc/nginx/ssl/dejonckhee.re/ca.pem"
-      - DEPLOY_DOCKER_CONTAINER_FULLCHAIN_FILE="/etc/nginx/ssl/dejonckhee.re/full.pem"
+      - DEPLOY_DOCKER_CONTAINER_LABEL=sh.acme.autoload.domain=florian.dejonckhee.re
+      - DEPLOY_DOCKER_CONTAINER_KEY_FILE=/etc/nginx/ssl/florian.dejonckhee.re/key.pem
+      - DEPLOY_DOCKER_CONTAINER_CERT_FILE="/etc/nginx/ssl/florian.dejonckhee.re/cert.pem"
+      - DEPLOY_DOCKER_CONTAINER_CA_FILE="/etc/nginx/ssl/florian.dejonckhee.re/ca.pem"
+      - DEPLOY_DOCKER_CONTAINER_FULLCHAIN_FILE="/etc/nginx/ssl/florian.dejonckhee.re/full.pem"
       - DEPLOY_DOCKER_CONTAINER_RELOAD_CMD="service nginx force-reload"
+
+volumes:
+  letsencrypt:
