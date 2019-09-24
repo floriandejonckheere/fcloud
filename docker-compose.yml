@@ -7,9 +7,9 @@ services:
   nginx:
     image: nginx:1.17.3
     volumes:
-      - ${PWD}/nginx/:/etc/nginx/
-      - /srv/http:/srv/http/
-      - letsencrypt:/letsencrypt
+      - ./nginx/:/etc/nginx/
+      - /srv/http/:/srv/http/
+      - letsencrypt:/letsencrypt/
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
@@ -26,9 +26,9 @@ services:
     container_name: acme.sh
     command: daemon
     volumes:
-      - ./acmeout:/acme.sh
+      - ./acmeout/:/acme.sh/
       - /var/run/docker.sock:/var/run/docker.sock
-      - letsencrypt:/letsencrypt
+      - letsencrypt:/letsencrypt/
     environment:
       - DEPLOY_DOCKER_CONTAINER_LABEL=sh.acme.autoload.domain=florian.dejonckhee.re
       - DEPLOY_DOCKER_CONTAINER_KEY_FILE=/etc/nginx/ssl/florian.dejonckhee.re/key.pem
@@ -36,6 +36,18 @@ services:
       - DEPLOY_DOCKER_CONTAINER_CA_FILE="/etc/nginx/ssl/florian.dejonckhee.re/ca.pem"
       - DEPLOY_DOCKER_CONTAINER_FULLCHAIN_FILE="/etc/nginx/ssl/florian.dejonckhee.re/full.pem"
       - DEPLOY_DOCKER_CONTAINER_RELOAD_CMD="service nginx force-reload"
+
+  ##
+  # Resilio Sync container
+  #
+  rslsync:
+    image: resilio/sync
+    volumes:
+      - /srv/sync/:/mnt/sync/
+    ports:
+      - "127.0.0.1:8888:8888"
+      - "0.0.0.0:55555:55555"
+    restart: always
 
 volumes:
   letsencrypt:
