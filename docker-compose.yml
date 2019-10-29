@@ -5,7 +5,7 @@ services:
   # Web server container
   #
   nginx:
-    image: nginx:1.17.3
+    image: nginx:1.17
     volumes:
       - ./nginx/:/etc/nginx/
       - /srv/http/:/srv/http/
@@ -49,5 +49,17 @@ services:
       - "0.0.0.0:55555:55555"
     restart: always
 
+  ##
+  # Database container
+  #
+  postgres:
+    image: postgres:12
+    volumes:
+      - postgres:/var/lib/postgresql/data/
+    ports:
+      - "127.0.0.1:5432:5432"
+    restart: always
+
 volumes:
   letsencrypt:
+  postgres:
