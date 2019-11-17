@@ -2,9 +2,27 @@
 
 This repository contains the server configuration files for Thalarion.
 
-## Issue certificate
+## Set up
 
-```sh
-$ docker-compose up -d
-$ docker exec acme.sh --issue -d florian.dejonckhee.re -d dejonckhee.re -w /letsencrypt
+**Download sources**
+
+```bash
+git clone git@github.com:floriandejonckheere/thalarion.git thalarion
+cd thalarion
+docker-compose up -d
 ```
+
+**Configure TLS certificates**
+
+Edit the `certbot/certbot.sh` file with the domains you wish to request Let's Encrypt certificates for.
+Execute the file in the container to issue the certificates.
+
+```bash
+docker-compose exec certbot sh -c /certbot.sh
+```
+
+The certbot container runs a cron job that will renew the certificates every night when necessary.
+
+**Configure NGINX**
+
+Enable domains by symlinking config files in `nginx/sites-enabled/*` to existing files in `nginx/sites-available`.

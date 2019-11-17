@@ -9,33 +9,27 @@ services:
     volumes:
       - ./nginx/:/etc/nginx/
       - /srv/http/:/srv/http/
-      - letsencrypt:/letsencrypt/
+      - letsencrypt:/etc/letsencrypt/
+      - letsencrypt-data:/etc/letsencrypt-data/
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
     network_mode: host
-    labels:
-      - sh.acme.autoload.domain=florian.dejonckhee.re
     restart: always
 
   ##
-  # ACME.sh container
+  # Let's Encrypt container
   #
-  acme.sh:
-    image: neilpang/acme.sh
-    container_name: acme.sh
-    command: daemon
+  certbot:
+    build: certbot
     volumes:
-      - ./acmeout/:/acme.sh/
+      - ./certbot/certbot.sh:/certbot.sh
+      - letsencrypt:/etc/letsencrypt/
+      - letsencrypt-data:/etc/letsencrypt-data/
       - /var/run/docker.sock:/var/run/docker.sock
-      - letsencrypt:/letsencrypt/
-    environment:
-      - DEPLOY_DOCKER_CONTAINER_LABEL=sh.acme.autoload.domain=florian.dejonckhee.re
-      - DEPLOY_DOCKER_CONTAINER_KEY_FILE=/etc/nginx/ssl/florian.dejonckhee.re/key.pem
-      - DEPLOY_DOCKER_CONTAINER_CERT_FILE="/etc/nginx/ssl/florian.dejonckhee.re/cert.pem"
-      - DEPLOY_DOCKER_CONTAINER_CA_FILE="/etc/nginx/ssl/florian.dejonckhee.re/ca.pem"
-      - DEPLOY_DOCKER_CONTAINER_FULLCHAIN_FILE="/etc/nginx/ssl/florian.dejonckhee.re/full.pem"
-      - DEPLOY_DOCKER_CONTAINER_RELOAD_CMD="service nginx force-reload"
+    depends_on:
+      - nginx
+    restart: always
 
   ##
   # Resilio Sync container
@@ -61,5 +55,9 @@ services:
     restart: always
 
 volumes:
+  # Let's Encrypt certificates
   letsencrypt:
+  # Let's Encrypt challenges
+  letsencrypt-data:
+  # Database
   postgres:
