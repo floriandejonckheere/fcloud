@@ -1,3 +1,5 @@
 .DS_Store
 .idea/
 acmeout/
+nginx/sites-enabled/*.conf
+nginx/auth.d/*.htpasswd
