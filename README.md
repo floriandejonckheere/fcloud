@@ -15,9 +15,11 @@ docker-compose up -d
 **Configure TLS certificates**
 
 Edit the `certbot/certbot.sh` file with the domains you wish to request Let's Encrypt certificates for.
-Execute the file in the container to issue the certificates.
+Rebuild the image and execute the file in the container to issue the certificates.
 
 ```bash
+docker-compose build certbot
+docker-compose up -d certbot
 docker-compose exec certbot sh -c /certbot.sh
 ```
 

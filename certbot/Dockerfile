@@ -4,5 +4,6 @@ MAINTAINER Florian Dejonckheere <florian@floriandejonckheere.be>
 RUN apk add certbot docker
 
 ADD crontab /etc/crontabs/root
+ADD certbot.sh /certbot.sh
 
 CMD ["crond", "-f", "-l", "0"]
