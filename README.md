@@ -35,3 +35,7 @@ Enable domains by symlinking config files in `nginx/sites-enabled/*` to existing
 cat fstab | sudo tee -a /etc/fstab
 sudo mount /data
 ```
+
+**Configure Deluge**
+
+Insert plaintext credentials in `deluge/config/auth` under the following format: `username:password:10`

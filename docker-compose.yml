@@ -15,6 +15,7 @@ services:
       - registry
       - rslsync
       - trivial
+      - deluge-web
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
@@ -85,6 +86,38 @@ services:
       - POSTGRES_DB=trivial
       - POSTGRES_USER=trivial
       - POSTGRES_PASS=trivial
+    restart: always
+
+  ##
+  # Deluge server
+  #
+  deluge:
+    build: deluge
+    command: deluged -d -c /config -l /logs/deluged.log
+    volumes:
+      - ./logs/deluge/:/logs
+      - ./deluge/config/:/config
+      - /srv/torrents/unfinished/:/data/unfinished
+      - /data/torrents/:/data/finished/
+    ports:
+      - "0.0.0.0:58846:58846"
+      - "0.0.0.0:58946:58946"
+      - "0.0.0.0:58946:58946/udp"
+    restart: always
+
+  ##
+  # Deluge Web UI
+  #
+  deluge-web:
+    build: deluge
+    command: deluge-web -d -c /config -l /logs/deluge-web.log
+    volumes:
+      - ./logs/deluge/:/logs
+      - ./deluge/config:/config
+    ports:
+      - "127.0.0.1:8112:8112"
+    links:
+      - deluge
     restart: always
 
 volumes:
