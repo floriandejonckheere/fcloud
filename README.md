@@ -28,3 +28,10 @@ The certbot container runs a cron job that will renew the certificates every nig
 **Configure NGINX**
 
 Enable domains by symlinking config files in `nginx/sites-enabled/*` to existing files in `nginx/sites-available`.
+
+**Configure Nyctelios share**
+
+```bash
+cat fstab | sudo tee -a /etc/fstab
+sudo mount /data
+```

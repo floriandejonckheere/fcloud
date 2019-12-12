@@ -1,0 +1,2 @@
+# Nyctelios mount
+debian@nyctelios.dejonckhee.re:/data    /data   fuse.sshfs      noauto,x-systemd.automount,_netdev,users,idmap=user,identityfile=/root/nyctelios-sshfs-key,allow_other,reconnect 0 0
