@@ -30,5 +30,14 @@ certbot certonly --webroot \
                   -w /etc/letsencrypt-data/ \
                   -d trivial.dejonckhee.re
 
+# vault.dejonckhee.re
+echo "Refreshing certificate for vault.dejonckhee.re"
+certbot certonly --webroot \
+                  --non-interactive \
+                  --email florian@floriandejonckheere.be \
+                  --agree-tos \
+                  -w /etc/letsencrypt-data/ \
+                  -d vault.dejonckhee.re
+
 # Reload NGINX configuration
 docker exec thalarion_nginx_1 nginx -s reload

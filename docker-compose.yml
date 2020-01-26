@@ -17,6 +17,7 @@ services:
       - rslsync
       - trivial
       - deluge-web
+      - bitwarden
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
@@ -121,6 +122,22 @@ services:
       - deluge
     restart: always
 
+  ##
+  # Bitwarden Server
+  #
+  bitwarden:
+    image: bitwardenrs/server-postgresql:1.13.1
+    volumes:
+      - bitwarden:/data
+    depends_on:
+      - postgres
+    environment:
+      WEBSOCKET_ENABLED: "true"
+      SIGNUPS_ALLOWED: "false"
+      DATABASE_URL: "postgresql://bitwarden:bitwarden@postgres/bitwarden"
+      ENABLE_DW_WAL: "false"
+    restart: always
+
 volumes:
   # Let's Encrypt certificates
   letsencrypt:
@@ -130,3 +147,5 @@ volumes:
   postgres:
   # Docker registry data
   registry:
+  # Bitwarden data
+  bitwarden:
