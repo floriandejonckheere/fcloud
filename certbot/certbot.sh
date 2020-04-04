@@ -12,6 +12,15 @@ certbot certonly --webroot \
                   -d florian.dejonckhee.re \
                   -d dejonckhee.re
 
+# floriandejonckheere.be
+echo "Refreshing certificate for floriandejonckheere.be"
+certbot certonly --webroot \
+                  --non-interactive \
+                  --email florian@floriandejonckheere.be \
+                  --agree-tos \
+                  -w /etc/letsencrypt-data/ \
+                  -d floriandejonckheere.be
+
 # registry.dejonckhee.re
 echo "Refreshing certificate for registry.dejonckhee.re"
 certbot certonly --webroot \
