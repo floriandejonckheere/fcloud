@@ -12,3 +12,4 @@ deluge/config/deluged.pid
 deluge/config/ssl/
 deluge/config/state/
 deluge/config/auth
+deluge/config/archive/
