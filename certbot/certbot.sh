@@ -57,14 +57,14 @@ certbot certonly --webroot \
                   -w /etc/letsencrypt-data/ \
                   -d headbang.re
 
-# ma.headbang.re
-echo "Refreshing certificate for ma.headbang.re"
+# ma.cache.headbang.re
+echo "Refreshing certificate for ma.cache.headbang.re"
 certbot certonly --webroot \
                   --non-interactive \
                   --email florian@floriandejonckheere.be \
                   --agree-tos \
                   -w /etc/letsencrypt-data/ \
-                  -d ma.headbang.re
+                  -d ma.cache.headbang.re
 
 # Reload NGINX configuration
 docker exec thalarion_nginx_1 nginx -s reload
