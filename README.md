@@ -29,6 +29,12 @@ The certbot container runs a cron job that will renew the certificates every nig
 
 Enable domains by symlinking config files in `nginx/sites-enabled/*` to existing files in `nginx/sites-available`.
 
+**Generate TLS client certificates**
+
+```
+openssl req  -nodes -new -x509  -keyout nginx/auth.d/client.key -out nginx/auth.d/client.pem
+```
+
 **Configure Nyctelios share**
 
 ```bash

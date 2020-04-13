@@ -4,6 +4,8 @@ acmeout/
 logs/**/*.log
 nginx/sites-enabled/*.conf
 nginx/auth.d/*.htpasswd
+nginx/auth.d/*.pem
+nginx/auth.d/*.key
 deluge/config/*.bak
 deluge/config/blocklist.conf
 deluge/config/hostlist.conf
