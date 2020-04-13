@@ -5,7 +5,7 @@ services:
   # Web server container
   #
   nginx:
-    image: nginx:1.17
+    image: nginx:alpine
     volumes:
       - ./nginx/:/etc/nginx/
       - ./logs/nginx/:/logs/
