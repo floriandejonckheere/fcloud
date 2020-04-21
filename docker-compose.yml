@@ -139,6 +139,15 @@ services:
     restart: always
 
   ##
+  # Redis
+  #
+  redis:
+    image: redis:alpine
+    volumes:
+      - redis:/data
+    restart: always
+
+  ##
   # Watzner
   #
   watzner_clock:
@@ -177,3 +186,5 @@ volumes:
   registry:
   # Bitwarden data
   bitwarden:
+  # Redis data
+  redis:
