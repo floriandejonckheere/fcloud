@@ -151,7 +151,7 @@ services:
   # Watzner
   #
   watzner_clock:
-    image: registry.dejonckhee.re/watzner:v0.1.0
+    image: registry.dejonckhee.re/watzner
     command: bundle exec clockwork lib/clock.rb
     volumes:
       - ./logs/watzner/:/app/log/
@@ -162,7 +162,7 @@ services:
     restart: always
 
   watzner_sidekiq:
-    image: registry.dejonckhee.re/watzner:v0.1.0
+    image: registry.dejonckhee.re/watzner
     command: bundle exec sidekiq
     volumes:
       - ./logs/watzner/:/app/log/
