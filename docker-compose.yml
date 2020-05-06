@@ -12,12 +12,14 @@ services:
       - /srv/http/:/srv/http/
       - letsencrypt:/etc/letsencrypt/
       - letsencrypt-data:/etc/letsencrypt-data/
+      - nextcloud:/srv/nextcloud:ro
     links:
       - registry
       - rslsync
       - trivial
       - deluge-web
       - bitwarden
+      - nextcloud
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
@@ -175,6 +177,25 @@ services:
       - .env.production
     restart: always
 
+  ##
+  # NextCloud
+  #
+  nextcloud:
+    image: nextcloud:fpm
+    depends_on:
+      - postgres
+      - redis
+    volumes:
+      - nextcloud:/var/www/html
+    environment:
+      - POSTGRES_DB=nextcloud
+      - POSTGRES_USER=nextcloud
+      - POSTGRES_PASSWORD=nextcloud
+      - POSTGRES_HOST=postgres
+      - REDIS_HOST=redis
+    restart: always
+
+
 volumes:
   # Let's Encrypt certificates
   letsencrypt:
@@ -188,3 +209,5 @@ volumes:
   bitwarden:
   # Redis data
   redis:
+  # Nextcloud data
+  nextcloud:
