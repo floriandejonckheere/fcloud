@@ -45,7 +45,7 @@ services:
   rslsync:
     image: resilio/sync
     volumes:
-      - /srv/sync/:/mnt/sync/
+      - rslsync:/mnt/sync/
     ports:
       - "127.0.0.1:8888:8888"
       - "0.0.0.0:55555:55555"
@@ -201,6 +201,8 @@ volumes:
   letsencrypt:
   # Let's Encrypt challenges
   letsencrypt-data:
+  # Resilio Sync data
+  rslsync:
   # Database
   postgres:
   # Docker registry data
