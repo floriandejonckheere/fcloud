@@ -181,7 +181,7 @@ services:
   # NextCloud
   #
   nextcloud:
-    image: nextcloud:fpm
+    build: nextcloud
     depends_on:
       - postgres
       - redis
