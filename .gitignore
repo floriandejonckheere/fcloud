@@ -6,13 +6,4 @@ nginx/sites-enabled/*.conf
 nginx/auth.d/*.htpasswd
 nginx/auth.d/*.pem
 nginx/auth.d/*.key
-deluge/config/*.bak
-deluge/config/blocklist.conf
-deluge/config/hostlist.conf
-deluge/config/session.state
-deluge/config/deluged.pid
-deluge/config/ssl/
-deluge/config/state/
-deluge/config/auth
-deluge/config/archive/
-.env.*
+*.env
