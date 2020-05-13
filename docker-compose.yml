@@ -117,34 +117,6 @@ services:
     restart: always
 
   ##
-  # Watzner
-  #
-  watzner_clock:
-    image: registry.dejonckhee.re/watzner:v0.3.2
-    command: bundle exec clockwork lib/clock.rb
-    volumes:
-      - ./logs/watzner/:/app/log/
-    depends_on:
-      - postgres
-    env_file:
-      - .env.production
-    restart: always
-
-  watzner_sidekiq:
-    image: registry.dejonckhee.re/watzner:v0.3.2
-    command: bundle exec sidekiq
-    volumes:
-      - ./logs/watzner/:/app/log/
-    depends_on:
-      - redis
-      - postgres
-    links:
-      - redis
-    env_file:
-      - .env.production
-    restart: always
-
-  ##
   # NextCloud
   #
   nextcloud:
