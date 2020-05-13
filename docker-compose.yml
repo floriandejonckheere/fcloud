@@ -9,7 +9,7 @@ services:
     volumes:
       - ./nginx/:/etc/nginx/
       - ./logs/nginx/:/logs/
-      - /srv/http/:/srv/http/
+      - http:/srv/http/
       - letsencrypt:/etc/letsencrypt/
       - letsencrypt-data:/etc/letsencrypt-data/
       - nextcloud:/srv/nextcloud:ro
@@ -213,3 +213,5 @@ volumes:
   redis:
   # Nextcloud data
   nextcloud:
+  # Static HTTP data
+  http:
