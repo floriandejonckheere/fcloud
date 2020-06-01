@@ -66,7 +66,7 @@ certbot certonly --webroot \
                   -w /etc/letsencrypt-data/ \
                   -d ma.cache.headbang.re
 
-# cloud.headbang.re
+# cloud.dejonckhee.re
 echo "Refreshing certificate for cloud.dejonckhee.re"
 certbot certonly --webroot \
                   --non-interactive \
@@ -74,6 +74,15 @@ certbot certonly --webroot \
                   --agree-tos \
                   -w /etc/letsencrypt-data/ \
                   -d cloud.dejonckhee.re
+
+# torrents.dejonckhee.re
+echo "Refreshing certificate for torrents.dejonckhee.re"
+certbot certonly --webroot \
+                  --non-interactive \
+                  --email florian@floriandejonckheere.be \
+                  --agree-tos \
+                  -w /etc/letsencrypt-data/ \
+                  -d torrents.dejonckhee.re
 
 # Reload NGINX configuration
 docker exec thalarion_nginx_1 nginx -s reload
