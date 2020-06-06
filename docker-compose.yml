@@ -178,6 +178,20 @@ services:
       VERSION: 1.13.2
     restart: always
 
+  borgmatic:
+    image: b3vis/borgmatic
+    volumes:
+      - /data:/mnt/source:ro
+      - /data/backup:/mnt/borg-repository
+      - ./borgmatic/borgmatic.d/:/etc/borgmatic.d/
+      - ./borgmatic/.config/borg/:/root/.config/borg/
+      - /home/florian/.ssh/:/root/.ssh/
+      - borgmatic:/root/.cache/borg/
+    environment:
+      TZ: Europe/Brussels
+      BORG_PASSPHRASE: ${BORG_PASSPHRASE}
+    restart: always
+
 volumes:
   # Let's Encrypt certificates
   letsencrypt:
@@ -205,3 +219,5 @@ volumes:
   wireguard:
   # Minecraft
   minecraft:
+  # Borgmatic
+  borgmatic:
