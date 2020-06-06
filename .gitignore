@@ -7,4 +7,3 @@ nginx/auth.d/*.htpasswd
 nginx/auth.d/*.pem
 nginx/auth.d/*.key
 *.env
-qbittorrent/*
