@@ -29,6 +29,8 @@ services:
   #
   certbot:
     build: certbot
+    labels:
+      com.centurylinklabs.watchtower.enable: "false"
     volumes:
       - ./certbot/certbot.sh:/certbot.sh
       - letsencrypt:/etc/letsencrypt/
@@ -121,6 +123,8 @@ services:
   #
   nextcloud:
     build: nextcloud
+    labels:
+      com.centurylinklabs.watchtower.enable: "false"
     depends_on:
       - postgres
       - redis
@@ -134,6 +138,9 @@ services:
       - REDIS_HOST=redis
     restart: always
 
+  ##
+  # qBittorrent
+  #
   torrents:
     image: linuxserver/qbittorrent
     volumes:
@@ -145,6 +152,9 @@ services:
       - "127.0.0.1:8080:8080"
     restart: always
 
+  ##
+  # WireGuard
+  #
   wireguard:
     image: linuxserver/wireguard
     container_name: wireguard
@@ -166,6 +176,9 @@ services:
       PEERS: 5
     restart: always
 
+  ##
+  # Minecraft
+  #
   minecraft:
     image: itzg/minecraft-server
     volumes:
@@ -178,6 +191,9 @@ services:
       VERSION: 1.13.2
     restart: always
 
+  ##
+  # Borgmatic backups
+  #
   borgmatic:
     image: b3vis/borgmatic
     volumes:
@@ -190,6 +206,23 @@ services:
     environment:
       TZ: Europe/Brussels
       BORG_PASSPHRASE: ${BORG_PASSPHRASE}
+    restart: always
+
+  ##
+  # Watchtower Docker container updates
+  #
+  watchtower:
+    image: containrrr/watchtower
+    command: --interval 1800 --notifications email
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - ~/.docker/config.json:/config.json
+    environment:
+      WATCHTOWER_NOTIFICATION_EMAIL_TO: ${WATCHTOWER_NOTIFICATION_EMAIL_TO}
+      WATCHTOWER_NOTIFICATION_EMAIL_SERVER: ${WATCHTOWER_NOTIFICATION_EMAIL_SERVER}
+      WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT: ${WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT}
+      WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER: ${WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER}
+      WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD: ${WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD}
     restart: always
 
 volumes:
