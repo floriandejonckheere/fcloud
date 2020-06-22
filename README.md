@@ -34,14 +34,3 @@ Enable domains by symlinking config files in `nginx/sites-enabled/*` to existing
 ```
 openssl req  -nodes -new -x509  -keyout nginx/auth.d/client.key -out nginx/auth.d/client.pem
 ```
-
-**Configure Nyctelios share**
-
-```bash
-cat fstab | sudo tee -a /etc/fstab
-sudo mount /data
-```
-
-**Configure Deluge**
-
-Insert plaintext credentials in `deluge/config/auth` under the following format: `username:password:10`
