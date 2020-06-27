@@ -201,7 +201,7 @@ services:
       - /data/backup:/mnt/borg-repository
       - ./borgmatic/borgmatic.d/:/etc/borgmatic.d/
       - ./borgmatic/.config/borg/:/root/.config/borg/
-      - /home/florian/.ssh/:/root/.ssh/
+      - /root/.ssh/:/root/.ssh/
       - borgmatic:/root/.cache/borg/
     environment:
       TZ: Europe/Brussels
@@ -213,7 +213,7 @@ services:
   #
   watchtower:
     image: containrrr/watchtower
-    command: --interval 1800 --notifications email
+    command: --schedule "0 1 * * *" --notifications email
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - ~/.docker/config.json:/config.json

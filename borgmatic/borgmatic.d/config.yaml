@@ -10,6 +10,7 @@ location:
     # repositories are backed up to in sequence. See ssh_command for SSH options like
     # identity file or port.
     repositories:
+        - x3n15aor@x3n15aor.repo.borgbase.com:repo
         - /mnt/borg-repository
 
     # Stay in same file system (do not cross mount points). Defaults to false.
@@ -104,7 +105,7 @@ location:
 # https://borgbackup.readthedocs.io/en/stable/usage.html#borg-create and
 # https://borgbackup.readthedocs.io/en/stable/usage/general.html#environment-variables for
 # details.
-# storage:
+storage:
     # The standard output of this command is used to unlock the encryption key. Only
     # use on repositories that were initialized with passcommand/repokey encryption.
     # Note that if both encryption_passcommand and encryption_passphrase are set,
@@ -137,7 +138,7 @@ location:
 
     # Command to use instead of "ssh". This can be used to specify ssh options.
     # Defaults to not set.
-    # ssh_command: ssh -i /path/to/private/key
+    ssh_command: ssh -i /root/.ssh/thalarion-borgbase-key
 
     # Base path used for various Borg directories. Defaults to $HOME, ~$USER, or ~.
     # See https://borgbackup.readthedocs.io/en/stable/usage/general.html#environment-variables for details.
@@ -382,7 +383,7 @@ hooks:
     # See
     # https://torsion.org/borgmatic/docs/how-to/monitor-your-backups/#healthchecks-hook
     # for details.
-    # healthchecks: https://hc-ping.com/your-uuid-here
+    healthchecks: https://hc-ping.com/cb75e89d-f649-406d-a9b9-6eb0fbc08789
 
     # Cronitor ping URL to notify when a backup begins, ends, or errors. Create an
     # account at https://cronitor.io if you'd like to use this service. See
