@@ -34,3 +34,14 @@ Enable domains by symlinking config files in `nginx/sites-enabled/*` to existing
 ```
 openssl req  -nodes -new -x509  -keyout nginx/auth.d/client.key -out nginx/auth.d/client.pem
 ```
+
+**Configure MusicBrainz**
+
+Download an empty `mbslave.conf`:
+
+```
+wget https://github.com/lalinsky/mbdata/blob/master/mbslave.conf.default -O mbslave.conf
+```
+
+Edit the file and fill in the database credentials and MusicBrainz token.
+Follow the steps on [https://github.com/lalinsky/mbdata](https://github.com/lalinsky/mbdata) to fill up the database.

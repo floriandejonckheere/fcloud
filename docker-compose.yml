@@ -216,13 +216,26 @@ services:
     command: --schedule "0 1 * * *" --notifications email
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
-      - ~/.docker/config.json:/config.json
+      - /home/florian/.docker/config.json:/config.json
     environment:
       WATCHTOWER_NOTIFICATION_EMAIL_TO: ${WATCHTOWER_NOTIFICATION_EMAIL_TO}
       WATCHTOWER_NOTIFICATION_EMAIL_SERVER: ${WATCHTOWER_NOTIFICATION_EMAIL_SERVER}
       WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT: ${WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PORT}
       WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER: ${WATCHTOWER_NOTIFICATION_EMAIL_SERVER_USER}
       WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD: ${WATCHTOWER_NOTIFICATION_EMAIL_SERVER_PASSWORD}
+    restart: always
+
+  ##
+  # MusicBrainz mirror
+  #
+  mbdata:
+    build: mbdata
+    depends_on:
+      - postgres
+    volumes:
+      - ./mbslave.conf:/etc/mbslave.conf
+    environment:
+      MBSLAVE_CONFIG: /etc/mbslave.conf
     restart: always
 
 volumes:
