@@ -161,6 +161,7 @@ services:
     volumes:
       - wireguard:/config
       - /lib/modules:/lib/modules
+      - /usr/src:/usr/src
     ports:
       - "0.0.0.0:51820:51820/udp"
     cap_add:
@@ -213,7 +214,7 @@ services:
   #
   watchtower:
     image: containrrr/watchtower
-    command: --schedule "0 1 * * *" --notifications email
+    command: --schedule "0 0 1 * * *" --notifications email
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - /home/florian/.docker/config.json:/config.json
@@ -230,6 +231,8 @@ services:
   #
   mbdata:
     build: mbdata
+    labels:
+      com.centurylinklabs.watchtower.enable: "false"
     depends_on:
       - postgres
     volumes:
