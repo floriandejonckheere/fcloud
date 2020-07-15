@@ -72,6 +72,7 @@ location:
         - /mnt/source/backup
         - /mnt/source/thalarion
         - /mnt/source/docker/volumes/thalarion_torrents
+        - /mnt/source/docker/volumes/thalarion_registry
         - /mnt/source/docker/volumes/thalarion_borgmatic_cache
 
     # Read exclude patterns from one or more separate named files, one pattern per
@@ -213,13 +214,13 @@ retention:
     # keep_hourly: 24
 
     # Number of daily archives to keep.
-    keep_daily: 7
+    keep_daily: 3
 
     # Number of weekly archives to keep.
-    keep_weekly: 4
+    keep_weekly: 2
 
     # Number of monthly archives to keep.
-    keep_monthly: 12
+    keep_monthly: 6
 
     # Number of yearly archives to keep.
     keep_yearly: 5
