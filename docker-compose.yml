@@ -130,6 +130,9 @@ services:
       - redis
     volumes:
       - nextcloud:/var/www/html
+      - rslsync:/mnt/rslsync:ro
+      - torrents:/mnt/torrents:ro
+      - http:/mnt/http
     environment:
       - POSTGRES_DB=nextcloud
       - POSTGRES_USER=nextcloud
