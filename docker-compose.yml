@@ -239,7 +239,7 @@ services:
     depends_on:
       - postgres
     volumes:
-      - ./mbslave.conf:/etc/mbslave.conf
+      - ./mbdata/mbslave.conf:/etc/mbslave.conf
     environment:
       MBSLAVE_CONFIG: /etc/mbslave.conf
     restart: always
