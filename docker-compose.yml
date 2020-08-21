@@ -10,6 +10,7 @@ services:
       - ./nginx/:/etc/nginx/
       - ./logs/nginx/:/logs/
       - http:/srv/http/
+      - torrents:/srv/torrents/
       - letsencrypt:/etc/letsencrypt/
       - letsencrypt-data:/etc/letsencrypt-data/
       - nextcloud:/srv/nextcloud:ro
