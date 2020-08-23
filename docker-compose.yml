@@ -20,6 +20,7 @@ services:
       - trivial
       - bitwarden
       - nextcloud
+      - jellyfin
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
@@ -245,6 +246,20 @@ services:
       MBSLAVE_CONFIG: /etc/mbslave.conf
     restart: always
 
+  ##
+  # Jellyfin
+  #
+  jellyfin:
+    image: linuxserver/jellyfin
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Berlin
+    volumes:
+      - jellyfin:/config
+      - jellyfin_data:/data
+    restart: always
+
 volumes:
   # Let's Encrypt certificates
   letsencrypt:
@@ -274,3 +289,6 @@ volumes:
   minecraft:
   # Borgmatic
   borgmatic:
+  # Jellyfin
+  jellyfin:
+  jellyfin_data:
