@@ -74,6 +74,8 @@ location:
         - /mnt/source/docker/volumes/thalarion_torrents
         - /mnt/source/docker/volumes/thalarion_registry
         - /mnt/source/docker/volumes/thalarion_borgmatic_cache
+        - /mnt/source/docker/volumes/thalarion_jellyfin
+        - /mnt/source/docker/volumes/thalarion_jellyfin_data
 
     # Read exclude patterns from one or more separate named files, one pattern per
     # line. See the output of "borg help patterns" for more details.
