@@ -148,6 +148,9 @@ services:
   #
   torrents:
     image: linuxserver/qbittorrent
+    environment:
+      PUID: 1000
+      PGID: 1000
     volumes:
       - qbittorrent:/config
       - torrents:/downloads
