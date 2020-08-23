@@ -46,11 +46,14 @@ services:
   # Resilio Sync container
   #
   rslsync:
-    image: resilio/sync
+    image: linuxserver/resilio-sync
+    environment:
+      PUID: 1000
+      PGID: 1000
     volumes:
-      - rslsync:/mnt/sync/
+      - rslsync:/config
+      - rslsync_data:/sync
     ports:
-      - "127.0.0.1:8888:8888"
       - "0.0.0.0:55555:55555"
     restart: always
 
@@ -270,8 +273,9 @@ volumes:
   letsencrypt:
   # Let's Encrypt challenges
   letsencrypt-data:
-  # Resilio Sync data
+  # Resilio Sync
   rslsync:
+  rslsync_data:
   # Database
   postgres:
   # Docker registry data
