@@ -91,7 +91,10 @@ certbot certonly --webroot \
                   --email florian@floriandejonckheere.be \
                   --agree-tos \
                   -w /etc/letsencrypt-data/ \
-                  -d media.dejonckhee.re
+                  -d media.dejonckhee.re \
+                  -d jackett.dejonckhee.re \
+                  -d sonarr.dejonckhee.re \
+                  -d radarr.dejonckhee.re
 
 # Reload NGINX configuration
 docker exec thalarion_nginx_1 nginx -s reload

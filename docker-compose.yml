@@ -21,6 +21,7 @@ services:
       - bitwarden
       - nextcloud
       - jellyfin
+      - jackett
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
@@ -269,6 +270,18 @@ services:
       - /dev/dri:/dev/dri
     restart: always
 
+  ##
+  # Jackett
+  #
+  jackett:
+    image: linuxserver/jackett
+    environment:
+      PUID: 1000
+      PGID: 1000
+    volumes:
+      - jackett:/config
+    restart: always
+
 volumes:
   # Let's Encrypt certificates
   letsencrypt:
@@ -302,3 +315,5 @@ volumes:
   # Jellyfin
   jellyfin:
   jellyfin_data:
+  # Jackett
+  jackett:
