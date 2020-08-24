@@ -157,6 +157,7 @@ services:
     volumes:
       - qbittorrent:/config
       - torrents:/downloads
+      - jellyfin_data:/downloads/Jellyfin
     ports:
       - "0.0.0.0:6881:6881"
       - "0.0.0.0:6881:6881/udp"
