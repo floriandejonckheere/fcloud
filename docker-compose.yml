@@ -136,7 +136,7 @@ services:
       - redis
     volumes:
       - nextcloud:/var/www/html
-      - rslsync:/mnt/rslsync:ro
+      - rslsync_data:/mnt/rslsync:ro
       - torrents:/mnt/torrents:ro
       - http:/mnt/http
     environment:
