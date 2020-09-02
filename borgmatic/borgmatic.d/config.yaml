@@ -219,13 +219,13 @@ retention:
     keep_daily: 3
 
     # Number of weekly archives to keep.
-    keep_weekly: 2
+    keep_weekly: 1
 
     # Number of monthly archives to keep.
-    keep_monthly: 6
+    keep_monthly: 3
 
     # Number of yearly archives to keep.
-    keep_yearly: 5
+    keep_yearly: 1
 
     # When pruning, only consider archive names starting with this prefix.
     # Borg placeholders can be used. See the output of "borg help placeholders" for
