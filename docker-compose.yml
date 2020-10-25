@@ -202,7 +202,8 @@ services:
     environment:
       SERVER_NAME: Thalarion
       MOTD: Welcome to Thalarion MC server
-      VERSION: 1.13.2
+      VERSION: 1.16.3
+      LEVEL: 20200920-1163
       EULA: "TRUE"
       MEMORY: 4G
       TZ: Europe/Berlin
