@@ -17,7 +17,6 @@ services:
     links:
       - registry
       - rslsync
-      - trivial
       - bitwarden
       - nextcloud
       - jellyfin
@@ -78,25 +77,6 @@ services:
       - registry:/var/lib/registry
     ports:
       - "127.0.0.1:5000:5000"
-    restart: always
-
-  ##
-  # Trivial
-  #
-  trivial:
-    image: registry.dejonckhee.re/trivial
-    volumes:
-      - ./logs/trivial/:/app/log/
-    ports:
-      - "127.0.0.1:3000:3000"
-    depends_on:
-      - postgres
-    environment:
-      - SECRET_KEY_BASE=mybase
-      - POSTGRES_HOST=postgres
-      - POSTGRES_DB=trivial
-      - POSTGRES_USER=trivial
-      - POSTGRES_PASS=trivial
     restart: always
 
   ##
