@@ -14,13 +14,6 @@ services:
       - letsencrypt:/etc/letsencrypt/
       - letsencrypt-data:/etc/letsencrypt-data/
       - nextcloud:/srv/nextcloud:ro
-    links:
-      - registry
-      - rslsync
-      - bitwarden
-      - nextcloud
-      - jellyfin
-      - jackett
     ports:
       - "0.0.0.0:80:80"
       - "0.0.0.0:443:443"
@@ -138,7 +131,6 @@ services:
     volumes:
       - qbittorrent:/config
       - torrents:/downloads
-      - jellyfin_data:/downloads/Jellyfin
     ports:
       - "0.0.0.0:6881:6881"
       - "0.0.0.0:6881:6881/udp"
@@ -239,34 +231,6 @@ services:
       MBSLAVE_CONFIG: /etc/mbslave.conf
     restart: always
 
-  ##
-  # Jellyfin
-  #
-  jellyfin:
-    image: linuxserver/jellyfin
-    environment:
-      PUID: 1000
-      PGID: 1000
-      TZ: Europe/Berlin
-    volumes:
-      - jellyfin:/config
-      - jellyfin_data:/data
-    devices:
-      - /dev/dri:/dev/dri
-    restart: always
-
-  ##
-  # Jackett
-  #
-  jackett:
-    image: linuxserver/jackett
-    environment:
-      PUID: 1000
-      PGID: 1000
-    volumes:
-      - jackett:/config
-    restart: always
-
 volumes:
   letsencrypt:
   letsencrypt-data:
@@ -283,6 +247,3 @@ volumes:
   wireguard:
   minecraft:
   borgmatic:
-  jellyfin:
-  jellyfin_data:
-  jackett:
