@@ -268,37 +268,21 @@ services:
     restart: always
 
 volumes:
-  # Let's Encrypt certificates
   letsencrypt:
-  # Let's Encrypt challenges
   letsencrypt-data:
-  # Resilio Sync
   rslsync:
   rslsync_data:
-  # Database
   postgres:
-  # Docker registry data
   registry:
-  # Bitwarden data
   bitwarden:
-  # Redis data
   redis:
-  # Nextcloud data
   nextcloud:
-  # Static HTTP data
   http:
-  # qBittorrent config
   qbittorrent:
-  # Torrents
   torrents:
-  # WireGuard
   wireguard:
-  # Minecraft
   minecraft:
-  # Borgmatic
   borgmatic:
-  # Jellyfin
   jellyfin:
   jellyfin_data:
-  # Jackett
   jackett:
