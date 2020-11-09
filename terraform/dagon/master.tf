@@ -7,6 +7,7 @@ locals {
     domain_name = var.domain_name,
     hostname = var.hostname,
     passwd = var.passwd,
+    docker_compose = file("docker-compose.yml"),
   })
 }
 
