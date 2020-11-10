@@ -1,6 +1,5 @@
 locals {
   cloud_init = templatefile("master.tmpl.yml", {
-    ip_address = scaleway_instance_ip.master.address,
     ssh_public_key = file(var.ssh_public_key),
     sshd_public_key = file(var.sshd_public_key),
     sshd_private_key = file(var.sshd_private_key),
@@ -24,7 +23,7 @@ provider "scaleway" {
 }
 
 resource "scaleway_account_ssh_key" "master" {
-  name = "Dagon"
+  name = var.hostname
   public_key = file(var.ssh_public_key)
 }
 
