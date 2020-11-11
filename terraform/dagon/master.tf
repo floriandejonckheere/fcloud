@@ -49,7 +49,7 @@ resource "scaleway_instance_volume" "master" {
 }
 
 resource "scaleway_instance_server" "master" {
-  name = "dagon"
+  name = var.hostname
   type = "STARDUST1-S"
   image = "debian_buster"
   ip_id = scaleway_instance_ip.master.id
