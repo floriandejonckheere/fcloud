@@ -31,7 +31,8 @@ ssh_keys:
   rsa_private: |
     ${indent(4, sshd_private_key)}
 
-#mounts:
+mounts:
+  - [ ${master_volume_dev}, "/mnt/master", "ext4", "defaults,nofail,discard", "0", "0" ]
 #  - [ ${storage_box_url}, /data, "fuse.sshfs", "defaults,noauto,_netdev,reconnect,identityfile=/root/.ssh/thalarion-box-ssh-key,allow_other,default_permissions,uid=1000,gid=1000", "0", "0" ]
 
 packages:
@@ -51,6 +52,7 @@ runcmd:
   - printf "[sshd]\nenabled = true\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
   - systemctl enable --now fail2ban
   - systemctl restart networking
+  - tune2fs -m 0 ${master_volume_dev}
   # Configure firewall
   - ufw default deny incoming
   - ufw default allow outgoing

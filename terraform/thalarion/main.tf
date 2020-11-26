@@ -7,10 +7,14 @@ locals {
     domain_name = var.domain_name,
     hostname = var.hostname,
     passwd = var.passwd,
+    master_volume_dev = hcloud_volume.master.linux_device,
     storage_box_url: var.storage_box_url,
   })
 }
 
+##
+# Provider
+#
 provider "hcloud" {
   token = var.hcloud_token
 }
@@ -20,6 +24,9 @@ resource "hcloud_ssh_key" "master" {
   public_key = file(var.ssh_public_key)
 }
 
+##
+# Instances
+#
 resource "hcloud_server" "master" {
   name = var.hostname
   location = "fsn1"
@@ -30,6 +37,28 @@ resource "hcloud_server" "master" {
   backups = false
 }
 
+##
+# Volumes
+#
+resource "hcloud_volume" "master" {
+  name = "master"
+  location = "fsn1"
+  size = 10
+  format = "ext4"
+
+  lifecycle {
+    prevent_destroy = true
+  }
+}
+
+resource "hcloud_volume_attachment" "master" {
+  volume_id = hcloud_volume.master.id
+  server_id = hcloud_server.master.id
+}
+
+##
+# Network
+#
 resource "hcloud_rdns" "master4" {
   server_id = hcloud_server.master.id
   ip_address = hcloud_server.master.ipv4_address
