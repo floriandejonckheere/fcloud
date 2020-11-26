@@ -1,3 +1,6 @@
+output "cloud_init" {
+  value = local.cloud_init
+}
 output "server_ip" {
   value = hcloud_server.master.ipv4_address
 }

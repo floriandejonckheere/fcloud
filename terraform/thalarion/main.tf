@@ -11,10 +11,6 @@ locals {
   })
 }
 
-output "cloud_init" {
-  value = local.cloud_init
-}
-
 provider "hcloud" {
   token = var.hcloud_token
 }
