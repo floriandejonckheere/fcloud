@@ -32,20 +32,6 @@ resource "hcloud_server" "master" {
   ssh_keys = [hcloud_ssh_key.master.id]
   user_data = local.cloud_init
   backups = false
-
-//  provisioner "remote-exec" {
-//    connection {
-//      host = self.ipv4_address
-//      type = "ssh"
-//      user = "root"
-//      private_key = file(var.ssh_private_key)
-//    }
-//
-//    inline = [
-//      "echo 'auto eth0:1\niface eth0:1 inet static\n  address ${hcloud_floating_ip.master.ip_address}/24\n' > /etc/network/interfaces.d/60-floating-ip.cfg",
-//      "ifdown eth0; ifup eth0",
-//    ]
-//  }
 }
 
 resource "hcloud_rdns" "master4" {
