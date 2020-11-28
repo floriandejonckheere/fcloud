@@ -3,7 +3,7 @@ locals {
     ssh_public_key = file(var.ssh_public_key),
     sshd_public_key = file(var.sshd_public_key),
     sshd_private_key = file(var.sshd_private_key),
-    domain_name = var.domain_name,
+    fqdn = var.fqdn,
     hostname = var.hostname,
     passwd = var.passwd,
     docker_compose = file("docker-compose.yml"),
@@ -35,7 +35,7 @@ resource "scaleway_instance_ip" "master" {
 
 resource "scaleway_instance_ip_reverse_dns" "master" {
   ip_id = scaleway_instance_ip.master.id
-  reverse = var.domain_name
+  reverse = var.fqdn
 }
 
 resource "scaleway_instance_volume" "master" {

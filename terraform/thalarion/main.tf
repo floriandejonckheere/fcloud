@@ -4,7 +4,7 @@ locals {
     ssh_public_key = file(var.ssh_public_key),
     sshd_public_key = file(var.sshd_public_key),
     sshd_private_key = file(var.sshd_private_key),
-    domain_name = var.domain_name,
+    fqdn = var.fqdn,
     hostname = var.hostname,
     passwd = var.passwd,
     master_volume_dev = hcloud_volume.master.linux_device,
@@ -62,13 +62,13 @@ resource "hcloud_volume_attachment" "master" {
 resource "hcloud_rdns" "master4" {
   server_id = hcloud_server.master.id
   ip_address = hcloud_server.master.ipv4_address
-  dns_ptr = var.domain_name
+  dns_ptr = var.fqdn
 }
 
 resource "hcloud_rdns" "master6" {
   server_id = hcloud_server.master.id
   ip_address = hcloud_server.master.ipv6_address
-  dns_ptr = var.domain_name
+  dns_ptr = var.fqdn
 }
 
 resource "hcloud_network" "master" {
@@ -100,5 +100,5 @@ resource "hcloud_floating_ip_assignment" "master" {
 resource "hcloud_rdns" "floating_master" {
   floating_ip_id = hcloud_floating_ip.master.id
   ip_address = hcloud_floating_ip.master.ip_address
-  dns_ptr = var.domain_name
+  dns_ptr = var.fqdn
 }

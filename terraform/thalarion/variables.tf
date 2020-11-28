@@ -7,8 +7,8 @@ variable "passwd" {
   type = string
 }
 
-variable "domain_name" {
-  description = "Web-facing domain name"
+variable "fqdn" {
+  description = "Fully qualified domain name"
   type = string
 }
 
