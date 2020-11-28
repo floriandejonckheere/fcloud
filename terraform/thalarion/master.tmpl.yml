@@ -43,6 +43,8 @@ packages:
   - software-properties-common
   - fail2ban
   - ufw
+  - fuse
+  - sshfs
 
 package_update: true
 package_upgrade: true
@@ -53,6 +55,8 @@ runcmd:
   - systemctl enable --now fail2ban
   - systemctl restart networking
   - tune2fs -m 0 ${master_volume_dev}
+  - mount /mnt/master
+  - chown cloud:cloud /mnt/master
   # Configure firewall
   - ufw default deny incoming
   - ufw default allow outgoing
