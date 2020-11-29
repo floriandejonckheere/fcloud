@@ -28,3 +28,15 @@ module "thalarion" {
   sshd_private_key = var.sshd_private_key
   storage_box_url = var.storage_box_url
 }
+
+module "dagon" {
+  source = "./modules/dagon"
+
+  name = "dagon"
+  fqdn = "dagon.cloud.dejonckhee.re"
+  passwd = var.passwd
+  ssh_public_key = var.ssh_public_key
+  ssh_private_key = var.ssh_private_key
+  sshd_public_key = var.sshd_public_key
+  sshd_private_key = var.sshd_private_key
+}
