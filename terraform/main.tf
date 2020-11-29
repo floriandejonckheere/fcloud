@@ -31,11 +31,11 @@ provider "scaleway" {
 ##
 # Modules
 #
-module "thalarion" {
-  source = "./modules/thalarion"
+module "web" {
+  source = "./modules/web"
 
-  name = "thalarion"
-  fqdn = "thalarion.cloud.dejonckhee.re"
+  name = "web"
+  fqdn = "web.cloud.dejonckhee.re"
   passwd = var.passwd
   ssh_public_key = "~/.ssh/thalarion.pub"
   ssh_private_key = "~/.ssh/thalarion"
@@ -44,11 +44,11 @@ module "thalarion" {
   storage_box_url = var.storage_box_url
 }
 
-module "dagon" {
-  source = "./modules/dagon"
+module "vpn" {
+  source = "./modules/vpn"
 
-  name = "dagon"
-  fqdn = "dagon.cloud.dejonckhee.re"
+  name = "vpn"
+  fqdn = "vpn.cloud.dejonckhee.re"
   passwd = var.passwd
   ssh_public_key = "~/.ssh/dagon.pub"
   ssh_private_key = "~/.ssh/dagon"
