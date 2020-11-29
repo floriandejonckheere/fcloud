@@ -1,0 +1,18 @@
+##
+# Providers
+#
+hcloud_token = ""
+scaleway_access_key = ""
+scaleway_secret_key = ""
+scaleway_organization_id = ""
+
+##
+# Modules
+#
+# plaintext passwd:
+passwd = ""
+ssh_public_key = ""
+ssh_private_key = ""
+sshd_public_key = ""
+sshd_private_key = ""
+storage_box_url = ""
