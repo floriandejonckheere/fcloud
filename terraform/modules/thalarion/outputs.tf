@@ -1,7 +1,11 @@
-output "server_ip" {
+output "private_ipv4" {
   value = hcloud_server.default.ipv4_address
 }
 
-output "floating_ip" {
+output "private_ipv6" {
+  value = hcloud_server.default.ipv6_address
+}
+
+output "public_ipv4" {
   value = hcloud_floating_ip.default.ip_address
 }
