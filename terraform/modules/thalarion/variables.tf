@@ -1,5 +1,5 @@
-variable "passwd" {
-  description = "UNIX password hash for cloud user"
+variable "name" {
+  description = "Machine name"
   type = string
 }
 
@@ -8,8 +8,8 @@ variable "fqdn" {
   type = string
 }
 
-variable "hostname" {
-  description = "Machine hostname"
+variable "passwd" {
+  description = "UNIX password hash for cloud user"
   type = string
 }
 
