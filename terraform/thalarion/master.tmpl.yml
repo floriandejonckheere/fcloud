@@ -11,8 +11,10 @@ ntp:
 write_files:
   - path: /etc/network/interfaces.d/60-floating-ip
     content: |
-      iface eth0 inet static
-          address ${ip_address}/32
+      auto eth0:1
+      iface eth0:1 inet static
+          address ${ip_address}
+          netmask 32
 
 users:
   - name: cloud

@@ -85,6 +85,7 @@ resource "hcloud_network_subnet" "master" {
 
 resource "hcloud_floating_ip" "master" {
   name = "master"
+  home_location = "fsn1"
   type = "ipv4"
 
   lifecycle {
