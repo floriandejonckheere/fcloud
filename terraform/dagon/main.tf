@@ -10,10 +10,6 @@ locals {
   })
 }
 
-output "cloud_init" {
-  value = local.cloud_init
-}
-
 provider "scaleway" {
   access_key = var.scaleway_access_key
   secret_key = var.scaleway_secret_key
