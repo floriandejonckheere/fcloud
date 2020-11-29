@@ -85,3 +85,26 @@ resource "gandi_livedns_domain" "default" {
   automatic_snapshots = true
 }
 
+module "caa" {
+  source = "../record"
+
+  fqdn = var.fqdn
+  name = "@"
+  type = "CAA"
+  values = ["0 issue \"letsencrypt.org\""]
+}
+
+module "mx" {
+  source = "../record"
+
+  fqdn = var.fqdn
+  name = "@"
+  type = "MX"
+  values = [
+    "1 aspmx.l.google.com.",
+    "10 alt3.aspmx.l.google.com.",
+    "10 alt4.aspmx.l.google.com.",
+    "5 alt1.aspmx.l.google.com.",
+    "5 alt2.aspmx.l.google.com."
+  ]
+}
