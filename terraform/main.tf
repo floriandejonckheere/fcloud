@@ -28,8 +28,23 @@ provider "scaleway" {
   region = "nl-ams"
 }
 
+provider "gandi" {
+  key = var.gandi_key
+}
+
 ##
-# Modules
+# Domains
+#
+module "dejonckhee_re" {
+  source = "./modules/domain"
+
+  fqdn = "dejonckhee.re"
+  domain_contact = var.domain_contact
+  domain_contact_extra = var.domain_contact_extra
+}
+
+##
+# Services
 #
 module "web" {
   source = "./modules/web"

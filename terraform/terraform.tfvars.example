@@ -5,9 +5,24 @@ hcloud_token = ""
 scaleway_access_key = ""
 scaleway_secret_key = ""
 scaleway_organization_id = ""
+gandi_key = ""
 
 ##
-# Modules
+# Domains
+#
+domain_contact = {
+  country = ""
+  email = ""
+  family_name = ""
+  given_name = ""
+  phone = ""
+  street_addr = ""
+  city = ""
+  zip = ""
+}
+
+##
+# Services
 #
 # plaintext passwd:
 passwd = ""
