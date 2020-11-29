@@ -9,7 +9,7 @@ ntp:
   enabled: true
 
 write_files:
-  - path: /etc/network/interfaces.d/60-floating-ip.cfg
+  - path: /etc/network/interfaces.d/60-floating-ip
     content: |
       iface eth0 inet static
           address ${ip_address}/32
@@ -66,10 +66,10 @@ runcmd:
   - ufw enable
   # Configure SSH server
   - sed -i -e '/^#PermitRootLogin.*$/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
-  - sed -i -e '/^PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
+  - sed -i -e '/#^PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
   - sed -i -e '/^X11Forwarding/s/^.*$/X11Forwarding no/' /etc/ssh/sshd_config
   - sed -i -e '/^#MaxAuthTries/s/^.*$/MaxAuthTries 3/' /etc/ssh/sshd_config
-  - sed -i -e '/^# *AllowTcpForwarding/s/^.*$/AllowTcpForwarding no/' /etc/ssh/sshd_config
+  - sed -i -e '/^#AllowTcpForwarding/s/^.*$/AllowTcpForwarding no/' /etc/ssh/sshd_config
   - sed -i -e '/^#AllowAgentForwarding/s/^.*$/AllowAgentForwarding no/' /etc/ssh/sshd_config
   - sed -i -e '/^#AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile .ssh\/authorized_keys/' /etc/ssh/sshd_config
   # Install Docker
