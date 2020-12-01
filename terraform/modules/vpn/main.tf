@@ -31,6 +31,10 @@ resource "scaleway_instance_server" "default" {
   additional_volume_ids = [
     scaleway_instance_volume.default.id
   ]
+
+  lifecycle {
+    ignore_changes = [user_data]
+  }
 }
 
 ##
