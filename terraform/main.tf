@@ -57,6 +57,17 @@ module "floriandejonckheere_be" {
   gsf = lookup(var.gsf, "floriandejonckheere_be")
 }
 
+module "headbang_re" {
+  source = "./modules/dns/domain"
+
+  fqdn = "headbang.re"
+  ipv4_address = module.web.public_ipv4
+  domain_contact = var.domain_contact
+  domain_contact_extra = var.domain_contact_extra
+  dkim = lookup(var.dkim, "headbang_re")
+  gsf = lookup(var.gsf, "headbang_re")
+}
+
 ##
 # Services
 #
