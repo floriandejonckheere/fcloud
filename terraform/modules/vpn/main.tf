@@ -25,7 +25,8 @@ resource "scaleway_instance_server" "default" {
   name = var.name
   type = "STARDUST1-S"
   image = "debian_buster"
-  ip_id = scaleway_instance_ip.default.id
+  enable_dynamic_ip = true
+  enable_ipv6 = true
   cloud_init = local.cloud_init
 
   additional_volume_ids = [

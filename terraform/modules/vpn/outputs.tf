@@ -3,5 +3,9 @@ output "private_ipv4" {
 }
 
 output "public_ipv4" {
-  value = scaleway_instance_ip.default.address
+  value = scaleway_instance_server.default.public_ip
+}
+
+output "public_ipv6" {
+  value = scaleway_instance_server.default.ipv6_address
 }
