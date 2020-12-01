@@ -108,3 +108,12 @@ module "mx" {
     "5 alt2.aspmx.l.google.com."
   ]
 }
+
+module "dkim" {
+  source = "../record"
+
+  fqdn = var.fqdn
+  name = "google._domainkey"
+  type = "TXT"
+  values = ["\"${var.dkim}\""]
+}

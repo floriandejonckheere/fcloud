@@ -14,3 +14,8 @@ variable "domain_contact_extra" {
 
   default = {}
 }
+
+variable "dkim" {
+  description = "DKIM domain key"
+  type = string
+}

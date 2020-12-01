@@ -20,6 +20,8 @@ domain_contact = {
   city = ""
   zip = ""
 }
+domain_context_extra = {}
+dkim = {}
 
 ##
 # Services

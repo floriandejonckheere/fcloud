@@ -35,6 +35,11 @@ variable "domain_contact_extra" {
   default = {}
 }
 
+variable "dkim" {
+  description = "DKIM domain keys"
+  type = map(string)
+}
+
 ##
 # Services
 #
