@@ -2,11 +2,11 @@
 # Domain
 #
 data "gandi_livedns_domain_ns" "default" {
-  name = var.fqdn
+  name = var.zone
 }
 
 resource "gandi_domain" "default" {
-  name = var.fqdn
+  name = var.zone
   autorenew = true
   nameservers = data.gandi_livedns_domain_ns.default.nameservers
 
@@ -80,7 +80,7 @@ resource "gandi_domain" "default" {
 }
 
 resource "gandi_livedns_domain" "default" {
-  name = var.fqdn
+  name = var.zone
   ttl = 0
   automatic_snapshots = true
 }
@@ -88,7 +88,7 @@ resource "gandi_livedns_domain" "default" {
 module "a" {
   source = "../record"
 
-  fqdn = var.fqdn
+  zone = var.zone
   name = "@"
   type = "A"
   values = [var.ipv4_address]
@@ -97,16 +97,16 @@ module "a" {
 module "wildcard" {
   source = "../record"
 
-  fqdn = var.fqdn
+  zone = var.zone
   name = "*"
   type = "CNAME"
-  values = ["${var.fqdn}."]
+  values = ["${var.zone}."]
 }
 
 module "caa" {
   source = "../record"
 
-  fqdn = var.fqdn
+  zone = var.zone
   name = "@"
   type = "CAA"
   values = ["0 issue \"letsencrypt.org\""]
@@ -115,7 +115,7 @@ module "caa" {
 module "mx" {
   source = "../record"
 
-  fqdn = var.fqdn
+  zone = var.zone
   name = "@"
   type = "MX"
   values = [
@@ -130,7 +130,7 @@ module "mx" {
 module "dkim" {
   source = "../record"
 
-  fqdn = var.fqdn
+  zone = var.zone
   name = "google._domainkey"
   type = "TXT"
   values = ["\"${var.dkim}\""]
@@ -139,7 +139,7 @@ module "dkim" {
 module "dmarc" {
   source = "../record"
 
-  fqdn = var.fqdn
+  zone = var.zone
   name = "_dmarc"
   type = "TXT"
   values = ["\"v=DMARC1; p=quarantine\""]
@@ -148,7 +148,7 @@ module "dmarc" {
 module "spf" {
   source = "../record"
 
-  fqdn = var.fqdn
+  zone = var.zone
   name = "@"
   type = "TXT"
   values = [

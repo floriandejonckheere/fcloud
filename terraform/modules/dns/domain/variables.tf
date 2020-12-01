@@ -1,5 +1,5 @@
-variable "fqdn" {
-  description = "Fully qualified domain name"
+variable "zone" {
+  description = "DNS zone"
   type = string
 }
 

@@ -38,7 +38,7 @@ provider "gandi" {
 module "dejonckhee_re" {
   source = "./modules/dns/domain"
 
-  fqdn = "dejonckhee.re"
+  zone = "dejonckhee.re"
   # FIXME: uncomment when cloud migration is complete
   ipv4_address = "168.119.155.79" #module.web.public_ipv4
   domain_contact = var.domain_contact
@@ -50,7 +50,7 @@ module "dejonckhee_re" {
 module "floriandejonckheere_be" {
   source = "./modules/dns/domain"
 
-  fqdn = "floriandejonckheere.be"
+  zone = "floriandejonckheere.be"
   # FIXME: uncomment when cloud migration is complete
   ipv4_address = "168.119.155.79" #module.web.public_ipv4
   domain_contact = var.domain_contact
@@ -62,7 +62,7 @@ module "floriandejonckheere_be" {
 module "headbang_re" {
   source = "./modules/dns/domain"
 
-  fqdn = "headbang.re"
+  zone = "headbang.re"
   # FIXME: uncomment when cloud migration is complete
   ipv4_address = "168.119.155.79" #module.web.public_ipv4
   domain_contact = var.domain_contact
