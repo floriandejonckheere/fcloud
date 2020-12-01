@@ -36,7 +36,7 @@ provider "gandi" {
 # Domains
 #
 module "dejonckhee_re" {
-  source = "./modules/domain"
+  source = "./modules/dns/domain"
 
   fqdn = "dejonckhee.re"
   domain_contact = var.domain_contact
