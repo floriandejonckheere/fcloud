@@ -13,6 +13,13 @@ variable "type" {
   type = string
 }
 
+variable "ttl" {
+  description = "DNS record TTL"
+  type = number
+
+  default = 10800
+}
+
 variable "values" {
   description = "DNS record values"
   type = list(string)
