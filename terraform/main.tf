@@ -43,6 +43,7 @@ module "dejonckhee_re" {
   domain_contact = var.domain_contact
   domain_contact_extra = var.domain_contact_extra
   dkim = lookup(var.dkim, "dejonckhee_re")
+  gsf = lookup(var.gsf, "dejonckhee_re")
 }
 
 ##

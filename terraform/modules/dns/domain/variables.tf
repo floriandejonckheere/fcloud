@@ -24,3 +24,10 @@ variable "dkim" {
   description = "DKIM domain key"
   type = string
 }
+
+variable "gsf" {
+  description = "Google site verification key"
+  type = string
+
+  default = ""
+}

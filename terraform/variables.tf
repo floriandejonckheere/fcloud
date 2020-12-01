@@ -40,6 +40,13 @@ variable "dkim" {
   type = map(string)
 }
 
+variable "gsf" {
+  description = "Google site verification keys (only the part after `google-site-verification=`)"
+  type = map(string)
+
+  default = {}
+}
+
 ##
 # Services
 #

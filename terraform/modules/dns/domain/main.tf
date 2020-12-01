@@ -135,3 +135,15 @@ module "dmarc" {
   type = "TXT"
   values = ["\"v=DMARC1; p=quarantine\""]
 }
+
+module "spf" {
+  source = "../record"
+
+  fqdn = var.fqdn
+  name = "@"
+  type = "TXT"
+  values = [
+    "\"v=spf1 include:_spf.google.com ~all\"",
+    "\"google-site-verification=${var.gsf}\""
+  ]
+}
