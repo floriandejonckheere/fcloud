@@ -39,6 +39,7 @@ module "dejonckhee_re" {
   source = "./modules/dns/domain"
 
   fqdn = "dejonckhee.re"
+  ipv4_address = module.web.public_ipv4
   domain_contact = var.domain_contact
   domain_contact_extra = var.domain_contact_extra
   dkim = lookup(var.dkim, "dejonckhee_re")

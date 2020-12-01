@@ -3,6 +3,11 @@ variable "fqdn" {
   type = string
 }
 
+variable "ipv4_address" {
+  description = "IPv4 address"
+  type = string
+}
+
 variable "domain_contact" {
   description = "Domain contact"
   type = map(string)

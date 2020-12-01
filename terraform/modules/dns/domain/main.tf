@@ -85,6 +85,15 @@ resource "gandi_livedns_domain" "default" {
   automatic_snapshots = true
 }
 
+module "a" {
+  source = "../record"
+
+  fqdn = var.fqdn
+  name = "@"
+  type = "A"
+  values = [var.ipv4_address]
+}
+
 module "caa" {
   source = "../record"
 
