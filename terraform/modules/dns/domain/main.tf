@@ -94,6 +94,15 @@ module "a" {
   values = [var.ipv4_address]
 }
 
+module "wildcard" {
+  source = "../record"
+
+  fqdn = var.fqdn
+  name = "*"
+  type = "CNAME"
+  values = ["${var.fqdn}."]
+}
+
 module "caa" {
   source = "../record"
 
