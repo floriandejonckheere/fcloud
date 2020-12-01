@@ -1,10 +1,11 @@
 locals {
+  fqdn = "${var.name}.cloud.${var.zone}"
   cloud_init = templatefile("${path.module}/default.tmpl.yml", {
     ip_address = hcloud_floating_ip.default.ip_address,
     ssh_public_key = file(var.ssh_public_key),
     sshd_public_key = file(var.sshd_public_key),
     sshd_private_key = file(var.sshd_private_key),
-    fqdn = var.fqdn,
+    fqdn = local.fqdn,
     hostname = var.name,
     passwd = var.passwd,
     default_volume = hcloud_volume.default.linux_device,
@@ -58,13 +59,13 @@ resource "hcloud_volume_attachment" "default" {
 resource "hcloud_rdns" "default4" {
   server_id = hcloud_server.default.id
   ip_address = hcloud_server.default.ipv4_address
-  dns_ptr = var.fqdn
+  dns_ptr = local.fqdn
 }
 
 resource "hcloud_rdns" "default6" {
   server_id = hcloud_server.default.id
   ip_address = hcloud_server.default.ipv6_address
-  dns_ptr = var.fqdn
+  dns_ptr = local.fqdn
 }
 
 resource "hcloud_network" "default" {
@@ -97,5 +98,23 @@ resource "hcloud_floating_ip_assignment" "default" {
 resource "hcloud_rdns" "floating_default" {
   floating_ip_id = hcloud_floating_ip.default.id
   ip_address = hcloud_floating_ip.default.ip_address
-  dns_ptr = var.fqdn
+  dns_ptr = local.fqdn
+}
+
+module "ipv4_domain" {
+  source = "../dns/record"
+
+  zone = var.zone
+  name = "${var.name}.cloud"
+  type = "A"
+  values = [hcloud_floating_ip.default.ip_address]
+}
+
+module "ipv6_domain" {
+  source = "../dns/record"
+
+  zone = var.zone
+  name = "${var.name}.cloud"
+  type = "AAAA"
+  values = [hcloud_server.default.ipv6_address]
 }

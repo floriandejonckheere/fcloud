@@ -78,7 +78,7 @@ module "web" {
   source = "./modules/web"
 
   name = "web"
-  fqdn = "web.cloud.dejonckhee.re"
+  zone = "dejonckhee.re"
   passwd = var.passwd
   ssh_public_key = "~/.ssh/thalarion.pub"
   ssh_private_key = "~/.ssh/thalarion"
