@@ -91,7 +91,7 @@ module "vpn" {
   source = "./modules/vpn"
 
   name = "vpn"
-  fqdn = "vpn.cloud.dejonckhee.re"
+  zone = "dejonckhee.re"
   passwd = var.passwd
   ssh_public_key = "~/.ssh/dagon.pub"
   ssh_private_key = "~/.ssh/dagon"

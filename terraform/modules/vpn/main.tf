@@ -1,9 +1,10 @@
 locals {
+  fqdn = "${var.name}.cloud.${var.zone}"
   cloud_init = templatefile("${path.module}/default.tmpl.yml", {
     ssh_public_key = file(var.ssh_public_key),
     sshd_public_key = file(var.sshd_public_key),
     sshd_private_key = file(var.sshd_private_key),
-    fqdn = var.fqdn,
+    fqdn = local.fqdn,
     hostname = var.name,
     passwd = var.passwd,
     docker_compose = file("${path.module}/docker-compose.yml"),
@@ -62,5 +63,23 @@ resource "scaleway_instance_ip" "default" {
 
 resource "scaleway_instance_ip_reverse_dns" "default" {
   ip_id = scaleway_instance_ip.default.id
-  reverse = var.fqdn
+  reverse = local.fqdn
+}
+
+module "ipv4_domain" {
+  source = "../dns/record"
+
+  zone = var.zone
+  name = "${var.name}.cloud"
+  type = "A"
+  values = [scaleway_instance_server.default.public_ip]
+}
+
+module "ipv6_domain" {
+  source = "../dns/record"
+
+  zone = var.zone
+  name = "${var.name}.cloud"
+  type = "AAAA"
+  values = [scaleway_instance_server.default.ipv6_address]
 }
