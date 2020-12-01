@@ -117,3 +117,12 @@ module "dkim" {
   type = "TXT"
   values = ["\"${var.dkim}\""]
 }
+
+module "dmarc" {
+  source = "../record"
+
+  fqdn = var.fqdn
+  name = "_dmarc"
+  type = "TXT"
+  values = ["\"v=DMARC1; p=quarantine\""]
+}
