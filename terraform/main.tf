@@ -46,6 +46,17 @@ module "dejonckhee_re" {
   gsf = lookup(var.gsf, "dejonckhee_re")
 }
 
+module "floriandejonckheere_be" {
+  source = "./modules/dns/domain"
+
+  fqdn = "floriandejonckheere.be"
+  ipv4_address = module.web.public_ipv4
+  domain_contact = var.domain_contact
+  domain_contact_extra = var.domain_contact_extra
+  dkim = lookup(var.dkim, "floriandejonckheere_be")
+  gsf = lookup(var.gsf, "floriandejonckheere_be")
+}
+
 ##
 # Services
 #
