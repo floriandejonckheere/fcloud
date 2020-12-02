@@ -65,7 +65,15 @@ runcmd:
   - ufw default allow outgoing
   - ufw allow 80/tcp
   - ufw allow 443/tcp
-  - ufw limit 22/tcp
+  # OpenVPN ports
+  - ufw allow 943/tcp
+  - ufw allow 9443/tcp
+  - ufw allow 1194/udp
+  # Docker Swarm ports
+  - ufw allow 2377/tcp
+  - ufw allow 7946/tcp
+  - ufw allow 7946/udp
+  - ufw allow 4789/udp
   - ufw enable
   # Configure SSH server
   - sed -i -e '/^#PermitRootLogin.*$/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
