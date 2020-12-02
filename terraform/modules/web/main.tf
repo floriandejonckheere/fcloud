@@ -80,6 +80,12 @@ resource "hcloud_network_subnet" "default" {
   ip_range = "10.0.1.0/24"
 }
 
+resource "hcloud_server_network" "default" {
+  server_id = hcloud_server.default.id
+  network_id = hcloud_network.default.id
+  ip = "10.0.1.1"
+}
+
 resource "hcloud_floating_ip" "default" {
   name = var.name
   home_location = "fsn1"
