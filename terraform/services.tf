@@ -7,10 +7,10 @@ module "web" {
   name = "web"
   zone = "dejonckhee.re"
   passwd = var.passwd
-  ssh_public_key = "~/.ssh/thalarion.pub"
-  ssh_private_key = "~/.ssh/thalarion"
-  sshd_public_key = "~/.ssh/thalarion-sshd.pub"
-  sshd_private_key = "~/.ssh/thalarion-sshd"
+  ssh_public_key = "~/.ssh/web.pub"
+  ssh_private_key = "~/.ssh/web"
+  sshd_public_key = "~/.ssh/web-sshd.pub"
+  sshd_private_key = "~/.ssh/web-sshd"
   storage_box_url = var.storage_box_url
 }
 
@@ -20,8 +20,8 @@ module "vpn" {
   name = "vpn"
   zone = "dejonckhee.re"
   passwd = var.passwd
-  ssh_public_key = "~/.ssh/dagon.pub"
-  ssh_private_key = "~/.ssh/dagon"
-  sshd_public_key = "~/.ssh/dagon-sshd.pub"
-  sshd_private_key = "~/.ssh/dagon-sshd"
+  ssh_public_key = "~/.ssh/vpn.pub"
+  ssh_private_key = "~/.ssh/vpn"
+  sshd_public_key = "~/.ssh/vpn-sshd.pub"
+  sshd_private_key = "~/.ssh/vpn-sshd"
 }
