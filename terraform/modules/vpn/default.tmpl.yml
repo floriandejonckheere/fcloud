@@ -40,7 +40,7 @@ fs_setup:
     overwrite: false
 
 mounts:
-  - [ /dev/sda1, /data/, auto, "defaults,nofail,x-systemd.mount-timeout=10" ]
+  - [ /dev/sda1, /mnt/default/, auto, "defaults,nofail,x-systemd.mount-timeout=10" ]
 
 packages:
   - fail2ban
@@ -49,12 +49,6 @@ packages:
 package_update: true
 package_upgrade: true
 package_reboot_if_required: true
-
-write_files:
-  - content: |
-      ${indent(6, docker_compose)}
-    owner: "cloud:cloud"
-    path: /app/openvpn/docker-compose.yml
 
 runcmd:
   - printf "[sshd]\nenabled = true\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
@@ -83,8 +77,5 @@ runcmd:
   - sed -i -e '/^#AllowTcpForwarding/s/^.*$/AllowTcpForwarding no/' /etc/ssh/sshd_config
   - sed -i -e '/^#AllowAgentForwarding/s/^.*$/AllowAgentForwarding no/' /etc/ssh/sshd_config
   - sed -i -e '/^#AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile .ssh\/authorized_keys/' /etc/ssh/sshd_config
-  # Start application
-  - chown -R cloud:cloud /app
-  - sudo -u cloud docker-compose -f /app/openvpn/docker-compose.yml up -d
 
 final_message: "The system is finally up, after $UPTIME seconds"

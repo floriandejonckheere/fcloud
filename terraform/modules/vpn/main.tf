@@ -7,7 +7,6 @@ locals {
     fqdn = local.fqdn,
     hostname = var.name,
     passwd = var.passwd,
-    docker_compose = file("${path.module}/docker-compose.yml"),
   })
 }
 
@@ -49,7 +48,7 @@ resource "scaleway_instance_server" "default" {
 #
 resource "scaleway_instance_volume" "default" {
   type = "b_ssd"
-  name = "default"
+  name = var.name
   size_in_gb = 1
 
   lifecycle {
