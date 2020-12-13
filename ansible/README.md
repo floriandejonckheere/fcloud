@@ -19,7 +19,13 @@ ansible all -m ping
 
 ## Playbooks
 
-### docker.yml
+```
+# Install Docker and Docker Compose on all hosts
+ansible-playbook docker.yml
 
-Installs Docker and Docker Compose on all machines.
-Initializes Docker Swarm on Swarm manager and joins Swarm workers to the Swarm.
+# Initialize Docker Swarm on Swarm manager and join Swarm workers to the Swarm
+ansible-playbook docker-swarm-create.yml
+
+# Release all hosts and uninitialize the Swarm
+ansible-playbook docker-swarm-destroy.yml
+```
