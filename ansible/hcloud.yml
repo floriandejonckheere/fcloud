@@ -1,0 +1,4 @@
+plugin: hetzner.hcloud.hcloud
+groups:
+  swarm_manager: "labels.swarm_manager == 'true'"
+  swarm_worker: "labels.swarm_worker == 'true'"
