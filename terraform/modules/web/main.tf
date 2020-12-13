@@ -32,6 +32,10 @@ resource "hcloud_server" "default" {
   ssh_keys = [hcloud_ssh_key.default.id]
   user_data = local.cloud_init
   backups = false
+
+  labels = {
+    swarm_manager = true
+  }
 }
 
 ##

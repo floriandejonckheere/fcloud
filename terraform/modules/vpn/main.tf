@@ -35,6 +35,10 @@ resource "scaleway_instance_server" "default" {
     scaleway_instance_volume.default.id
   ]
 
+  tags = [
+    "swarm_worker",
+  ]
+
   lifecycle {
     ignore_changes = [user_data]
   }

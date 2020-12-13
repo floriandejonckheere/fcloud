@@ -39,11 +39,6 @@ mounts:
 #  - [ ${storage_box_url}, /data, "fuse.sshfs", "defaults,noauto,_netdev,reconnect,identityfile=/root/.ssh/thalarion-box-ssh-key,allow_other,default_permissions,uid=1000,gid=1000", "0", "0" ]
 
 packages:
-  - apt-transport-https
-  - ca-certificates
-  - curl
-  - gnupg-agent
-  - software-properties-common
   - fail2ban
   - ufw
   - fuse
@@ -84,14 +79,5 @@ runcmd:
   - sed -i -e '/^#AllowTcpForwarding/s/^.*$/AllowTcpForwarding no/' /etc/ssh/sshd_config
   - sed -i -e '/^#AllowAgentForwarding/s/^.*$/AllowAgentForwarding no/' /etc/ssh/sshd_config
   - sed -i -e '/^#AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile .ssh\/authorized_keys/' /etc/ssh/sshd_config
-  # Install Docker
-  - "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -"
-  - 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"'
-  - apt-get update -y
-  - apt-get install -y docker-ce docker-ce-cli containerd.io
-  - systemctl enable --now docker
-  # Install Docker Compose
-  - "curl -L 'https://github.com/docker/compose/releases/download/1.27.4/docker-compose-Linux-x86_64' -o /usr/local/bin/docker-compose"
-  - chmod +x /usr/local/bin/docker-compose
 
 final_message: "The system is finally up, after $UPTIME seconds"
