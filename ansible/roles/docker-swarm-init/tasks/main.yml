@@ -4,6 +4,23 @@
   ignore_errors: true
   tags: swarm
 
+- name: Create Swarm backup directory
+  become: true
+  file:
+    path: /mnt/default/swarm/
+    owner: root
+    group: root
+    mode: 01777
+
+- name: Create Swarm backup directory bind mount
+  become: true
+  ansible.posix.mount:
+    path: /var/lib/docker/swarm/
+    src: /mnt/default/swarm/
+    opts: bind
+    state: mounted
+    fstype: none
+
 - name: Initialize Docker Swarm
   shell: >
     docker swarm init

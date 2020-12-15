@@ -35,7 +35,7 @@ ssh_keys:
     ${indent(4, sshd_private_key)}
 
 mounts:
-  - [ ${default_volume}, "/mnt/default", "ext4", "defaults,nofail,discard,uid=1000,gid=1000", "0", "0" ]
+  - [ ${default_volume}, "/mnt/default", "ext4", "defaults,discard", "0", "0" ]
 #  - [ ${storage_box_url}, /data, "fuse.sshfs", "defaults,noauto,_netdev,reconnect,identityfile=/root/.ssh/thalarion-box-ssh-key,allow_other,default_permissions,uid=1000,gid=1000", "0", "0" ]
 
 packages:
@@ -53,7 +53,6 @@ runcmd:
   - systemctl enable --now fail2ban
   - systemctl restart networking
   - tune2fs -m 0 ${default_volume}
-  - mount /mnt/default
   - chown cloud:cloud /mnt/default
   # Configure firewall
   - ufw default deny incoming

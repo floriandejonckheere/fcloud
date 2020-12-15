@@ -53,6 +53,7 @@ package_reboot_if_required: true
 runcmd:
   - printf "[sshd]\nenabled = true\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
   - systemctl enable --now fail2ban
+  - chown cloud:cloud /mnt/default
   # Configure firewall
   - ufw default deny incoming
   - ufw default allow outgoing
