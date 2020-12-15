@@ -40,7 +40,7 @@ fs_setup:
     overwrite: false
 
 mounts:
-  - [ /dev/sda1, /mnt/default/, auto, "defaults,nofail,x-systemd.mount-timeout=10" ]
+  - [ "/dev/sda1", "/mnt/default/", "auto", "defaults,discard", "0", "0" ]
 
 packages:
   - fail2ban
