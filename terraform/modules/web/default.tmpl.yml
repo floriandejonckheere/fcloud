@@ -60,7 +60,7 @@ runcmd:
   - ufw default allow outgoing
   - ufw allow 80/tcp
   - ufw allow 443/tcp
-  - ufw limit 22/tcp
+  - ufw allow 22/tcp
   # OpenVPN ports
   - ufw allow 943/tcp
   - ufw allow 9443/tcp
