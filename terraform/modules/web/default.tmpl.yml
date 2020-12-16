@@ -54,6 +54,7 @@ runcmd:
   - systemctl restart networking
   - tune2fs -m 0 ${default_volume}
   - chown cloud:cloud /mnt/default
+  - rmdir /mnt/default/lost+found
   # Configure firewall
   - ufw default deny incoming
   - ufw default allow outgoing
