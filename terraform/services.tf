@@ -25,3 +25,15 @@ module "vpn" {
   sshd_public_key = "~/.ssh/vpn-sshd.pub"
   sshd_private_key = "~/.ssh/vpn-sshd"
 }
+
+module "minecraft" {
+  source = "./modules/minecraft"
+
+  name = "minecraft"
+  zone = "dejonckhee.re"
+  passwd = var.passwd
+  ssh_public_key = "~/.ssh/minecraft.pub"
+  ssh_private_key = "~/.ssh/minecraft"
+  sshd_public_key = "~/.ssh/minecraft-sshd.pub"
+  sshd_private_key = "~/.ssh/minecraft-sshd"
+}
