@@ -9,14 +9,6 @@ locale: C.UTF-8
 ntp:
   enabled: true
 
-#write_files:
-#  - path: /etc/network/interfaces.d/60-floating-ip
-#    content: |
-#      auto eth0:1
-#      iface eth0:1 inet static
-#          address $##removethis##{ip_address}
-#          netmask 32
-
 users:
   - name: cloud
     gecos: Cloud User
@@ -48,7 +40,6 @@ package_reboot_if_required: true
 runcmd:
   - printf "[sshd]\nenabled = true\nbanaction = iptables-multiport" > /etc/fail2ban/jail.local
   - systemctl enable --now fail2ban
-#  - systemctl restart networking
   - tune2fs -m 0 ${default_volume}
   - chown cloud:cloud /mnt/default
   - rmdir /mnt/default/lost+found

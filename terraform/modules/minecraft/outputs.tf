@@ -7,6 +7,5 @@ output "private_ipv6" {
 }
 
 output "public_ipv4" {
-//  value = hcloud_floating_ip.default.ip_address
   value = hcloud_server.default.ipv4_address
 }

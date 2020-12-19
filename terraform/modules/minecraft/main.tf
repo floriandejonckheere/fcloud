@@ -1,8 +1,6 @@
 locals {
   fqdn = "${var.name}.cloud.${var.zone}"
   cloud_init = templatefile("${path.module}/default.tmpl.yml", {
-//    ip_address = hcloud_floating_ip.default.ip_address,
-//    ip_address = hcloud_server.default.ipv4_address,
     ssh_public_key = file(var.ssh_public_key),
     sshd_public_key = file(var.sshd_public_key),
     sshd_private_key = file(var.sshd_private_key),
@@ -72,52 +70,12 @@ resource "hcloud_rdns" "default6" {
   dns_ptr = local.fqdn
 }
 
-//resource "hcloud_network" "default" {
-//  name = var.name
-//  ip_range = "10.0.0.0/8"
-//}
-
-//resource "hcloud_network_subnet" "default" {
-//  network_id = hcloud_network.default.id
-//  type = "server"
-//  network_zone = "eu-central"
-//  ip_range = "10.0.1.0/24"
-//}
-
-//resource "hcloud_server_network" "default" {
-//  server_id = hcloud_server.default.id
-//  network_id = hcloud_network.default.id
-//  ip = "10.0.1.1"
-//}
-
-//resource "hcloud_floating_ip" "default" {
-//  name = var.name
-//  home_location = "fsn1"
-//  type = "ipv4"
-//
-//  lifecycle {
-//    prevent_destroy = true
-//  }
-//}
-
-//resource "hcloud_floating_ip_assignment" "default" {
-//  floating_ip_id = hcloud_floating_ip.default.id
-//  server_id = hcloud_server.default.id
-//}
-
-//resource "hcloud_rdns" "floating_default" {
-//  floating_ip_id = hcloud_floating_ip.default.id
-//  ip_address = hcloud_floating_ip.default.ip_address
-//  dns_ptr = local.fqdn
-//}
-
 module "ipv4_domain" {
   source = "../dns/record"
 
   zone = var.zone
   name = "${var.name}.cloud"
   type = "A"
-//  values = [hcloud_floating_ip.default.ip_address]
   values = [hcloud_server.default.ipv4_address]
   ttl = 300
 }
