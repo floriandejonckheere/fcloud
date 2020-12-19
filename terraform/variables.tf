@@ -59,3 +59,9 @@ variable "storage_box_url" {
   description = "URL to storage box share"
   type = string
 }
+
+variable "minecraft" {
+  description = "Minecraft server enabled/disabled"
+  type = bool
+  default = false
+}

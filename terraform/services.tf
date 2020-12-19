@@ -29,6 +29,8 @@ module "vpn" {
 module "minecraft" {
   source = "./modules/minecraft"
 
+  enabled = var.minecraft
+
   name = "minecraft"
   zone = "dejonckhee.re"
   passwd = var.passwd

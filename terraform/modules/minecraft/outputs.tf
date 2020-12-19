@@ -1,11 +1,11 @@
 output "private_ipv4" {
-  value = hcloud_server.default.ipv4_address
+  value = var.enabled ? hcloud_server.default[0].ipv4_address : null
 }
 
 output "private_ipv6" {
-  value = hcloud_server.default.ipv6_address
+  value = var.enabled ? hcloud_server.default[0].ipv6_address : null
 }
 
 output "public_ipv4" {
-  value = hcloud_server.default.ipv4_address
+  value = var.enabled ? hcloud_server.default[0].ipv4_address : null
 }

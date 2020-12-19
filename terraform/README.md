@@ -16,3 +16,11 @@ nano backend.tfvars
 # Initialize Terraform
 terraform init -backend-config=backend.tfvars
 ```
+
+## Minecraft
+
+To set up the Minecraft server, run:
+
+```
+terraform apply -var minecraft=true
+```

@@ -23,6 +23,8 @@ resource "hcloud_ssh_key" "default" {
 # Instances
 #
 resource "hcloud_server" "default" {
+  count = var.enabled ? 1 : 0
+
   name = var.name
   location = "fsn1"
   image = "debian-10"
@@ -51,41 +53,55 @@ resource "hcloud_volume" "default" {
 }
 
 resource "hcloud_volume_attachment" "default" {
+  count = var.enabled ? 1 : 0
+
   volume_id = hcloud_volume.default.id
-  server_id = hcloud_server.default.id
+  server_id = hcloud_server.default[0].id
 }
 
 ##
 # Network
 #
 resource "hcloud_rdns" "default4" {
-  server_id = hcloud_server.default.id
-  ip_address = hcloud_server.default.ipv4_address
+  count = var.enabled ? 1 : 0
+
+  server_id = hcloud_server.default[0].id
+  ip_address = hcloud_server.default[0].ipv4_address
   dns_ptr = local.fqdn
 }
 
 resource "hcloud_rdns" "default6" {
-  server_id = hcloud_server.default.id
-  ip_address = hcloud_server.default.ipv6_address
+  count = var.enabled ? 1 : 0
+
+  server_id = hcloud_server.default[0].id
+  ip_address = hcloud_server.default[0].ipv6_address
   dns_ptr = local.fqdn
 }
 
 module "ipv4_domain" {
   source = "../dns/record"
 
+  count = var.enabled ? 1 : 0
+
   zone = var.zone
   name = "${var.name}.cloud"
   type = "A"
-  values = [hcloud_server.default.ipv4_address]
+  values = [hcloud_server.default[0].ipv4_address]
   ttl = 300
+
+  depends_on = [
+    hcloud_server.default,
+  ]
 }
 
 module "ipv6_domain" {
   source = "../dns/record"
 
+  count = var.enabled ? 1 : 0
+
   zone = var.zone
   name = "${var.name}.cloud"
   type = "AAAA"
-  values = [hcloud_server.default.ipv6_address]
+  values = [hcloud_server.default[0].ipv6_address]
   ttl = 300
 }

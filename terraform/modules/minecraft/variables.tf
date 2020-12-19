@@ -1,3 +1,9 @@
+variable "enabled" {
+  description = "Enabled"
+  type = bool
+  default = false
+}
+
 variable "name" {
   description = "Machine name"
   type = string
