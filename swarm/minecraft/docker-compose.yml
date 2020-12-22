@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  ##
+  # Minecraft
+  #
+  minecraft:
+    image: itzg/minecraft-server
+    volumes:
+      - /mnt/default/minecraft/:/data
+    ports:
+      - "0.0.0.0:25565:25565"
+    environment:
+      SERVER_NAME: Thalarion
+      MOTD: Welcome to Thalarion MC server
+      VERSION: 1.16.4
+      LEVEL: 20200920-1163
+      EULA: "TRUE"
+      MEMORY: 1G
+      TZ: Europe/Berlin
+    deploy:
+      placement:
+        constraints:
+          - node.hostname==minecraft
+      restart_policy:
+        condition: on-failure
