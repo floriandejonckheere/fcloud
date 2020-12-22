@@ -1,0 +1,11 @@
+- name: Check if stack is deployed
+  shell: docker service ls | grep minecraft
+  register: stack_status
+  ignore_errors: true
+  tags: swarm
+
+- name: Create stack
+  when: stack_status.rc != 0
+  community.general.docker_stack:
+    name: "{{ vars.stack }}"
+    state: present

@@ -1,0 +1,20 @@
+- name: Create Minecraft server
+  hosts: localhost
+  roles:
+    - role: terraform-create
+      vars:
+        variable: minecraft
+        module: module.minecraft
+        resource: module.minecraft.hcloud_server.default
+
+- name: Add Minecraft server to the Swarm
+  hosts: minecraft
+  roles:
+    - docker-swarm-add-worker
+
+- name: Create Minecraft stack
+  hosts: swarm_manager
+  roles:
+    - role: docker-stack-create
+      vars:
+        stack: minecraft
