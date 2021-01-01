@@ -77,6 +77,15 @@ resource "gandi_domain" "default" {
     data_obfuscated = true
     mail_obfuscated = true
   }
+
+  lifecycle {
+    ignore_changes = [
+      admin,
+      billing,
+      owner,
+      tech,
+    ]
+  }
 }
 
 resource "gandi_livedns_domain" "default" {
