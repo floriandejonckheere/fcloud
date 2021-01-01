@@ -140,6 +140,8 @@ module "manager_token" {
     DOCKER_HOST = "ssh://cloud@${local.fqdn}"
   }
 
+  trigger = hcloud_server.default.id
+
   depends = [
     hcloud_server.default
   ]
@@ -147,11 +149,13 @@ module "manager_token" {
 
 module "worker_token" {
   source = "matti/resource/shell"
-  command = "docker swarm join-token --quiet manager"
+  command = "docker swarm join-token --quiet worker"
 
   environment = {
     DOCKER_HOST = "ssh://cloud@${local.fqdn}"
   }
+
+  trigger = hcloud_server.default.id
 
   depends = [
     hcloud_server.default
