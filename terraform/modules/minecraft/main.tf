@@ -80,6 +80,13 @@ resource "hcloud_rdns" "default6" {
   dns_ptr = local.fqdn
 }
 
+resource "hcloud_server_network" "default" {
+  count = var.enabled ? 1 : 0
+
+  server_id = hcloud_server.default[0].id
+  network_id = var.network_id
+}
+
 module "ipv4_domain" {
   source = "../dns/record"
 

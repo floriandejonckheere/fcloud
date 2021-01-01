@@ -1,3 +1,7 @@
+output "network_ipv4" {
+  value = var.enabled ? hcloud_server_network.default[0].ip : null
+}
+
 output "private_ipv4" {
   value = var.enabled ? hcloud_server.default[0].ipv4_address : null
 }

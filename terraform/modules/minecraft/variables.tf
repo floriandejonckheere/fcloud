@@ -39,6 +39,11 @@ variable "sshd_private_key" {
   type = string
 }
 
+variable "network_id" {
+  description = "Hetzner Cloud private network id"
+  type = number
+}
+
 variable "swarm_host" {
   description = "Docker Swarm manager hostname"
   type = string

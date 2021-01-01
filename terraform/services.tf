@@ -40,6 +40,7 @@ module "minecraft" {
   ssh_private_key = "~/.ssh/minecraft"
   sshd_public_key = "~/.ssh/minecraft-sshd.pub"
   sshd_private_key = "~/.ssh/minecraft-sshd"
+  network_id = module.web.network_id
   swarm_host = module.web.public_ipv4
   swarm_token = module.web.worker_token
 }
