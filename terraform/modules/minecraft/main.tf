@@ -8,6 +8,8 @@ locals {
     hostname = var.name,
     passwd = var.passwd,
     default_volume = hcloud_volume.default.linux_device,
+    swarm_host = var.swarm_host,
+    swarm_token = var.swarm_token,
   })
 }
 

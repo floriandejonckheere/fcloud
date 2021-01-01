@@ -38,3 +38,13 @@ variable "sshd_private_key" {
   description = "Path to SSH server private key"
   type = string
 }
+
+variable "swarm_host" {
+  description = "Docker Swarm manager hostname"
+  type = string
+}
+
+variable "swarm_token" {
+  description = "Docker Swarm worker join token"
+  type = string
+}
