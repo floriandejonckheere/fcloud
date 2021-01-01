@@ -22,5 +22,11 @@ terraform init -backend-config=backend.tfvars
 To set up the Minecraft server, run:
 
 ```
-terraform apply -var minecraft=true
+terraform apply -var minecraft=true -target=module.minecraft 
+```
+
+To tear down the Minecraft server, run:
+
+```
+terraform apply -var minecraft=false -target=module.minecraft
 ```

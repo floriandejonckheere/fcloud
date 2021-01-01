@@ -13,10 +13,21 @@ services:
     environment:
       SERVER_NAME: Thalarion
       MOTD: Welcome to Thalarion MC server
+      DIFFICULTY: easy
+      ENFORCE_WHITELIST: "TRUE"
+      WHITELIST: DeathByCookie,shitbrix
+      OPS: DeathByCookie,shitbrix
+      MAX_PLAYERS: 10
+      ONLINE_MODE: "TRUE"
+      # Check latest version on https://www.minecraft.net/en-us/download/server
       VERSION: 1.16.4
-      LEVEL: 20200920-1163
-      EULA: "TRUE"
       MEMORY: 1G
+      LEVEL: 20200920_1.16.3
+      EULA: "TRUE"
+      USE_AIKAR_FLAGS: "TRUE"
+      USE_LARGE_PAGES: "TRUE"
+      SNOOPER_ENABLED: "FALSE"
+      OVERRIDE_SERVER_PROPERTIES: "TRUE"
       TZ: Europe/Berlin
     deploy:
       placement:
