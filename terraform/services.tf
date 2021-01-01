@@ -24,6 +24,8 @@ module "vpn" {
   ssh_private_key = "~/.ssh/vpn"
   sshd_public_key = "~/.ssh/vpn-sshd.pub"
   sshd_private_key = "~/.ssh/vpn-sshd"
+  swarm_host = module.web.public_ipv4
+  swarm_token = module.web.worker_token
 }
 
 module "minecraft" {

@@ -7,6 +7,8 @@ locals {
     fqdn = local.fqdn,
     hostname = var.name,
     passwd = var.passwd,
+    swarm_host = var.swarm_host,
+    swarm_token = var.swarm_token,
   })
 }
 
