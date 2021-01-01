@@ -39,6 +39,11 @@ variable "sshd_private_key" {
   type = string
 }
 
+variable "server_type" {
+  description = "Hetzner Cloud server type"
+  type = string
+}
+
 variable "network_id" {
   description = "Hetzner Cloud private network id"
   type = number
