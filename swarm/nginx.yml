@@ -1,0 +1,30 @@
+version: "3"
+
+services:
+  ##
+  # HTTP server
+  #
+  nginx:
+    image: nginx:alpine
+    volumes:
+      - "/mnt/default/http/:/srv/http/"
+    networks:
+      - proxy
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == web
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.http.services.nginx.loadbalancer.server.port: "80"
+        traefik.http.routers.nginx.rule: "Host(`web.cloud.dejonckhee.re`)"
+        traefik.http.routers.nginx.entrypoints: "websecure"
+        traefik.http.routers.nginx.tls.certresolver: "letsencrypt"
+        traefik.docker.network: "proxy"
+
+networks:
+  proxy:
+    external:
+      name: "traefik_proxy"
