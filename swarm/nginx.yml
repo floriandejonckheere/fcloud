@@ -30,7 +30,7 @@ services:
         traefik.http.routers.nginx-tls.tls.certresolver: "letsencrypt"
 
         traefik.http.services.nginx.loadbalancer.server.port: "80"
-        traefik.docker.network: "proxy"
+        traefik.docker.network: "traefik_proxy"
 
 networks:
   proxy:
