@@ -16,14 +16,17 @@ docker context use cloud
 
 ```
 # Deploy reverse proxy
-docker stack deploy --compose-file traefik/docker-compose.yml traefik
+docker stack deploy --compose-file traefik.yml traefik
+
+# Deploy NGINX container
+docker stack deploy --compose-file nginx.yml nginx
 ```
 
 ### Minecraft
 
 ```
 # Deploy minecraft
-docker stack deploy --compose-file minecraft/docker-compose.yml minecraft
+docker stack deploy --compose-file minecraft.yml minecraft
 
 # RCON console
 ssh cloud@minecraft.cloud.dejonckhee.re 
