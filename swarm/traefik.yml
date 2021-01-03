@@ -13,7 +13,6 @@ services:
       --providers.docker.watch=true
       --providers.docker.exposedbydefault=false
       --providers.docker.swarmmode=true
-      --providers.docker.network=proxy
       --entrypoints.websecure.address=:443
       --entrypoints.web.address=:80
       --entrypoints.web.http.redirections.entryPoint.to=websecure
