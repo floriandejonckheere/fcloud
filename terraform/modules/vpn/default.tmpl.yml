@@ -41,6 +41,8 @@ fs_setup:
 
 mounts:
   - [ "/dev/sda1", "/mnt/default/", "auto", "defaults,discard", "0", "0" ]
+  - [ "/mnt/default/docker/volumes/", "/var/lib/docker/volumes/", "none", "defaults,bind", "0", "0" ]
+  - [ "/mnt/default/docker/swarm/", "/var/lib/docker/swarm/", "none", "defaults,bind", "0", "0" ]
 
 packages:
   - fail2ban
@@ -87,8 +89,6 @@ runcmd:
   - sed -i -e '/^#AllowAgentForwarding/s/^.*$/AllowAgentForwarding no/' /etc/ssh/sshd_config
   - sed -i -e '/^#AuthorizedKeysFile/s/^.*$/AuthorizedKeysFile .ssh\/authorized_keys/' /etc/ssh/sshd_config
   # Install Docker
-  - mkdir -p /mnt/default/docker/volumes/ /mnt/default/docker/swarm/
-  - ln -fs /mnt/default/docker/volumes/ /mnt/default/docker/swarm/ /var/lib/docker
   - "curl -fsSL https://download.docker.com/linux/ubuntu/gpg | apt-key add -"
   - 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"'
   - apt-get update -y
