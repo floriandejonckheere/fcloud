@@ -27,6 +27,8 @@ services:
         traefik.http.routers.nginx-tls.rule: "Host(`web.cloud.dejonckhee.re`)"
         traefik.http.routers.nginx-tls.entrypoints: "websecure"
         traefik.http.routers.nginx-tls.tls: "true"
+        traefik.http.routers.nginx-tls.domains[0].main: "web.cloud.dejonckhee.re"
+        traefik.http.routers.nginx-tls.domains[0].sans: "*.web.cloud.dejonckhee.re"
         traefik.http.routers.nginx-tls.tls.certresolver: "letsencrypt"
 
         traefik.http.services.nginx.loadbalancer.server.port: "80"
