@@ -14,8 +14,9 @@ services:
       --providers.docker.exposedbydefault=false
       --providers.docker.swarmmode=true
       --providers.docker.network=proxy
-      --entrypoints.web.address=:80
       --entrypoints.websecure.address=:443
+      --entrypoints.web.address=:80
+      --entrypoints.web.http.redirections.entryPoint.to=websecure
       --certificatesresolvers.letsencrypt.acme.httpchallenge=true
       --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web
       --certificatesresolvers.letsencrypt.acme.email=florian@floriandejonckheere.be

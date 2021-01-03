@@ -18,10 +18,18 @@ services:
         condition: on-failure
       labels:
         traefik.enable: "true"
-        traefik.http.services.nginx.loadbalancer.server.port: "80"
+        traefik.http.middlewares.nginx-tls.redirectscheme.scheme: "https"
+
         traefik.http.routers.nginx.rule: "Host(`web.cloud.dejonckhee.re`)"
-        traefik.http.routers.nginx.entrypoints: "websecure"
-        traefik.http.routers.nginx.tls.certresolver: "letsencrypt"
+        traefik.http.routers.nginx.entrypoints: "web"
+        traefik.http.routers.nginx.middlewares: "nginx-tls"
+
+        traefik.http.routers.nginx-tls.rule: "Host(`web.cloud.dejonckhee.re`)"
+        traefik.http.routers.nginx-tls.entrypoints: "websecure"
+        traefik.http.routers.nginx-tls.tls: "true"
+        traefik.http.routers.nginx-tls.tls.certresolver: "letsencrypt"
+
+        traefik.http.services.nginx.loadbalancer.server.port: "80"
         traefik.docker.network: "proxy"
 
 networks:
