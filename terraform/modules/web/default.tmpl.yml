@@ -90,9 +90,12 @@ runcmd:
   - 'add-apt-repository "deb [arch=amd64] https://download.docker.com/linux/debian $(lsb_release -cs) stable"'
   - apt-get update -y
   - apt-get install -y docker-ce docker-ce-cli containerd.io
-  - sed -i -e "s|ExecStart=/usr/bin/dockerd|ExecStart=/usr/bin/dockerd --data-root=/mnt/default|g" /lib/systemd/system/docker.service
+  - sed -i -e "s|ExecStart=/usr/bin/dockerd|ExecStart=/usr/bin/dockerd --data-root=/mnt/default/docker/|g" /lib/systemd/system/docker.service
+  - mkdir /mnt/default/docker/
+  - ln -fs /var/lib/docker/buildkit /var/lib/docker/containers /var/lib/docker/image /var/lib/docker/network /var/lib/docker/overlay2 /var/lib/docker/plugins /var/lib/docker/runtimes /var/lib/docker/tmp /var/lib/docker/trust /mnt/default/docker/
   - systemctl daemon-reload
-  - systemctl enable --now docker
+  - systemctl restart docker
+  - systemctl enable docker
   # Install Docker Compose
   - "curl -L 'https://github.com/docker/compose/releases/download/$(curl -sL https://api.github.com/repos/docker/compose/releases/latest | jq -r .name)/docker-compose-Linux-x86_64' -o /usr/local/bin/docker-compose"
   - chmod +x /usr/local/bin/docker-compose
