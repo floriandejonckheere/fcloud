@@ -1,0 +1,48 @@
+version: "3"
+
+services:
+  ##
+  # Reverse proxy
+  #
+  traefik:
+    image: traefik:v2.3
+    command: >-
+      --log.level=DEBUG
+      --api.insecure=true
+      --providers.docker
+      --providers.docker.watch=true
+      --providers.docker.exposedbydefault=false
+      --providers.docker.swarmmode=true
+      --providers.docker.network=proxy
+      --entrypoints.web.address=:80
+      --entrypoints.websecure.address=:443
+      --certificatesresolvers.letsencrypt.acme.httpchallenge=true
+      --certificatesresolvers.letsencrypt.acme.httpchallenge.entrypoint=web
+      --certificatesresolvers.letsencrypt.acme.email=florian@floriandejonckheere.be
+      --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json
+      --certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "acme:/etc/traefik/acme/"
+    ports:
+      - "80:80"
+      - "443:443"
+      - "8080:8080"
+    networks:
+      - proxy
+    deploy:
+      placement:
+        constraints:
+          - node.role == manager
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.http.services.traefik.loadbalancer.server.port: "8080"
+
+volumes:
+  acme:
+
+networks:
+  proxy:
+    driver: overlay
