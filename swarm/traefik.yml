@@ -21,7 +21,7 @@ services:
       --certificatesresolvers.letsencrypt.acme.email=florian@floriandejonckheere.be
       --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json
       --certificatesresolvers.letsencrypt.acme.caserver=https://acme-staging-v02.api.letsencrypt.org/directory
-    env_file: .env
+    env_file: traefik.env
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "acme:/etc/traefik/acme/"
