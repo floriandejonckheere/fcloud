@@ -17,7 +17,7 @@ variable "ttl" {
   description = "DNS record TTL"
   type = number
 
-  default = 10800
+  default = 1800
 }
 
 variable "values" {
