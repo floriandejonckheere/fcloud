@@ -5,9 +5,13 @@ services:
   # HTTP server
   #
   nginx:
-    image: nginx:alpine
+    image: ghcr.io/linuxserver/nginx
+    environment:
+      PUID: 1000
+      PGID: 1000
+      TZ: Europe/Berlin
     volumes:
-      - "/mnt/default/http/:/srv/http/"
+      - "http:/srv/http/"
     networks:
       - proxy
     deploy:
@@ -27,15 +31,16 @@ services:
         traefik.http.routers.nginx-tls.rule: "Host(`web.cloud.dejonckhee.re`)"
         traefik.http.routers.nginx-tls.entrypoints: "websecure"
         traefik.http.routers.nginx-tls.tls: "true"
-        traefik.http.routers.nginx-tls.domains[0].main: "web.cloud.dejonckhee.re"
-        traefik.http.routers.nginx-tls.domains[0].sans: "*.web.cloud.dejonckhee.re"
         traefik.http.routers.nginx-tls.tls.certresolver: "letsencrypt"
 
         traefik.http.services.nginx.loadbalancer.server.port: "80"
         traefik.docker.network: "traefik_proxy"
     configs:
-      - source: nginx_config_6
-        target: /etc/nginx/nginx.conf
+      - source: nginx_config_10
+        target: /config/nginx/nginx.conf
+
+volumes:
+  http:
 
 networks:
   proxy:
@@ -43,5 +48,5 @@ networks:
     name: "traefik_proxy"
 
 configs:
-  nginx_config_6:
+  nginx_config_10:
     file: nginx.conf
