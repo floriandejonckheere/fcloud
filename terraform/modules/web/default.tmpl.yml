@@ -69,10 +69,8 @@ runcmd:
   - ufw allow 80/tcp
   - ufw allow 443/tcp
   - ufw allow 22/tcp
-  # OpenVPN ports
-  - ufw allow 943/tcp
-  - ufw allow 9443/tcp
-  - ufw allow 1194/udp
+  # Bitwarden ports
+  - ufw allow 3013/tcp
   # Docker Swarm ports
   - ufw allow 2377/tcp
   - ufw allow 7946/tcp
