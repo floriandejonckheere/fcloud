@@ -1,0 +1,26 @@
+version: "3.8"
+
+services:
+  ##
+  # Database
+  #
+  postgres:
+    image: postgres:12-alpine
+    volumes:
+      - "postgres:/var/lib/postgresql/data/"
+    networks:
+      - proxy
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == web
+      restart_policy:
+        condition: on-failure
+
+volumes:
+  postgres:
+
+networks:
+  proxy:
+    external: true
+    name: "traefik_proxy"
