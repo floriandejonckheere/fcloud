@@ -1,9 +1,0 @@
-- name: Release workers from Swarm
-  hosts: swarm_worker
-  roles:
-    - docker-swarm-leave
-
-- name: Release managers from Swarm
-  hosts: swarm_manager
-  roles:
-    - docker-swarm-leave

@@ -1,9 +1,0 @@
-- name: Initialize Docker Swarm
-  hosts: swarm_manager
-  roles:
-    - docker-swarm-init
-
-- name: Add workers to the Swarm
-  hosts: swarm_worker
-  roles:
-    - docker-swarm-add-worker
