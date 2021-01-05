@@ -19,6 +19,15 @@ Deploy Docker Swarm stack files in the subdirectories by executing the following
 docker stack deploy --compose-file [MODULE]/docker-compose.yml [MODULE]
 ```
 
+### Traefik
+
+Traefik is the reverse proxy used as frontend to all other services.
+
+```
+# Generate a htpasswd file for Traefik dashboard
+htpasswd -c traefik/.htpasswd florian
+```
+
 ### Minecraft
 
 ```

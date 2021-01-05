@@ -9,3 +9,4 @@ nginx/auth.d/*.key
 *.env
 borgmatic/.config/borg/security
 mbslave.conf
+.htpasswd
