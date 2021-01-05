@@ -38,7 +38,7 @@ services:
         traefik.http.services.nginx.loadbalancer.server.port: "80"
         traefik.docker.network: "traefik_proxy"
     configs:
-      - source: nginx_config_10
+      - source: nginx_config_12
         target: /config/nginx/nginx.conf
 
 volumes:
@@ -50,5 +50,5 @@ networks:
     name: "traefik_proxy"
 
 configs:
-  nginx_config_10:
+  nginx_config_12:
     file: nginx.conf
