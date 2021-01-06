@@ -103,15 +103,6 @@ module "a" {
   values = [var.ipv4_address]
 }
 
-module "wildcard" {
-  source = "../record"
-
-  zone = var.zone
-  name = "*"
-  type = "CNAME"
-  values = ["${var.zone}."]
-}
-
 module "caa" {
   source = "../record"
 
