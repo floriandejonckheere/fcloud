@@ -69,8 +69,11 @@ runcmd:
   - ufw allow 80/tcp
   - ufw allow 443/tcp
   - ufw allow 22/tcp
-  # Bitwarden ports
+  # Bitwarden port
   - ufw allow 3013/tcp
+  # Resilio Sync port
+  - ufw allow 55555/tcp
+  - ufw allow 55555/tcp
   # Docker Swarm ports
   - ufw allow 2377/tcp
   - ufw allow 7946/tcp
