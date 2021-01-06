@@ -30,3 +30,8 @@ To tear down the Minecraft server, run:
 ```
 terraform apply -var minecraft=false -target=module.minecraft
 ```
+
+## Troubleshooting
+
+If you're having trouble making worker nodes join the Docker Swarm, deploy the swarm manager first in order to have Terraform correctly store the join tokens.
+Then after that, deploy the worker nodes.
