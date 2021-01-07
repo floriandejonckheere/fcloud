@@ -31,3 +31,10 @@ variable "gsf" {
 
   default = ""
 }
+
+variable "subdomains" {
+  description = "Subdomain records"
+  type = list(string)
+
+  default = []
+}

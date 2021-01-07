@@ -156,3 +156,14 @@ module "spf" {
     "\"google-site-verification=${var.gsf}\""
   ]
 }
+
+module "subdomains" {
+  source = "../record"
+
+  for_each = {for subdomain in var.subdomains:  subdomain => subdomain}
+
+  zone = var.zone
+  name = each.value
+  type = "CNAME"
+  values = ["${var.zone}."]
+}

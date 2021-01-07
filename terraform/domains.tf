@@ -10,51 +10,14 @@ module "dejonckhee_re" {
   domain_contact_extra = var.domain_contact_extra
   dkim = lookup(var.dkim, "dejonckhee_re")
   gsf = lookup(var.gsf, "dejonckhee_re")
-}
 
-module "florian_dejonckheere_be" {
-  source = "./modules/dns/record"
-
-  zone = "dejonckhee.re"
-  name = "florian"
-  type = "CNAME"
-  values = ["dejonckhee.re."]
-}
-
-module "traefik_dejonckhee_re" {
-  source = "./modules/dns/record"
-
-  zone = "dejonckhee.re"
-  name = "traefik"
-  type = "CNAME"
-  values = ["dejonckhee.re."]
-}
-
-module "vault_dejonckhee_re" {
-  source = "./modules/dns/record"
-
-  zone = "dejonckhee.re"
-  name = "vault"
-  type = "CNAME"
-  values = ["dejonckhee.re."]
-}
-
-module "trivial_dejonckhee_re" {
-  source = "./modules/dns/record"
-
-  zone = "dejonckhee.re"
-  name = "trivial"
-  type = "CNAME"
-  values = ["dejonckhee.re."]
-}
-
-module "sync_dejonckhee_re" {
-  source = "./modules/dns/record"
-
-  zone = "dejonckhee.re"
-  name = "sync"
-  type = "CNAME"
-  values = ["dejonckhee.re."]
+  subdomains = [
+    "florian",
+    "traefik",
+    "vault",
+    "trivial",
+    "sync",
+  ]
 }
 
 ##
