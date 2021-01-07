@@ -5,7 +5,7 @@ services:
   # Password manager
   #
   rslsync:
-    image: linuxserver/resilio-sync
+    image: ghcr.io/linuxserver/resilio-sync
     environment:
       PUID: 1000
       PGID: 1000
