@@ -11,9 +11,9 @@ services:
       PGID: 1000
       TZ: Europe/Berlin
     volumes:
-      - "nextcloud_config:/config/"
-      - "nextcloud_data:/data/"
-      - "rslsync_data:/mnt/rslsync_data/:ro"
+      - "config:/config/"
+      - "data:/data/"
+      - "rslsync:/mnt/rslsync_data/:ro"
     networks:
       - proxy
     deploy:
@@ -39,10 +39,10 @@ services:
         traefik.docker.network: "traefik_proxy"
 
 volumes:
-  nextcloud_config:
-  nextcloud_data:
-  rslsync_data:
-    name: rslsync_rslsync_data
+  config:
+  data:
+  rslsync:
+    name: rslsync_data
 
 networks:
   proxy:
