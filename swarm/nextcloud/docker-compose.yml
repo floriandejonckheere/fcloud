@@ -14,6 +14,7 @@ services:
       - "config:/config/"
       - "data:/data/"
       - "rslsync:/mnt/rslsync_data/:ro"
+      - "http:/mnt/http/"
     networks:
       - proxy
     deploy:
@@ -43,6 +44,8 @@ volumes:
   data:
   rslsync:
     name: rslsync_data
+  http:
+    name: nginx_http
 
 networks:
   proxy:
