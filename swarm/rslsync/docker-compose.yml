@@ -11,8 +11,8 @@ services:
       PGID: 1000
       TZ: Europe/Berlin
     volumes:
-      - rslsync:/config
-      - rslsync_data:/sync
+      - config:/config
+      - data:/sync
     ports:
       - "55555:55555"
     networks:
@@ -40,8 +40,8 @@ services:
         traefik.docker.network: "traefik_proxy"
 
 volumes:
-  rslsync:
-  rslsync_data:
+  config:
+  data:
 
 networks:
   proxy:
