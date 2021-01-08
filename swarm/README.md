@@ -28,16 +28,12 @@ Traefik is the reverse proxy used as frontend to all other services.
 htpasswd -c traefik/.htpasswd florian
 ```
 
-### Minecraft
+### Cheatsheet
 
 ```
-# Deploy minecraft
-docker stack deploy --compose-file minecraft/docker-compose.yml minecraft
+# Minecraft RCON console
+ssh -tt cloud@minecraft.cloud.dejonckhee.re docker exec -ti \$\(docker ps -q -f name=minecraft_minecraft\) rcon-cli
 
-# RCON console
-ssh cloud@minecraft.cloud.dejonckhee.re 
-docker exec -ti $(docker ps -q) rcon-cli
-
-# Stop minecraft
-docker stack rm minecraft
+# PostgreSQL shell
+ssh -tt cloud@web.cloud.dejonckhee.re docker exec -ti \$\(docker ps -q -f name=postgres_postgres\) psql -U postgres
 ```
