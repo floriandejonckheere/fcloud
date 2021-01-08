@@ -36,4 +36,7 @@ ssh -tt cloud@minecraft.cloud.dejonckhee.re docker exec -ti \$\(docker ps -q -f 
 
 # PostgreSQL shell
 ssh -tt cloud@web.cloud.dejonckhee.re docker exec -ti \$\(docker ps -q -f name=postgres_postgres\) psql -U postgres
+
+# Nextcloud shell
+sh -tt cloud@web.cloud.dejonckhee.re docker exec -ti \$\(docker ps -q -f name=nextcloud_nextcloud\) sh
 ```

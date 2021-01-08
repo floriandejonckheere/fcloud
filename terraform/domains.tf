@@ -17,6 +17,7 @@ module "dejonckhee_re" {
     "vault",
     "trivial",
     "sync",
+    "cloud",
   ]
 }
 
