@@ -33,6 +33,10 @@ module "floriandejonckheere_be" {
   domain_contact_extra = var.domain_contact_extra
   dkim = lookup(var.dkim, "floriandejonckheere_be")
   gsf = lookup(var.gsf, "floriandejonckheere_be")
+
+  subdomains = [
+    "www",
+  ]
 }
 
 module "www_floriandejonckheere_be" {
