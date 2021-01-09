@@ -1,0 +1,2 @@
+0 1 * * * PATH=$PATH:/usr/bin /usr/bin/borgmatic --create --prune --stats -v 0 2>&1
+0 2 1 * * PATH=$PATH:/usr/bin /usr/bin/borgmatic --check -v 0 2>&1
