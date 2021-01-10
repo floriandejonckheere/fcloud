@@ -1,0 +1,29 @@
+version: "3.8"
+
+services:
+  ##
+  # HTTP server
+  #
+  openldap:
+    image: osixia/openldap:1.4.0
+    env_file: openldap.env
+    volumes:
+      - "config:/etc/ldap/slapd.d/"
+      - "data:/var/lib/ldap/"
+    networks:
+      - proxy
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == web
+      restart_policy:
+        condition: on-failure
+
+volumes:
+  config:
+  data:
+
+networks:
+  proxy:
+    external: true
+    name: "traefik_proxy"

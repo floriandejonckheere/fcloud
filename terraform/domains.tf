@@ -18,6 +18,7 @@ module "dejonckhee_re" {
     "trivial",
     "sync",
     "cloud",
+    "keycloak",
   ]
 }
 
