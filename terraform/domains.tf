@@ -19,6 +19,7 @@ module "dejonckhee_re" {
     "sync",
     "cloud",
     "keycloak",
+    "dashboard",
   ]
 }
 
