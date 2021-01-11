@@ -7,6 +7,11 @@ services:
   openldap:
     image: osixia/openldap
     env_file: openldap.env
+    environment:
+      LDAP_ORGANISATION: "Cloud"
+      LDAP_DOMAIN: "dejonckhee.re"
+      LDAP_TLS_VERIFY_CLIENT: "try"
+      LDAP_RFC2307BIS_SCHEMA: "true"
     volumes:
       - "config:/etc/ldap/slapd.d/"
       - "data:/var/lib/ldap/"
@@ -19,11 +24,20 @@ services:
       restart_policy:
         condition: on-failure
 
-  phpldapadmin:
-    image: osixia/phpldapadmin
+  ldapusermanager:
+    image: wheelybird/ldap-user-manager
+    env_file: openldap.env
     environment:
-      PHPLDAPADMIN_LDAP_HOSTS: "openldap"
-      PHPLDAPADMIN_HTTPS: "false"
+      SERVER_HOSTNAME: "ldap.dejonckhee.re"
+      ORGANISATION_NAME: "Cloud"
+      LDAP_URI: "ldaps://openldap/"
+      LDAP_BASE_DN: "dc=dejonckhee,dc=re"
+      LDAP_REQUIRE_STARTTLS: "false"
+      LDAP_ADMINS_GROUP: "admins"
+      LDAP_ADMIN_BIND_DN: "cn=admin,dc=dejonckhee,dc=re"
+      LDAP_IGNORE_CERT_ERRORS: "true"
+      EMAIL_DOMAIN: "dejonckhee.re"
+      NO_HTTPS: "true"
     networks:
       - proxy
     deploy:
