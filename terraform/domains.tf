@@ -20,6 +20,7 @@ module "dejonckhee_re" {
     "cloud",
     "keycloak",
     "dashboard",
+    "ldap",
   ]
 }
 
