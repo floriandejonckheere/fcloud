@@ -34,7 +34,7 @@ services:
         traefik.http.services.authelia.loadbalancer.server.port: "9091"
         traefik.docker.network: "traefik_proxy"
     configs:
-      - source: config_2
+      - source: config_3
         target: /config/configuration.yml
 
   redis:
@@ -52,12 +52,12 @@ services:
       restart_policy:
         condition: on-failure
 
+configs:
+  config_3:
+    file: authelia.yml
+
 volumes:
   redis:
-
-configs:
-  config_2:
-    file: authelia.yml
 
 networks:
   proxy:
