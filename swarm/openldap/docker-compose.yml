@@ -26,8 +26,11 @@ services:
 
   ldapusermanager:
     image: wheelybird/ldap-user-manager
+    # image: osixia/phpldapadmin
     env_file: openldap.env
     environment:
+      PHPLDAPADMIN_LDAP_HOSTS: "openldap"
+      PHPLDAPADMIN_HTTPS: "false"
       SERVER_HOSTNAME: "ldap.dejonckhee.re"
       ORGANISATION_NAME: "Cloud"
       LDAP_URI: "ldaps://openldap/"
