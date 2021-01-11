@@ -40,7 +40,6 @@ services:
       labels:
         traefik.enable: "true"
         traefik.http.middlewares.traefik-tls.redirectscheme.scheme: "https"
-        traefik.http.middlewares.traefik-auth.basicauth.usersFile: "/.htpasswd"
 
         traefik.http.routers.traefik.rule: "Host(`traefik.dejonckhee.re`)"
         traefik.http.routers.traefik.entrypoints: "web"
@@ -48,16 +47,13 @@ services:
 
         traefik.http.routers.traefik-tls.rule: "Host(`traefik.dejonckhee.re`)"
         traefik.http.routers.traefik-tls.service: "api@internal"
-        traefik.http.routers.traefik-tls.middlewares: "traefik-auth"
         traefik.http.routers.traefik-tls.entrypoints: "websecure"
         traefik.http.routers.traefik-tls.tls: "true"
         traefik.http.routers.traefik-tls.tls.certresolver: "letsencrypt"
+        traefik.http.routers.traefik-tls.middlewares: "authelia"
 
         traefik.http.services.traefik.loadbalancer.server.port: "80"
         traefik.docker.network: "traefik_proxy"
-    configs:
-      - source: htpasswd_1
-        target: /.htpasswd
 
 volumes:
   acme:
@@ -65,7 +61,3 @@ volumes:
 networks:
   proxy:
     driver: overlay
-
-configs:
-  htpasswd_1:
-    file: .htpasswd
