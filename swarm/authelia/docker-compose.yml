@@ -1,0 +1,65 @@
+version: "3.8"
+
+services:
+  ##
+  # Identity management
+  #
+  authelia:
+    image: authelia/authelia
+    networks:
+      - proxy
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == web
+      restart_policy:
+        condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.http.middlewares.authelia-tls.redirectscheme.scheme: "https"
+
+        traefik.http.middlewares.authelia.forwardauth.address: "http://authelia:9091/api/verify?rd=https://auth.dejonckhee.re/"
+        traefik.http.middlewares.authelia.forwardauth.trustForwardHeader: "true"
+        traefik.http.middlewares.authelia.forwardauth.authResponseHeaders: "Remote-User, Remote-Groups, Remote-Name, Remote-Email"
+
+        traefik.http.routers.authelia.rule: "Host(`auth.dejonckhee.re`)"
+        traefik.http.routers.authelia.entrypoints: "web"
+        traefik.http.routers.authelia.middlewares: "authelia-tls"
+
+        traefik.http.routers.authelia-tls.rule: "Host(`auth.dejonckhee.re`)"
+        traefik.http.routers.authelia-tls.entrypoints: "websecure"
+        traefik.http.routers.authelia-tls.tls: "true"
+        traefik.http.routers.authelia-tls.tls.certresolver: "letsencrypt"
+
+        traefik.http.services.authelia.loadbalancer.server.port: "9091"
+        traefik.docker.network: "traefik_proxy"
+    configs:
+      - source: config_2
+        target: /config/configuration.yml
+
+  redis:
+    image: redis:alpine
+    environment:
+      TZ: Europe/Berlin
+    volumes:
+      - "redis:/data/"
+    networks:
+      - proxy
+    deploy:
+      placement:
+        constraints:
+          - node.hostname == web
+      restart_policy:
+        condition: on-failure
+
+volumes:
+  redis:
+
+configs:
+  config_2:
+    file: authelia.yml
+
+networks:
+  proxy:
+    external: true
+    name: "traefik_proxy"

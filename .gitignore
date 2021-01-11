@@ -10,3 +10,4 @@ nginx/auth.d/*.key
 borgmatic/.config/borg/security
 mbslave.conf
 .htpasswd
+authelia.yml

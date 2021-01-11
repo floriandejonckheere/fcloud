@@ -21,6 +21,7 @@ module "dejonckhee_re" {
     "keycloak",
     "dashboard",
     "ldap",
+    "auth",
   ]
 }
 
