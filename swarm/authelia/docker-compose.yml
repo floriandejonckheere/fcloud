@@ -21,6 +21,12 @@ services:
 
   authelia:
     image: authelia/authelia
+    environment:
+      AUTHELIA_AUTHENTICATION_BACKEND_LDAP_PASSWORD_FILE: /config/ldap_password
+      AUTHELIA_JWT_SECRET_FILE: /config/jwt_secret
+      AUTHELIA_STORAGE_POSTGRES_PASSWORD_FILE: /config/postgres_password
+      AUTHELIA_NOTIFIER_SMTP_PASSWORD_FILE: /config/smtp_password
+      TZ: Europe/Berlin
     networks:
       - proxy
     deploy:
@@ -49,12 +55,32 @@ services:
         traefik.http.services.authelia.loadbalancer.server.port: "9091"
         traefik.docker.network: "traefik_proxy"
     configs:
-      - source: config_4
+      - source: config_7
         target: /config/configuration.yml
+      - source: ldap_password_1
+        target: /config/ldap_password
+        mode: 0600
+      - source: jwt_secret_1
+        target: /config/jwt_secret
+        mode: 0600
+      - source: postgres_password_1
+        target: /config/postgres_password
+        mode: 0600
+      - source: smtp_password_1
+        target: /config/smtp_password
+        mode: 0600
 
 configs:
-  config_4:
+  config_7:
     file: authelia.yml
+  ldap_password_1:
+    file: ldap.secret
+  jwt_secret_1:
+    file: jwt_secret.secret
+  postgres_password_1:
+    file: postgres.secret
+  smtp_password_1:
+    file: smtp.secret
 
 volumes:
   redis:
