@@ -86,3 +86,8 @@ services:
         subtitle: "HTTP reverse proxy and load balancer"
         url: "https://traefik.dejonckhee.re/"
         target: "_blank"
+      - name: "LDAP Admin"
+        icon: "fa fa-users"
+        subtitle: "Manage users and groups"
+        url: "https://ldap.dejonckhee.re/"
+        target: "_blank"
