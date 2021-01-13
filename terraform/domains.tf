@@ -18,10 +18,10 @@ module "dejonckhee_re" {
     "trivial",
     "sync",
     "cloud",
-    "keycloak",
     "dashboard",
     "ldap",
     "auth",
+    "vpn",
   ]
 }
 

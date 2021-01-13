@@ -13,9 +13,10 @@ services:
       - PGID=1000
       - TZ=Europe/Amsterdam
     volumes:
-      - /mnt/default/openvpn/:/config/
+      - openvpn:/config/
+    networks:
+      - proxy
     ports:
-      - "943:943"
       - "9443:9443"
       - "1194:1194/udp"
     deploy:
@@ -24,3 +25,26 @@ services:
           - node.hostname==vpn
       restart_policy:
         condition: on-failure
+      labels:
+        traefik.enable: "true"
+        traefik.http.middlewares.openvpn-tls.redirectscheme.scheme: "https"
+
+        traefik.http.routers.openvpn.rule: "Host(`vpn.dejonckhee.re`)"
+        traefik.http.routers.openvpn.entrypoints: "web"
+        traefik.http.routers.openvpn.middlewares: "openvpn-tls"
+
+        traefik.http.routers.openvpn-tls.rule: "Host(`vpn.dejonckhee.re`)"
+        traefik.http.routers.openvpn-tls.entrypoints: "websecure"
+        traefik.http.routers.openvpn-tls.tls: "true"
+        traefik.http.routers.openvpn-tls.tls.certresolver: "letsencrypt"
+
+        traefik.http.services.openvpn.loadbalancer.server.port: "943"
+        traefik.docker.network: "traefik_proxy"
+
+networks:
+  proxy:
+    external: true
+    name: "traefik_proxy"
+
+volumes:
+  openvpn:
