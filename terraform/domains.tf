@@ -43,15 +43,6 @@ module "floriandejonckheere_be" {
   ]
 }
 
-module "www_floriandejonckheere_be" {
-  source = "./modules/dns/record"
-
-  zone = "floriandejonckheere.be"
-  name = "www"
-  type = "CNAME"
-  values = ["floriandejonckheere.be."]
-}
-
 ##
 # headbang.re
 #
@@ -64,13 +55,8 @@ module "headbang_re" {
   domain_contact_extra = var.domain_contact_extra
   dkim = lookup(var.dkim, "headbang_re")
   gsf = lookup(var.gsf, "headbang_re")
-}
 
-module "www_headbang_re" {
-  source = "./modules/dns/record"
-
-  zone = "headbang.re"
-  name = "www"
-  type = "CNAME"
-  values = ["headbang.re."]
+  subdomains = [
+    "www",
+  ]
 }
