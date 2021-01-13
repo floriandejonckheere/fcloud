@@ -36,6 +36,7 @@ resource "hcloud_volume" "default" {
 
   lifecycle {
     prevent_destroy = true
+    ignore_changes = [size]
   }
 }
 
