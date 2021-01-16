@@ -113,36 +113,3 @@ module "ipv6_domain" {
   type = "AAAA"
   values = [hcloud_server.default.ipv6_address]
 }
-
-##
-# Swarm
-#
-module "manager_token" {
-  source = "matti/resource/shell"
-  command = "docker swarm join-token --quiet manager"
-
-  environment = {
-    DOCKER_HOST = "ssh://cloud@${local.fqdn}"
-  }
-
-  trigger = hcloud_server.default.id
-
-  depends = [
-    hcloud_server.default
-  ]
-}
-
-module "worker_token" {
-  source = "matti/resource/shell"
-  command = "docker swarm join-token --quiet worker"
-
-  environment = {
-    DOCKER_HOST = "ssh://cloud@${local.fqdn}"
-  }
-
-  trigger = hcloud_server.default.id
-
-  depends = [
-    hcloud_server.default
-  ]
-}

@@ -17,11 +17,3 @@ output "private_ipv6" {
 output "public_ipv4" {
   value = hcloud_floating_ip.default.ip_address
 }
-
-output "manager_token" {
-  value = module.manager_token.stdout
-}
-
-output "worker_token" {
-  value = module.worker_token.stdout
-}

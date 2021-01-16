@@ -24,8 +24,6 @@ module "vpn" {
   ssh_private_key = "~/.ssh/vpn"
   sshd_public_key = "~/.ssh/vpn-sshd.pub"
   sshd_private_key = "~/.ssh/vpn-sshd"
-  swarm_host = module.web.public_ipv4
-  swarm_token = module.web.worker_token
 }
 
 module "minecraft" {
@@ -41,8 +39,6 @@ module "minecraft" {
   sshd_public_key = "~/.ssh/minecraft-sshd.pub"
   sshd_private_key = "~/.ssh/minecraft-sshd"
   network_id = module.web.network_id
-  swarm_host = module.web.public_ipv4
-  swarm_token = module.web.worker_token
 
   # Type    vCPU  RAM   Price/h  Price/mo
   # cx11    1     2G    0.005/h   3.01/mo

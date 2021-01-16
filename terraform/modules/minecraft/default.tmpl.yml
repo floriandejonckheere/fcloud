@@ -82,7 +82,5 @@ runcmd:
   # Install Docker Compose
   - "curl -L 'https://github.com/docker/compose/releases/download/$(curl -sL https://api.github.com/repos/docker/compose/releases/latest | jq -r .name)/docker-compose-Linux-x86_64' -o /usr/local/bin/docker-compose"
   - chmod +x /usr/local/bin/docker-compose
-  # Join swarm
-  - "(docker info | grep 'Swarm: active') || docker swarm join --token ${swarm_token} ${swarm_host}"
 
 final_message: "The system is finally up, after $UPTIME seconds"
