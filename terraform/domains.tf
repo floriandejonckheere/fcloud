@@ -22,6 +22,7 @@ module "dejonckhee_re" {
     "ldap",
     "auth",
     "vpn",
+    "phpldapadmin",
   ]
 }
 
