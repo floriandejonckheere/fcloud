@@ -4,21 +4,6 @@ services:
   ##
   # Identity management
   #
-  redis:
-    image: redis:alpine
-    environment:
-      TZ: Europe/Berlin
-    volumes:
-      - "redis:/data/"
-    networks:
-      - proxy
-    deploy:
-      placement:
-        constraints:
-          - node.hostname == web
-      restart_policy:
-        condition: on-failure
-
   authelia:
     image: authelia/authelia
     environment:
@@ -81,9 +66,6 @@ configs:
     file: postgres.secret
   smtp_password_1:
     file: smtp.secret
-
-volumes:
-  redis:
 
 networks:
   proxy:
