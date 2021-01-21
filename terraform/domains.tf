@@ -60,5 +60,6 @@ module "headbang_re" {
   subdomains = [
     "www",
     "ma.cache",
+    "app",
   ]
 }
