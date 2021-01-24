@@ -22,3 +22,12 @@ ping -c 1 -W 1 ${VPN} > /dev/null && ssh ${VPN} "(docker info | grep 'Swarm: act
 # Join minecraft
 echo "Joining Minecraft to swarm"
 ping -c 1 -W 1 ${MC} > /dev/null && ssh ${MC} "(docker info | grep 'Swarm: active') || docker swarm join --token ${WORKER_TOKEN} --advertise-addr ${MC_IP} ${WEB_IP} > /dev/null"
+
+# Deploy services
+SERVICES=(authelia bitwarden borgmatic dashboard minecraft nextcloud nginx openldap openvpn postgres prune redis rslsync traefik trivial)
+
+for SERVICE in "${SERVICES[@]}}"; do
+  echo "Deploying services"
+
+  docker stack deploy -c "${SERVICE}/docker-compose.yml" "${SERVICE}"
+done
