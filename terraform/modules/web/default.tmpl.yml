@@ -51,6 +51,7 @@ packages:
   - gnupg-agent
   - software-properties-common
   - jq
+  - git
 
 package_update: true
 package_upgrade: true
