@@ -2,14 +2,8 @@
 # Backend
 #
 terraform {
-  backend "s3" {
-    bucket = "thalarion-tfstate"
-    key = "terraform.tfstate"
-    region = "nl-ams"
-    endpoint = "https://s3.nl-ams.scw.cloud"
-
-    skip_credentials_validation = true
-    skip_region_validation = true
+  backend "local" {
+    path = "terraform.tfstate"
   }
 }
 
