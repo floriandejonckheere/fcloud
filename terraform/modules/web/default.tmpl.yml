@@ -66,21 +66,23 @@ runcmd:
   - rmdir /mnt/default/lost+found
   # Configure firewall
   - ufw default deny incoming
-  - ufw default allow outgoing
-  - ufw allow 80/tcp
-  - ufw allow 443/tcp
-  - ufw allow 22/tcp
-  - ufw deny out from any to 10.0.0.0/8
-  - ufw deny out from any to 172.16.0.0/12
-  - ufw deny out from any to 192.168.0.0/16
-  - ufw deny out from any to 100.64.0.0/10
-  - ufw deny out from any to 198.18.0.0/15
-  - ufw deny out from any to 169.254.0.0/16
+  - ufw default deny outgoing
+  # HTTP
+  - ufw allow http
+  - ufw allow https
+  # SSH
+  - ufw allow ssh
+  # DNS
+  - ufw allow out dns
+  # SMTP
+  - ufw allow out 465
+  - ufw allow out 587
+  - ufw allow out 993
   # Bitwarden port
   - ufw allow 3013/tcp
   # Resilio Sync port
   - ufw allow 55555/tcp
-  - ufw allow 55555/tcp
+  - ufw allow 55555/udp
   # Docker Swarm ports
   - ufw allow 2377/tcp
   - ufw allow 7946/tcp
