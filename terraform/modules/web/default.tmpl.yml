@@ -89,6 +89,7 @@ runcmd:
   - ufw allow 4789/udp
   - ufw enable
   # Configure SSH server
+  - sed -i -e '/^#HostKey /etc/ssh/ssh_host_rsa_key.*$/s/^.*$/#HostKey /etc/ssh/ssh_host_rsa_key/' /etc/ssh/sshd_config
   - sed -i -e '/^#PermitRootLogin.*$/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config
   - sed -i -e '/#^PasswordAuthentication/s/^.*$/PasswordAuthentication no/' /etc/ssh/sshd_config
   - sed -i -e '/^X11Forwarding/s/^.*$/X11Forwarding no/' /etc/ssh/sshd_config
