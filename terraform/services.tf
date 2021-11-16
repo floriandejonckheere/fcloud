@@ -11,7 +11,6 @@ module "web" {
   ssh_private_key = "~/.ssh/web"
   sshd_public_key = "~/.ssh/web-sshd.pub"
   sshd_private_key = "~/.ssh/web-sshd"
-  storage_box_url = var.storage_box_url
 
   # Type    vCPU  RAM   Price/h  Price/mo
   # cx11    1     2G    0.005/h   3.01/mo

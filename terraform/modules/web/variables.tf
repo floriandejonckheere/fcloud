@@ -33,11 +33,6 @@ variable "sshd_private_key" {
   type = string
 }
 
-variable "storage_box_url" {
-  description = "URL to storage box share"
-  type = string
-}
-
 variable "server_type" {
   description = "Hetzner Cloud server type"
   type = string

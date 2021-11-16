@@ -9,6 +9,5 @@ locals {
     hostname = var.name,
     passwd = var.passwd,
     default_volume = hcloud_volume.default.linux_device,
-    storage_box_url: var.storage_box_url,
   })
 }
