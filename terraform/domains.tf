@@ -74,3 +74,17 @@ module "codered_pm" {
     "www",
   ]
 }
+
+##
+# kozo.dev
+#
+module "kozo_dev" {
+  source = "./modules/dns/github"
+
+  zone = "kozo.dev"
+  cname = "floriandejonckheere.github.io."
+  domain_contact = var.domain_contact
+  domain_contact_extra = var.domain_contact_extra
+  dkim = lookup(var.dkim, "codered_pm")
+  gsf = lookup(var.gsf, "codered_pm")
+}
