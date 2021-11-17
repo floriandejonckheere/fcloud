@@ -26,18 +26,6 @@ module "web" {
   server_type = "cx21"
 }
 
-module "vpn" {
-  source = "./modules/vpn"
-
-  name = "vpn"
-  zone = "dejonckhee.re"
-  passwd = var.passwd
-  ssh_public_key = "~/.ssh/vpn.pub"
-  ssh_private_key = "~/.ssh/vpn"
-  sshd_public_key = "~/.ssh/vpn-sshd.pub"
-  sshd_private_key = "~/.ssh/vpn-sshd"
-}
-
 module "minecraft" {
   source = "./modules/minecraft"
 
