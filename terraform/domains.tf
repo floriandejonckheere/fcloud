@@ -16,13 +16,6 @@ module "dejonckhee_re" {
     "traefik",
     "vault",
     "trivial",
-    "sync",
-    "cloud",
-    "dashboard",
-    "ldap",
-    "auth",
-    "vpn",
-    "phpldapadmin",
   ]
 }
 
