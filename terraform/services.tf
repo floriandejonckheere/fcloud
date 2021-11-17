@@ -13,8 +13,8 @@ module "web" {
   sshd_private_key = "~/.ssh/web-sshd"
 
   # Type    vCPU  RAM   Price/h  Price/mo
-  # cx11    1     2G    0.005/h   3.01/mo
-  # cpx11   2     2G    0.007/h   4.22/mo
+  # cx11    1     2G    0.007/h   4.22/mo
+  # cpx11   2     2G    0.008/h   4.83/mo
   # cx21    2     4G    0.010/h   5.93/mo
   # cpx21   3     4G    0.013/h   8.35/mo
   # cx31    2     8G    0.017/h  10.77/mo
@@ -53,8 +53,8 @@ module "minecraft" {
   network_id = module.web.network_id
 
   # Type    vCPU  RAM   Price/h  Price/mo
-  # cx11    1     2G    0.005/h   3.01/mo
-  # cpx11   2     2G    0.007/h   4.22/mo
+  # cx11    1     2G    0.007/h   4.22/mo
+  # cpx11   2     2G    0.008/h   4.83/mo
   # cx21    2     4G    0.010/h   5.93/mo
   # cpx21   3     4G    0.013/h   8.35/mo
   # cx31    2     8G    0.017/h  10.77/mo
