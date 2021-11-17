@@ -56,3 +56,21 @@ module "headbang_re" {
     "app",
   ]
 }
+
+##
+# codered.pm
+#
+module "codered_pm" {
+  source = "./modules/dns/domain"
+
+  zone = "codered.pm"
+  ipv4_address = module.web.public_ipv4
+  domain_contact = var.domain_contact
+  domain_contact_extra = var.domain_contact_extra
+  dkim = lookup(var.dkim, "codered_pm")
+  gsf = lookup(var.gsf, "codered_pm")
+
+  subdomains = [
+    "www",
+  ]
+}
