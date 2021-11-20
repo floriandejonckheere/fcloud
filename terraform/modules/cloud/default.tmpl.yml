@@ -41,7 +41,6 @@ mounts:
 
 packages:
   - fail2ban
-  - ufw
   - fuse
   - sshfs
   - apt-transport-https
@@ -63,24 +62,6 @@ runcmd:
   - tune2fs -m 0 ${default_volume}
   - chown cloud:cloud /mnt/default
   - rmdir /mnt/default/lost+found
-  # Configure firewall
-  - ufw default deny incoming
-  - ufw default deny outgoing
-  # SMTP
-  - ufw allow out 465
-  - ufw allow out 587
-  - ufw allow out 993
-  # Bitwarden port
-  - ufw allow 3013/tcp
-  # Resilio Sync port
-  - ufw allow 55555/tcp
-  - ufw allow 55555/udp
-  # Docker Swarm ports
-  - ufw allow 2377/tcp
-  - ufw allow 7946/tcp
-  - ufw allow 7946/udp
-  - ufw allow 4789/udp
-  - ufw enable
   # Configure SSH server
   - sed -i -e '/^#HostKey /etc/ssh/ssh_host_rsa_key.*$/s/^.*$/#HostKey /etc/ssh/ssh_host_rsa_key/' /etc/ssh/sshd_config
   - sed -i -e '/^#PermitRootLogin.*$/s/^.*$/PermitRootLogin no/' /etc/ssh/sshd_config

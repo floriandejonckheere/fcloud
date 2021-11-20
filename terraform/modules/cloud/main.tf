@@ -17,6 +17,7 @@ resource "hcloud_server" "default" {
   ssh_keys = [hcloud_ssh_key.default.id]
   user_data = local.cloud_init
   backups = false
+  firewall_ids = [hcloud_firewall.default.id]
 
   labels = {
     swarm_manager = true
@@ -112,4 +113,90 @@ module "ipv6_domain" {
   name = "${var.name}.cloud"
   type = "AAAA"
   values = [hcloud_server.default.ipv6_address]
+}
+
+##
+# Firewall
+#
+resource "hcloud_firewall" "default" {
+  name = "default"
+
+  # Ping
+  rule {
+    direction = "in"
+    protocol = "icmp"
+    source_ips = ["0.0.0.0/0", "::/0"]
+  }
+
+  # SSH
+  rule {
+    direction = "in"
+    protocol = "tcp"
+    port = "22"
+    source_ips = ["0.0.0.0/0", "::/0"]
+  }
+
+  # HTTP/HTTPS
+  rule {
+    direction = "in"
+    protocol = "tcp"
+    port = "80"
+    source_ips = ["0.0.0.0/0", "::/0"]
+  }
+
+  rule {
+    direction = "in"
+    protocol = "tcp"
+    port = "443"
+    source_ips = ["0.0.0.0/0", "::/0"]
+  }
+
+  rule {
+    direction = "out"
+    protocol = "tcp"
+    port = "80"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+  }
+
+  rule {
+    direction = "out"
+    protocol = "tcp"
+    port = "443"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+  }
+
+  # DNS
+  rule {
+    direction = "out"
+    protocol = "tcp"
+    port = "53"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+  }
+
+  rule {
+    direction = "out"
+    protocol = "udp"
+    port = "53"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+  }
+
+  # SMTP
+  rule {
+    direction = "out"
+    protocol = "tcp"
+    port = "465"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+  }
+  rule {
+    direction = "out"
+    protocol = "tcp"
+    port = "587"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+  }
+  rule {
+    direction = "out"
+    protocol = "tcp"
+    port = "993"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+  }
 }
