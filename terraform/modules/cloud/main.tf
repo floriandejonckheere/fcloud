@@ -19,8 +19,10 @@ resource "hcloud_server" "default" {
   backups = false
   firewall_ids = [hcloud_firewall.default.id]
 
-  labels = {
-    swarm_manager = true
+  lifecycle {
+    ignore_changes = [
+      user_data,
+    ]
   }
 }
 
