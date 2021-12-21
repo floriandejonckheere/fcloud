@@ -37,7 +37,6 @@ ssh_keys:
 mounts:
   - [ ${default_volume}, "/mnt/default/", "ext4", "defaults,discard", "0", "0" ]
   - [ "/mnt/default/docker/volumes/", "/var/lib/docker/volumes/", "none", "defaults,bind", "0", "0" ]
-  - [ "/mnt/default/docker/swarm/", "/var/lib/docker/swarm/", "none", "defaults,bind", "0", "0" ]
 
 packages:
   - fail2ban
