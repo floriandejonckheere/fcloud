@@ -13,7 +13,7 @@ See [Terraform](terraform).
 Setup a remote Docker context:
 
 ```
-docker context create cloud --docker host=ssh://cloud@web.cloud.dejonckhee.re
+docker context create cloud --docker host=ssh://cloud@cloud.dejonckhee.re
 docker context use cloud
 ```
 
@@ -27,4 +27,11 @@ Deploy applications:
 
 ```
 docker-compose up -d
+```
+
+Copy NGINX configuration to remote host:
+
+```
+docker-compose exec -T nginx tee /config/nginx/nginx.conf < nginx.conf
+docker-compose exec nginx nginx -s reload
 ```

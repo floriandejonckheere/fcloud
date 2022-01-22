@@ -21,6 +21,7 @@ services:
       --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53
       --certificatesresolvers.letsencrypt.acme.email=florian@floriandejonckheere.be
       --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json
+    env_file: .env
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "acme:/etc/traefik/acme/"
@@ -48,5 +49,43 @@ services:
 
       traefik.http.middlewares.secured.chain.middlewares: "traefik-tls,traefik-auth"
 
+  ##
+  # Web server
+  #
+  nginx:
+    image: ghcr.io/linuxserver/nginx
+    volumes:
+      - "http:/srv/http/"
+      - "nginx:/config/nginx/"
+    restart: on-failure
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.nginx-tls.redirectscheme.scheme: "https"
+
+      traefik.http.middlewares.nginx-redirect.redirectregex.regex: "^(https?://)([^/]*)/(.*)$$"
+      traefik.http.middlewares.nginx-redirect.redirectregex.replacement: "$${1}florian.dejonckhee.re/$${3}"
+
+      traefik.http.routers.nginx.rule: "Host(`florian.dejonckhee.re`, `dejonckhee.re`, `floriandejonckheere.be`, `www.floriandejonckheere.be`)"
+      traefik.http.routers.nginx.entrypoints: "web"
+      traefik.http.routers.nginx.middlewares: "nginx-tls"
+
+      traefik.http.routers.nginx-redirect.rule: "Host(`dejonckhee.re`, `floriandejonckheere.be`, `www.floriandejonckheere.be`)"
+      traefik.http.routers.nginx-redirect.entrypoints: "websecure"
+      traefik.http.routers.nginx-redirect.tls: "true"
+      traefik.http.routers.nginx-redirect.tls.domains[0].main: "dejonckhee.re"
+      traefik.http.routers.nginx-redirect.tls.domains[0].sans: "floriandejonckheere.be,www.floriandejonckheere.be"
+      traefik.http.routers.nginx-redirect.middlewares: "nginx-redirect"
+      traefik.http.routers.nginx-redirect.tls.certresolver: "letsencrypt"
+
+      traefik.http.routers.nginx-tls.rule: "Host(`florian.dejonckhee.re`)"
+      traefik.http.routers.nginx-tls.entrypoints: "websecure"
+      traefik.http.routers.nginx-tls.tls: "true"
+      traefik.http.routers.nginx-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.nginx.loadbalancer.server.port: "80"
+      traefik.docker.network: "traefik_proxy"
+
 volumes:
   acme:
+  http:
+  nginx:
