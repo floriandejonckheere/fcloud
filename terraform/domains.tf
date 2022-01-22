@@ -5,7 +5,7 @@ module "dejonckhee_re" {
   source = "./modules/dns/domain"
 
   zone = "dejonckhee.re"
-  ipv4_address = module.web.public_ipv4
+  ipv4_address = module.cloud.public_ipv4
   domain_contact = var.domain_contact
   domain_contact_extra = var.domain_contact_extra
   dkim = lookup(var.dkim, "dejonckhee_re")
@@ -13,7 +13,6 @@ module "dejonckhee_re" {
 
   subdomains = [
     "florian",
-    "traefik",
     "vault",
     "trivial",
   ]
@@ -26,7 +25,7 @@ module "floriandejonckheere_be" {
   source = "./modules/dns/domain"
 
   zone = "floriandejonckheere.be"
-  ipv4_address = module.web.public_ipv4
+  ipv4_address = module.cloud.public_ipv4
   domain_contact = var.domain_contact
   domain_contact_extra = var.domain_contact_extra
   dkim = lookup(var.dkim, "floriandejonckheere_be")
@@ -44,7 +43,8 @@ module "headbang_re" {
   source = "./modules/dns/domain"
 
   zone = "headbang.re"
-  ipv4_address = module.web.public_ipv4
+  autorenew = false
+  ipv4_address = module.cloud.public_ipv4
   domain_contact = var.domain_contact
   domain_contact_extra = var.domain_contact_extra
   dkim = lookup(var.dkim, "headbang_re")
@@ -64,7 +64,8 @@ module "codered_pm" {
   source = "./modules/dns/domain"
 
   zone = "codered.pm"
-  ipv4_address = module.web.public_ipv4
+  autorenew = false
+  ipv4_address = module.cloud.public_ipv4
   domain_contact = var.domain_contact
   domain_contact_extra = var.domain_contact_extra
   dkim = lookup(var.dkim, "codered_pm")
