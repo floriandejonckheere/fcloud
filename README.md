@@ -1,12 +1,48 @@
-# Florian Cloud
+# fcloud
 
-This repository contains the infrastructure setup for Florian Cloud.
+This repository contains the infrastructure setup for fcloud.
 
 ## Setup
 
 ### Terraform
 
-See [Terraform](terraform).
+Set up Terraform configuration:
+
+```
+cp terraform.tfvars.example terraform.tfvars
+nano terraform.tfvars
+
+# Set backend config
+cp backend.tfvars.example backend.tfvars
+nano backend.tfvars
+```
+
+Initialize Terraform:
+
+```
+terraform init -backend-config=backend.tfvars
+```
+
+Synchronize infrastructure:
+
+```
+terraform apply
+```
+
+#### Minecraft
+
+To set up the Minecraft server, run:
+
+```
+terraform apply -var minecraft=true -target=module.minecraft 
+```
+
+To tear down the Minecraft server, run:
+
+```
+terraform apply -var minecraft=false -target=module.minecraft
+```
+
 
 ### Docker Compose
 
@@ -17,16 +53,18 @@ docker context create cloud --docker host=ssh://cloud@cloud.dejonckhee.re
 docker context use cloud
 ```
 
-Copy `.env.example` and fill in the environment variables:
+Configure Docker Compose:
 
 ```
 cp .env.example .env
+nano .env
 ```
 
-Copy `bitwarden.env.example` and fill in the environment variables:
+Configure Bitwarden:
 
 ```
 cp bitwarden.env.example bitwarden.env
+nano bitwarden.env
 ```
 
 Deploy applications:
