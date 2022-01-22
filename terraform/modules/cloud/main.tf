@@ -117,6 +117,15 @@ module "ipv6_domain" {
   values = [hcloud_server.default.ipv6_address]
 }
 
+module "wildcard_domain" {
+  source = "../dns/record"
+
+  zone = var.zone
+  name = "*.${var.name}.cloud"
+  type = "CNAME"
+  values = ["${local.fqdn}."]
+}
+
 ##
 # Firewall
 #
