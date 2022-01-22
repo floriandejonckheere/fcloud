@@ -23,6 +23,12 @@ Copy `.env.example` and fill in the environment variables:
 cp .env.example .env
 ```
 
+Copy `bitwarden.env.example` and fill in the environment variables:
+
+```
+cp bitwarden.env.example bitwarden.env
+```
+
 Deploy applications:
 
 ```
