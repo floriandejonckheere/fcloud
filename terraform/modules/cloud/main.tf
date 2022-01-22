@@ -34,6 +34,7 @@ resource "hcloud_volume" "default" {
   location = "fsn1"
   size = 10
   format = "ext4"
+  delete_protection = true
 
   lifecycle {
     prevent_destroy = true
