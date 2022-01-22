@@ -17,6 +17,12 @@ docker context create cloud --docker host=ssh://cloud@web.cloud.dejonckhee.re
 docker context use cloud
 ```
 
+Copy `.env.example` and fill in the environment variables:
+
+```
+cp .env.example .env
+```
+
 Deploy applications:
 
 ```
