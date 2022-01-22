@@ -139,10 +139,41 @@ services:
 
       traefik.http.services.trivial.loadbalancer.server.port: "3000"
 
+  ##
+  # Code Red
+  #
+  codered:
+    image: ghcr.io/floriandejonckheere/code-red-app:v0.7.0
+    env_file: codered.env
+    restart: on-failure
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.trivial-tls.redirectscheme.scheme: "https"
+
+      traefik.http.routers.codered.rule: "Host(`codered.pm`)"
+      traefik.http.routers.codered.entrypoints: "web"
+      traefik.http.routers.codered.middlewares: "trivial-tls"
+
+      traefik.http.routers.codered-tls.rule: "Host(`codered.pm`)"
+      traefik.http.routers.codered-tls.entrypoints: "websecure"
+      traefik.http.routers.codered-tls.tls: "true"
+      traefik.http.routers.codered-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.codered.loadbalancer.server.port: "3000"
+
+  ##
+  # Redis
+  #
+  redis:
+    image: redislabs/redismod
+    command: --appendonly yes --loadmodule /usr/lib/redis/modules/redisgraph.so
+    volumes:
+      - redis:/data/
+
 volumes:
   acme:
   http:
   nginx:
   postgres:
   bitwarden:
-  trivial:
+  redis:
