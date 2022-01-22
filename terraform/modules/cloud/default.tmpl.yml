@@ -60,6 +60,8 @@ runcmd:
   - systemctl restart networking
   - tune2fs -m 0 ${default_volume}
   - chown cloud:cloud /mnt/default
+  - mkdir -p /mnt/default/docker/volumes/
+  - mount -a
   - rmdir /mnt/default/lost+found
   # Configure SSH server
   - sed -i -e '/^#HostKey /etc/ssh/ssh_host_rsa_key.*$/s/^.*$/#HostKey /etc/ssh/ssh_host_rsa_key/' /etc/ssh/sshd_config
