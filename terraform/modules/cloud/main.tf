@@ -103,7 +103,7 @@ module "ipv4_domain" {
   source = "../dns/record"
 
   zone = var.zone
-  name = "${var.name}.cloud"
+  name = var.name
   type = "A"
   values = [hcloud_floating_ip.default.ip_address]
 }
@@ -112,7 +112,7 @@ module "ipv6_domain" {
   source = "../dns/record"
 
   zone = var.zone
-  name = "${var.name}.cloud"
+  name = var.name
   type = "AAAA"
   values = [hcloud_server.default.ipv6_address]
 }
@@ -121,7 +121,7 @@ module "wildcard_domain" {
   source = "../dns/record"
 
   zone = var.zone
-  name = "*.${var.name}.cloud"
+  name = "*.${var.name}"
   type = "CNAME"
   values = ["${local.fqdn}."]
 }

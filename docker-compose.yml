@@ -33,11 +33,11 @@ services:
       traefik.enable: "true"
       traefik.http.middlewares.traefik-tls.redirectscheme.scheme: "https"
 
-      traefik.http.routers.traefik.rule: "Host(`cloud.cloud.dejonckhee.re`)"
+      traefik.http.routers.traefik.rule: "Host(`traefik.cloud.dejonckhee.re`)"
       traefik.http.routers.traefik.entrypoints: "web"
       traefik.http.routers.traefik.middlewares: "traefik-tls"
 
-      traefik.http.routers.traefik-tls.rule: "Host(`cloud.cloud.dejonckhee.re`)"
+      traefik.http.routers.traefik-tls.rule: "Host(`traefik.cloud.dejonckhee.re`)"
       traefik.http.routers.traefik-tls.service: "api@internal"
       traefik.http.routers.traefik-tls.entrypoints: "websecure"
       traefik.http.routers.traefik-tls.tls: "true"
