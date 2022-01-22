@@ -1,0 +1,49 @@
+version: "3.8"
+
+services:
+  ##
+  # Reverse proxy
+  #
+  traefik:
+    image: traefik:v2.3
+    command: >-
+      --log.level=DEBUG
+      --api.dashboard=true
+      --providers.docker
+      --providers.docker.watch=true
+      --providers.docker.exposedbydefault=false
+      --entrypoints.websecure.address=:443
+      --entrypoints.web.address=:80
+      --entrypoints.web.http.redirections.entryPoint.to=websecure
+      --serverstransport.insecureskipverify=true
+      --certificatesresolvers.letsencrypt.acme.dnschallenge=true
+      --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=gandiv5
+      --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53
+      --certificatesresolvers.letsencrypt.acme.email=florian@floriandejonckheere.be
+      --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json
+    env_file: fcloud.env
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "acme:/etc/traefik/acme/"
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: on-failure
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.traefik-tls.redirectscheme.scheme: "https"
+
+      traefik.http.routers.traefik.rule: "Host(`cloud.cloud.dejonckhee.re`)"
+      traefik.http.routers.traefik.entrypoints: "web"
+      traefik.http.routers.traefik.middlewares: "traefik-tls"
+
+      traefik.http.routers.traefik-tls.rule: "Host(`cloud.cloud.dejonckhee.re`)"
+      traefik.http.routers.traefik-tls.service: "api@internal"
+      traefik.http.routers.traefik-tls.entrypoints: "websecure"
+      traefik.http.routers.traefik-tls.tls: "true"
+      traefik.http.routers.traefik-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.traefik.loadbalancer.server.port: "80"
+
+volumes:
+  acme:
