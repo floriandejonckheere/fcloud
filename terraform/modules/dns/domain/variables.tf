@@ -3,6 +3,13 @@ variable "zone" {
   type = string
 }
 
+variable "autorenew" {
+  description = "Autorenew domain"
+  type = bool
+
+  default = true
+}
+
 variable "ipv4_address" {
   description = "IPv4 address"
   type = string

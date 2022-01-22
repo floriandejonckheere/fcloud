@@ -7,7 +7,7 @@ data "gandi_livedns_domain_ns" "default" {
 
 resource "gandi_domain" "default" {
   name = var.zone
-  autorenew = true
+  autorenew = var.autorenew
   nameservers = data.gandi_livedns_domain_ns.default.nameservers
 
   admin {
