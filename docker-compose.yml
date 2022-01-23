@@ -71,7 +71,7 @@ services:
   # Web server
   #
   nginx:
-    image: ghcr.io/linuxserver/nginx
+    image: lscr.io/linuxserver/nginx
     volumes:
       - "http:/srv/http/"
       - "nginx:/config/nginx/"
@@ -174,7 +174,7 @@ services:
   # Wireguard VPN
   #
   wireguard:
-    image: ghcr.io/linuxserver/wireguard
+    image: lscr.io/linuxserver/wireguard
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
