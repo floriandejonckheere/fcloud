@@ -211,4 +211,12 @@ resource "hcloud_firewall" "default" {
     port = "993"
     destination_ips = ["0.0.0.0/0", "::/0"]
   }
+
+  # WireGuard
+  rule {
+    direction = "in"
+    protocol = "udp"
+    port = "51820"
+    source_ips = ["0.0.0.0/0", "::/0"]
+  }
 }

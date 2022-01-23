@@ -170,6 +170,24 @@ services:
 
       traefik.http.services.codered.loadbalancer.server.port: "3000"
 
+  ##
+  # Wireguard VPN
+  #
+  wireguard:
+    image: ghcr.io/linuxserver/wireguard
+    cap_add:
+      - NET_ADMIN
+      - SYS_MODULE
+    env_file: wireguard.env
+    volumes:
+      - wireguard:/config
+      - /lib/modules:/lib/modules
+    ports:
+      - "51820:51820/udp"
+    sysctls:
+      - net.ipv4.conf.all.src_valid_mark=1
+    restart: on-failure
+
 volumes:
   postgres:
   redis:
@@ -177,3 +195,4 @@ volumes:
   http:
   nginx:
   bitwarden:
+  wireguard:
