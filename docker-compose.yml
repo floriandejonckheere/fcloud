@@ -157,11 +157,11 @@ services:
     restart: unless-stopped
     labels:
       traefik.enable: "true"
-      traefik.http.middlewares.trivial-tls.redirectscheme.scheme: "https"
+      traefik.http.middlewares.codered-tls.redirectscheme.scheme: "https"
 
       traefik.http.routers.codered.rule: "Host(`codered.pm`)"
       traefik.http.routers.codered.entrypoints: "web"
-      traefik.http.routers.codered.middlewares: "trivial-tls"
+      traefik.http.routers.codered.middlewares: "codered-tls"
 
       traefik.http.routers.codered-tls.rule: "Host(`codered.pm`)"
       traefik.http.routers.codered-tls.entrypoints: "websecure"
