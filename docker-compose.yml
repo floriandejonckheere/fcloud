@@ -8,7 +8,7 @@ services:
     image: postgres:12-alpine
     volumes:
       - "postgres:/var/lib/postgresql/data/"
-    restart: on-failure
+    restart: unless-stopped
 
   ##
   # Redis
@@ -46,7 +46,7 @@ services:
     ports:
       - "80:80"
       - "443:443"
-    restart: on-failure
+    restart: unless-stopped
     labels:
       traefik.enable: "true"
       traefik.http.middlewares.traefik-tls.redirectscheme.scheme: "https"
@@ -75,7 +75,7 @@ services:
     volumes:
       - "http:/srv/http/"
       - "nginx:/config/nginx/"
-    restart: on-failure
+    restart: unless-stopped
     labels:
       traefik.enable: "true"
       traefik.http.middlewares.nginx-tls.redirectscheme.scheme: "https"
@@ -110,7 +110,7 @@ services:
     env_file: bitwarden.env
     volumes:
       - "bitwarden:/data/"
-    restart: on-failure
+    restart: unless-stopped
     labels:
       traefik.enable: "true"
       traefik.http.middlewares.bitwarden-tls.redirectscheme.scheme: "https"
@@ -132,7 +132,7 @@ services:
   trivial:
     image: ghcr.io/floriandejonckheere/trivial-app:v4.1.0
     env_file: trivial.env
-    restart: on-failure
+    restart: unless-stopped
     labels:
       traefik.enable: "true"
       traefik.http.middlewares.trivial-tls.redirectscheme.scheme: "https"
@@ -154,7 +154,7 @@ services:
   codered:
     image: ghcr.io/floriandejonckheere/code-red-app:v0.7.0
     env_file: codered.env
-    restart: on-failure
+    restart: unless-stopped
     labels:
       traefik.enable: "true"
       traefik.http.middlewares.trivial-tls.redirectscheme.scheme: "https"
@@ -186,7 +186,7 @@ services:
       - "51820:51820/udp"
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
-    restart: on-failure
+    restart: unless-stopped
 
 volumes:
   postgres:
