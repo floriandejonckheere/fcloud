@@ -60,11 +60,10 @@ cp .env.example .env
 nano .env
 ```
 
-Configure Bitwarden:
+Configure applications:
 
 ```
-cp bitwarden.env.example bitwarden.env
-nano bitwarden.env
+for APP in bitwarden codered pydio trivial wireguard; do cp ${APP}.env.example ${APP}.env; nano ${APP}.env; done
 ```
 
 Deploy applications:
