@@ -2,6 +2,24 @@ version: "3.8"
 
 services:
   ##
+  # Database
+  #
+  postgres:
+    image: postgres:12-alpine
+    volumes:
+      - "postgres:/var/lib/postgresql/data/"
+    restart: on-failure
+
+  ##
+  # Redis
+  #
+  redis:
+    image: redislabs/redismod
+    command: --appendonly yes --loadmodule /usr/lib/redis/modules/redisgraph.so
+    volumes:
+      - redis:/data/
+
+  ##
   # Reverse proxy
   #
   traefik:
@@ -85,15 +103,6 @@ services:
       traefik.http.services.nginx.loadbalancer.server.port: "80"
 
   ##
-  # Database
-  #
-  postgres:
-    image: postgres:12-alpine
-    volumes:
-      - "postgres:/var/lib/postgresql/data/"
-    restart: on-failure
-
-  ##
   # Password manager
   #
   bitwarden:
@@ -161,19 +170,10 @@ services:
 
       traefik.http.services.codered.loadbalancer.server.port: "3000"
 
-  ##
-  # Redis
-  #
-  redis:
-    image: redislabs/redismod
-    command: --appendonly yes --loadmodule /usr/lib/redis/modules/redisgraph.so
-    volumes:
-      - redis:/data/
-
 volumes:
+  postgres:
+  redis:
   acme:
   http:
   nginx:
-  postgres:
   bitwarden:
-  redis:
