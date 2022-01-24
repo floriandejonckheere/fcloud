@@ -210,11 +210,11 @@ services:
       traefik.enable: "true"
       traefik.http.middlewares.pydio-tls.redirectscheme.scheme: "https"
 
-      traefik.http.routers.pydio.rule: "Host(`pydio.cloud.dejonckhee.re`)"
+      traefik.http.routers.pydio.rule: "Host(`cloud.dejonckhee.re`)"
       traefik.http.routers.pydio.entrypoints: "web"
       traefik.http.routers.pydio.middlewares: "pydio-tls"
 
-      traefik.http.routers.pydio-tls.rule: "Host(`pydio.cloud.dejonckhee.re`)"
+      traefik.http.routers.pydio-tls.rule: "Host(`cloud.dejonckhee.re`)"
       traefik.http.routers.pydio-tls.entrypoints: "websecure"
       traefik.http.routers.pydio-tls.tls: "true"
       traefik.http.routers.pydio-tls.tls.certresolver: "letsencrypt"
