@@ -113,7 +113,7 @@ services:
   # Password manager
   #
   bitwarden:
-    image: bitwardenrs/server:alpine
+    image: vaultwarden/server:alpine
     env_file: bitwarden.env
     volumes:
       - "bitwarden:/data/"
