@@ -79,6 +79,8 @@ services:
   #
   nginx:
     image: lscr.io/linuxserver/nginx
+    depends_on:
+      - traefik
     volumes:
       - "http:/srv/http/"
       - "nginx:/config/nginx/"
@@ -115,6 +117,9 @@ services:
   bitwarden:
     image: vaultwarden/server:alpine
     env_file: bitwarden.env
+    depends_on:
+      - traefik
+      - postgres
     volumes:
       - "bitwarden:/data/"
     restart: unless-stopped
@@ -139,6 +144,9 @@ services:
   trivial:
     image: ghcr.io/floriandejonckheere/trivial-app:v4.1.0
     env_file: trivial.env
+    depends_on:
+      - traefik
+      - postgres
     restart: unless-stopped
     labels:
       traefik.enable: "true"
@@ -161,6 +169,10 @@ services:
   codered:
     image: ghcr.io/floriandejonckheere/code-red-app:v0.7.1
     env_file: codered.env
+    depends_on:
+      - traefik
+      - postgres
+      - redis
     restart: unless-stopped
     labels:
       traefik.enable: "true"
@@ -201,6 +213,9 @@ services:
   pydio:
     image: lscr.io/linuxserver/pydio-cells
     env_file: pydio.env
+    depends_on:
+      - traefik
+      - mariadb
     volumes:
       - pydio:/config
     ports:
