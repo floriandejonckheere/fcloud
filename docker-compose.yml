@@ -32,7 +32,7 @@ services:
   traefik:
     image: traefik:v2.3
     command: >-
-      --log.level=DEBUG
+      --log.level=INFO
       --api.dashboard=true
       --providers.docker
       --providers.docker.watch=true
