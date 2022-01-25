@@ -237,6 +237,29 @@ services:
       traefik.http.services.pydio.loadbalancer.server.port: "8080"
       traefik.http.services.pydio.loadbalancer.server.scheme: "https"
 
+  nextcloud:
+    image: lscr.io/linuxserver/nextcloud
+    env_file: nextcloud.env
+    volumes:
+      - nextcloud_config:/config
+      - nextcloud_data:/data
+    restart: unless-stopped
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.nextcloud-tls.redirectscheme.scheme: "https"
+
+      traefik.http.routers.nextcloud.rule: "Host(`nextcloud.dejonckhee.re`)"
+      traefik.http.routers.nextcloud.entrypoints: "web"
+      traefik.http.routers.nextcloud.middlewares: "nextcloud-tls"
+
+      traefik.http.routers.nextcloud-tls.rule: "Host(`nextcloud.dejonckhee.re`)"
+      traefik.http.routers.nextcloud-tls.entrypoints: "websecure"
+      traefik.http.routers.nextcloud-tls.tls: "true"
+      traefik.http.routers.nextcloud-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.nextcloud.loadbalancer.server.port: "443"
+      traefik.http.services.nextcloud.loadbalancer.server.scheme: "https"
+
 volumes:
   postgres:
   mariadb:
@@ -247,3 +270,5 @@ volumes:
   bitwarden:
   wireguard:
   pydio:
+  nextcloud_config:
+  nextcloud_data:
