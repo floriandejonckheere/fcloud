@@ -239,11 +239,11 @@ services:
 
 volumes:
   postgres:
+  mariadb:
   redis:
   acme:
-  http:
   nginx:
+  http:
   bitwarden:
   wireguard:
   pydio:
-  mariadb:
