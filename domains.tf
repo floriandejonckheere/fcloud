@@ -12,9 +12,7 @@ module "dejonckhee_re" {
   gsf = lookup(var.gsf, "dejonckhee_re")
 
   subdomains = [
-    "florian",
-    "vault",
-    "trivial",
+    "*",
   ]
 }
 
