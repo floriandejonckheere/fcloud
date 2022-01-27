@@ -256,9 +256,12 @@ services:
       traefik.enable: "true"
       traefik.http.middlewares.nextcloud-tls.redirectscheme.scheme: "https"
 
+      traefik.http.middlewares.nextcloud-dav.replacepathregex.regex: "^/.well-known/ca(l|rd)dav"
+      traefik.http.middlewares.nextcloud-dav.replacepathregex.replacement: "/remote.php/dav/"
+
       traefik.http.routers.nextcloud.rule: "Host(`nextcloud.dejonckhee.re`)"
       traefik.http.routers.nextcloud.entrypoints: "web"
-      traefik.http.routers.nextcloud.middlewares: "nextcloud-tls"
+      traefik.http.routers.nextcloud.middlewares: "nextcloud-tls,nextcloud-dav"
 
       traefik.http.routers.nextcloud-tls.rule: "Host(`nextcloud.dejonckhee.re`)"
       traefik.http.routers.nextcloud-tls.entrypoints: "websecure"
