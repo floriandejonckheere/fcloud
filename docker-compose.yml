@@ -10,13 +10,6 @@ services:
       - "postgres:/var/lib/postgresql/data/"
     restart: unless-stopped
 
-  mariadb:
-    image: lscr.io/linuxserver/mariadb
-    env_file: mariadb.env
-    volumes:
-      - "mariadb:/config"
-    restart: unless-stopped
-
   ##
   # Redis
   #
@@ -214,36 +207,6 @@ services:
     sysctls:
       - net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
-
-  ##
-  # Pydio
-  #
-  pydio:
-    image: lscr.io/linuxserver/pydio-cells
-    env_file: pydio.env
-    depends_on:
-      - traefik
-      - mariadb
-    volumes:
-      - pydio:/config
-    ports:
-      - "33060:33060"
-    restart: unless-stopped
-    labels:
-      traefik.enable: "true"
-      traefik.http.middlewares.pydio-tls.redirectscheme.scheme: "https"
-
-      traefik.http.routers.pydio.rule: "Host(`cloud.dejonckhee.re`)"
-      traefik.http.routers.pydio.entrypoints: "web"
-      traefik.http.routers.pydio.middlewares: "pydio-tls"
-
-      traefik.http.routers.pydio-tls.rule: "Host(`cloud.dejonckhee.re`)"
-      traefik.http.routers.pydio-tls.entrypoints: "websecure"
-      traefik.http.routers.pydio-tls.tls: "true"
-      traefik.http.routers.pydio-tls.tls.certresolver: "letsencrypt"
-
-      traefik.http.services.pydio.loadbalancer.server.port: "8080"
-      traefik.http.services.pydio.loadbalancer.server.scheme: "https"
 
   nextcloud:
     image: lscr.io/linuxserver/nextcloud
