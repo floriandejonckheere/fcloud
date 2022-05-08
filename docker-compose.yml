@@ -240,13 +240,11 @@ services:
 
 volumes:
   postgres:
-  mariadb:
   redis:
   acme:
   nginx:
   http:
   bitwarden:
   wireguard:
-  pydio:
   nextcloud_config:
   nextcloud_data:

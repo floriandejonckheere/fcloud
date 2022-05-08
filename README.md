@@ -63,7 +63,7 @@ nano .env
 Configure applications:
 
 ```
-for APP in bitwarden codered pydio trivial wireguard; do cp ${APP}.env.example ${APP}.env; nano ${APP}.env; done
+for APP in bitwarden codered trivial wireguard; do cp ${APP}.env.example ${APP}.env; nano ${APP}.env; done
 ```
 
 Deploy applications:
