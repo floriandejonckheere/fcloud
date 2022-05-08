@@ -75,6 +75,7 @@ services:
       traefik.frontend.headers.browserXSSFilter: true
       traefik.frontend.headers.contentTypeNosniff: true
       traefik.frontend.headers.frameDeny: true
+
   ##
   # Web server
   #
@@ -208,6 +209,9 @@ services:
       - net.ipv4.conf.all.src_valid_mark=1
     restart: unless-stopped
 
+  ##
+  # Personal cloud
+  #
   nextcloud:
     image: lscr.io/linuxserver/nextcloud
     env_file: nextcloud.env
