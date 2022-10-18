@@ -252,6 +252,31 @@ services:
       traefik.http.services.nextcloud.loadbalancer.server.port: "443"
       traefik.http.services.nextcloud.loadbalancer.server.scheme: "https"
 
+  ##
+  # Snapdrop
+  #
+  snapdrop:
+    image: lscr.io/linuxserver/snapdrop
+    env_file: snapdrop.env
+    volumes:
+      - snapdrop:/config
+    restart: unless-stopped
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.snapdrop-tls.redirectscheme.scheme: "https"
+
+      traefik.http.routers.snapdrop.rule: "Host(`snapdrop.dejonckhee.re`)"
+      traefik.http.routers.snapdrop.entrypoints: "web"
+      traefik.http.routers.snapdrop.middlewares: "snapdrop-tls"
+
+      traefik.http.routers.snapdrop-tls.rule: "Host(`snapdrop.dejonckhee.re`)"
+      traefik.http.routers.snapdrop-tls.entrypoints: "websecure"
+      traefik.http.routers.snapdrop-tls.tls: "true"
+      traefik.http.routers.snapdrop-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.snapdrop.loadbalancer.server.port: "443"
+      traefik.http.services.snapdrop.loadbalancer.server.scheme: "https"
+
 volumes:
   postgres:
   redis:
@@ -262,3 +287,4 @@ volumes:
   wireguard:
   nextcloud_config:
   nextcloud_data:
+  snapdrop:
