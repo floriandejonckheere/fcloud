@@ -11,7 +11,7 @@ resource "hcloud_ssh_key" "default" {
 #
 resource "hcloud_server" "default" {
   name = var.name
-  location = "fsn1"
+  location = "hel1"
   image = "debian-10"
   server_type = var.server_type
   ssh_keys = [hcloud_ssh_key.default.id]
@@ -31,7 +31,7 @@ resource "hcloud_server" "default" {
 #
 resource "hcloud_volume" "default" {
   name = var.name
-  location = "fsn1"
+  location = "hel1"
   size = 10
   format = "ext4"
   delete_protection = true
@@ -81,7 +81,7 @@ resource "hcloud_server_network" "default" {
 
 resource "hcloud_floating_ip" "default" {
   name = var.name
-  home_location = "fsn1"
+  home_location = "hel1"
   type = "ipv4"
 
   lifecycle {
