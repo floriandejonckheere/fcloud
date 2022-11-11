@@ -35,27 +35,6 @@ module "floriandejonckheere_be" {
 }
 
 ##
-# headbang.re
-#
-module "headbang_re" {
-  source = "./modules/dns/domain"
-
-  zone = "headbang.re"
-  autorenew = false
-  ipv4_address = module.cloud.public_ipv4
-  domain_contact = var.domain_contact
-  domain_contact_extra = var.domain_contact_extra
-  dkim = lookup(var.dkim, "headbang_re")
-  gsf = lookup(var.gsf, "headbang_re")
-
-  subdomains = [
-    "www",
-    "ma.cache",
-    "app",
-  ]
-}
-
-##
 # codered.pm
 #
 module "codered_pm" {
