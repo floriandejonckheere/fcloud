@@ -5,7 +5,8 @@ services:
   # Database
   #
   postgres:
-    image: postgres:12-alpine
+    image: postgres:15-alpine
+    env_file: postgres.env
     volumes:
       - "postgres:/var/lib/postgresql/data/"
     restart: unless-stopped
