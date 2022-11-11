@@ -201,7 +201,7 @@ services:
       - SYS_MODULE
     env_file: wireguard.env
     volumes:
-      - wireguard:/config
+      - wireguard:/etc/wireguard
     ports:
       - "51820:51820/udp"
     sysctls:

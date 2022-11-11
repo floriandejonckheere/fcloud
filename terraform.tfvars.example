@@ -24,6 +24,8 @@ gsf = {}
 ##
 # Services
 #
+# Generate password hash with "echo password | openssl passwd -6 -stdin"
+#
 # plaintext passwd:
 passwd = ""
 ssh_public_key = ""
