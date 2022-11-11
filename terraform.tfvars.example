@@ -2,9 +2,6 @@
 # Providers
 #
 hcloud_token = ""
-scaleway_access_key = ""
-scaleway_secret_key = ""
-scaleway_organization_id = ""
 gandi_key = ""
 
 ##
