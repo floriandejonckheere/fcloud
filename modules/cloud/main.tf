@@ -11,13 +11,18 @@ resource "hcloud_ssh_key" "default" {
 #
 resource "hcloud_server" "default" {
   name = var.name
-  location = "hel1"
-  image = "debian-10"
+  datacenter = "hel1-dc2"
+  image = "debian-11"
   server_type = var.server_type
   ssh_keys = [hcloud_ssh_key.default.id]
   user_data = local.cloud_init
   backups = false
   firewall_ids = [hcloud_firewall.default.id]
+
+  public_net {
+    ipv4 = hcloud_primary_ip.default4.id
+    ipv6 = hcloud_primary_ip.default6.id
+  }
 
   lifecycle {
     ignore_changes = [
@@ -79,25 +84,20 @@ resource "hcloud_server_network" "default" {
   network_id = hcloud_network.default.id
 }
 
-resource "hcloud_floating_ip" "default" {
-  name = var.name
-  home_location = "hel1"
+resource "hcloud_primary_ip" "default4" {
+  name = "${var.name}4"
   type = "ipv4"
-
-  lifecycle {
-    prevent_destroy = true
-  }
+  datacenter = "hel1-dc2"
+  assignee_type = "server"
+  auto_delete = false
 }
 
-resource "hcloud_floating_ip_assignment" "default" {
-  floating_ip_id = hcloud_floating_ip.default.id
-  server_id = hcloud_server.default.id
-}
-
-resource "hcloud_rdns" "floating_default" {
-  floating_ip_id = hcloud_floating_ip.default.id
-  ip_address = hcloud_floating_ip.default.ip_address
-  dns_ptr = local.fqdn
+resource "hcloud_primary_ip" "default6" {
+  name = "${var.name}6"
+  type = "ipv6"
+  datacenter = "hel1-dc2"
+  assignee_type = "server"
+  auto_delete = false
 }
 
 module "ipv4_domain" {
@@ -106,7 +106,7 @@ module "ipv4_domain" {
   zone = var.zone
   name = var.name
   type = "A"
-  values = [hcloud_floating_ip.default.ip_address]
+  values = [hcloud_primary_ip.default4.ip_address]
 }
 
 module "ipv6_domain" {
@@ -115,7 +115,7 @@ module "ipv6_domain" {
   zone = var.zone
   name = var.name
   type = "AAAA"
-  values = [hcloud_server.default.ipv6_address]
+  values = [hcloud_primary_ip.default6.ip_address]
 }
 
 module "wildcard_domain" {
