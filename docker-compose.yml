@@ -249,6 +249,30 @@ services:
       traefik.http.services.snapdrop.loadbalancer.server.port: "443"
       traefik.http.services.snapdrop.loadbalancer.server.scheme: "https"
 
+  ##
+  # Birdnest
+  #
+  birdnest:
+    image: ghcr.io/floriandejonckheere/birdnest-app:v0.2.0
+    depends_on:
+      - traefik
+      - redis
+    restart: unless-stopped
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.birdnest-tls.redirectscheme.scheme: "https"
+
+      traefik.http.routers.birdnest.rule: "Host(`birdnest.cloud.dejonckhee.re`)"
+      traefik.http.routers.birdnest.entrypoints: "web"
+      traefik.http.routers.birdnest.middlewares: "birdnest-tls"
+
+      traefik.http.routers.birdnest-tls.rule: "Host(`birdnest.cloud.dejonckhee.re`)"
+      traefik.http.routers.birdnest-tls.entrypoints: "websecure"
+      traefik.http.routers.birdnest-tls.tls: "true"
+      traefik.http.routers.birdnest-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.birdnest.loadbalancer.server.port: "4000"
+
 volumes:
   postgres:
   redis:
