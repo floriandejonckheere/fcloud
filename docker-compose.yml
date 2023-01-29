@@ -314,12 +314,12 @@ services:
       traefik.http.services.birdnest.loadbalancer.server.port: "4000"
 
 volumes:
+  acme:
+  bitwarden:
+  http:
+  nginx:
   postgres:
   redis:
-  acme:
-  nginx:
-  http:
-  bitwarden:
-  wireguard:
   registry:
   snapdrop:
+  wireguard:
