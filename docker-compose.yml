@@ -115,6 +115,46 @@ services:
       traefik.http.services.nginx.loadbalancer.server.port: "80"
 
   ##
+  # Container registry
+  #
+  registry:
+    image: registry:2
+    environment:
+      REGISTRY_HTTP_SECRET: "my_registry_secret"
+      REGISTRY_STORAGE_DELETE_ENABLED: "true"
+    volumes:
+      - registry:/var/lib/registry
+    restart: unless-stopped
+
+  registry-ui:
+    image: joxit/docker-registry-ui
+    environment:
+      DELETE_IMAGES: "true"
+      REGISTRY_TITLE: "Private Docker Registry"
+      NGINX_PROXY_PASS_URL: "http://registry:5000"
+      SINGLE_REGISTRY: "true"
+    depends_on:
+      - traefik
+      - registry
+    restart: unless-stopped
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.registry-tls.redirectscheme.scheme: "https"
+      traefik.http.middlewares.registry-auth.basicauth.users: "${REGISTRY_AUTH}"
+
+      traefik.http.routers.registry.rule: "Host(`registry.dejonckhee.re`)"
+      traefik.http.routers.registry.entrypoints: "web"
+      traefik.http.routers.registry.middlewares: "registry-tls"
+
+      traefik.http.routers.registry-tls.rule: "Host(`registry.dejonckhee.re`)"
+      traefik.http.routers.registry-tls.entrypoints: "websecure"
+      traefik.http.routers.registry-tls.middlewares: "registry-auth"
+      traefik.http.routers.registry-tls.tls: "true"
+      traefik.http.routers.registry-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.registry.loadbalancer.server.port: "80"
+
+  ##
   # Password manager
   #
   bitwarden:
@@ -281,4 +321,5 @@ volumes:
   http:
   bitwarden:
   wireguard:
+  registry:
   snapdrop:
