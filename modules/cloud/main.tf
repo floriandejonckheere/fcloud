@@ -148,6 +148,13 @@ resource "hcloud_firewall" "default" {
     source_ips = ["0.0.0.0/0", "::/0"]
   }
 
+  rule {
+    direction = "out"
+    protocol = "tcp"
+    port = "22"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+  }
+
   # HTTP/HTTPS
   rule {
     direction = "in"
@@ -199,12 +206,14 @@ resource "hcloud_firewall" "default" {
     port = "465"
     destination_ips = ["0.0.0.0/0", "::/0"]
   }
+
   rule {
     direction = "out"
     protocol = "tcp"
     port = "587"
     destination_ips = ["0.0.0.0/0", "::/0"]
   }
+
   rule {
     direction = "out"
     protocol = "tcp"
