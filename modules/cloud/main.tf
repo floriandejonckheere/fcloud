@@ -228,4 +228,12 @@ resource "hcloud_firewall" "default" {
     port = "51820"
     source_ips = ["0.0.0.0/0", "::/0"]
   }
+
+  # NTP
+  rule {
+    direction = "out"
+    protocol = "udp"
+    port = "123"
+    destination_ips = ["0.0.0.0/0", "::/0"]
+  }
 }
