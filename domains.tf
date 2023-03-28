@@ -41,7 +41,6 @@ module "codered_pm" {
   source = "./modules/dns/domain"
 
   zone = "codered.pm"
-  autorenew = false
   ipv4_address = module.cloud.public_ipv4
   domain_contact = var.domain_contact
   domain_contact_extra = var.domain_contact_extra
