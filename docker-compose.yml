@@ -289,9 +289,36 @@ services:
       traefik.http.services.snapdrop.loadbalancer.server.port: "443"
       traefik.http.services.snapdrop.loadbalancer.server.scheme: "https"
 
+  ##
+  # Change detection
+  #
+  changedetection:
+    image: lscr.io/linuxserver/changedetection.io:0.42.2
+    env_file: changedetection.env
+    volumes:
+      - changedetection:/datastore
+    restart: unless-stopped
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.changedetection-tls.redirectscheme.scheme: "https"
+      traefik.http.middlewares.changedetection-auth.basicauth.users: "${CHANGEDETECTION_AUTH}"
+
+      traefik.http.routers.changedetection.rule: "Host(`changedetection.dejonckhee.re`)"
+      traefik.http.routers.changedetection.entrypoints: "web"
+      traefik.http.routers.changedetection.middlewares: "changedetection-tls"
+
+      traefik.http.routers.changedetection-tls.rule: "Host(`changedetection.dejonckhee.re`)"
+      traefik.http.routers.changedetection-tls.entrypoints: "websecure"
+      traefik.http.routers.changedetection-tls.middlewares: "changedetection-auth"
+      traefik.http.routers.changedetection-tls.tls: "true"
+      traefik.http.routers.changedetection-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.changedetection.loadbalancer.server.port: "5000"
+
 volumes:
   acme:
   bitwarden:
+  changedetection:
   http:
   nginx:
   postgres:
