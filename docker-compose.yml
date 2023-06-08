@@ -5,7 +5,7 @@ services:
   # Database
   #
   postgres:
-    image: postgres:15-alpine
+    image: postgres:15.3-alpine
     env_file: postgres.env
     volumes:
       - "postgres:/var/lib/postgresql/data/"
@@ -24,7 +24,7 @@ services:
   # Reverse proxy
   #
   traefik:
-    image: traefik:v2.3
+    image: traefik:v2.10
     command: >-
       --log.level=INFO
       --api.dashboard=true
@@ -81,7 +81,7 @@ services:
   # Web server
   #
   nginx:
-    image: lscr.io/linuxserver/nginx
+    image: lscr.io/linuxserver/nginx:1.24.0
     depends_on:
       - traefik
     volumes:
@@ -127,7 +127,7 @@ services:
     restart: unless-stopped
 
   registry-ui:
-    image: joxit/docker-registry-ui
+    image: joxit/docker-registry-ui:2.4.1
     environment:
       DELETE_IMAGES: "true"
       REGISTRY_TITLE: "Private Docker Registry"
@@ -158,7 +158,7 @@ services:
   # Password manager
   #
   bitwarden:
-    image: vaultwarden/server:alpine
+    image: vaultwarden/server:1.28.1-alpine
     env_file: bitwarden.env
     depends_on:
       - traefik
@@ -236,7 +236,7 @@ services:
   # Wireguard VPN
   #
   wireguard:
-    image: weejewel/wg-easy
+    image: weejewel/wg-easy:7
     cap_add:
       - NET_ADMIN
       - SYS_MODULE
