@@ -265,29 +265,28 @@ services:
       traefik.http.services.wireguard.loadbalancer.server.port: "51821"
 
   ##
-  # Snapdrop
+  # PairDrop
   #
-  snapdrop:
-    image: lscr.io/linuxserver/snapdrop
-    env_file: snapdrop.env
+  pairdrop:
+    image: lscr.io/linuxserver/pairdrop
+    env_file: pairdrop.env
     volumes:
-      - snapdrop:/config
+      - pairdrop:/config
     restart: unless-stopped
     labels:
       traefik.enable: "true"
-      traefik.http.middlewares.snapdrop-tls.redirectscheme.scheme: "https"
+      traefik.http.middlewares.pairdrop-tls.redirectscheme.scheme: "https"
 
-      traefik.http.routers.snapdrop.rule: "Host(`snapdrop.dejonckhee.re`)"
-      traefik.http.routers.snapdrop.entrypoints: "web"
-      traefik.http.routers.snapdrop.middlewares: "snapdrop-tls"
+      traefik.http.routers.pairdrop.rule: "Host(`pairdrop.dejonckhee.re`)"
+      traefik.http.routers.pairdrop.entrypoints: "web"
+      traefik.http.routers.pairdrop.middlewares: "pairdrop-tls"
 
-      traefik.http.routers.snapdrop-tls.rule: "Host(`snapdrop.dejonckhee.re`)"
-      traefik.http.routers.snapdrop-tls.entrypoints: "websecure"
-      traefik.http.routers.snapdrop-tls.tls: "true"
-      traefik.http.routers.snapdrop-tls.tls.certresolver: "letsencrypt"
+      traefik.http.routers.pairdrop-tls.rule: "Host(`pairdrop.dejonckhee.re`)"
+      traefik.http.routers.pairdrop-tls.entrypoints: "websecure"
+      traefik.http.routers.pairdrop-tls.tls: "true"
+      traefik.http.routers.pairdrop-tls.tls.certresolver: "letsencrypt"
 
-      traefik.http.services.snapdrop.loadbalancer.server.port: "443"
-      traefik.http.services.snapdrop.loadbalancer.server.scheme: "https"
+      traefik.http.services.pairdrop.loadbalancer.server.port: "3000"
 
   ##
   # Change detection
@@ -324,5 +323,5 @@ volumes:
   postgres:
   redis:
   registry:
-  snapdrop:
+  pairdrop:
   wireguard:
