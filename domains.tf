@@ -65,22 +65,3 @@ module "kozo_dev" {
   dkim = lookup(var.dkim, "codered_pm")
   gsf = lookup(var.gsf, "codered_pm")
 }
-
-##
-# astellar.dev
-#
-module "astellar_dev" {
-  source = "./modules/dns/domain"
-
-  zone = "astellar.dev"
-  autorenew = false
-  ipv4_address = module.cloud.public_ipv4
-  domain_contact = var.domain_contact
-  domain_contact_extra = var.domain_contact_extra
-  dkim = lookup(var.dkim, "astellar_dev")
-  gsf = lookup(var.gsf, "astellar_dev")
-
-  subdomains = [
-    "www",
-  ]
-}
