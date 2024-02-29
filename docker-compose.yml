@@ -292,7 +292,7 @@ services:
   # Change detection
   #
   changedetection:
-    image: lscr.io/linuxserver/changedetection.io:0.44.1
+    image: lscr.io/linuxserver/changedetection.io:0.45.14
     env_file: changedetection.env
     volumes:
       - changedetection:/datastore
