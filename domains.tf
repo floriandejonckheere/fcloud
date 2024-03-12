@@ -65,3 +65,21 @@ module "kozo_dev" {
   dkim = lookup(var.dkim, "codered_pm")
   gsf = lookup(var.gsf, "codered_pm")
 }
+
+##
+# falqon.dev
+#
+module "falqon_dev" {
+  source = "./modules/dns/domain"
+
+  zone = "falqon.dev"
+  ipv4_address = module.cloud.public_ipv4
+  domain_contact = var.domain_contact
+  domain_contact_extra = var.domain_contact_extra
+  dkim = lookup(var.dkim, "falqon_dev")
+  gsf = lookup(var.gsf, "falqon_dev")
+
+  subdomains = [
+    "www",
+  ]
+}
