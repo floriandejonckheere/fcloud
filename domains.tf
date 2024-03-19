@@ -34,6 +34,15 @@ module "vpn_cloud_dejonckhee_re" {
   values = [var.additional_domains.vpn]
 }
 
+module "_vpn_cloud_dejonckhee_re" {
+  source = "./modules/dns/record"
+
+  zone = "dejonckhee.re"
+  name = "*.vpn.cloud"
+  type = "CNAME"
+  values = ["vpn.cloud"]
+}
+
 ##
 # floriandejonckheere.be
 #
