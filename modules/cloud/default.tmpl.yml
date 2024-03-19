@@ -3,7 +3,7 @@
 fqdn: ${fqdn}
 hostname: ${hostname}
 manage_etc_hosts: true
-timezone: Europe/Berlin
+timezone: Europe/Helsinki
 locale: C.UTF-8
 
 ntp:
