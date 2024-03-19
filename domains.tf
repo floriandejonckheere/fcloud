@@ -16,6 +16,24 @@ module "dejonckhee_re" {
   ]
 }
 
+module "box_dejonckhee_re" {
+  source = "./modules/dns/record"
+
+  zone = "dejonckhee.re"
+  name = "box"
+  type = "CNAME"
+  values = [var.additional_domains.box]
+}
+
+module "vpn_dejonckhee_re" {
+  source = "./modules/dns/record"
+
+  zone = "dejonckhee.re"
+  name = "vpn"
+  type = "CNAME"
+  values = [var.additional_domains.vpn]
+}
+
 ##
 # floriandejonckheere.be
 #

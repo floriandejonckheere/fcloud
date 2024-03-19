@@ -36,6 +36,13 @@ variable "gsf" {
   default = {}
 }
 
+variable "additional_domains" {
+  description = "Additional domains"
+  type = map(string)
+
+  default = {}
+}
+
 ##
 # Services
 #

@@ -17,9 +17,13 @@ domain_contact = {
   city = ""
   zip = ""
 }
+
 domain_context_extra = {}
 dkim = {}
 gsf = {}
+
+# Additional domains
+additional_domains = {}
 
 ##
 # Services
@@ -28,7 +32,3 @@ gsf = {}
 #
 # plaintext passwd:
 passwd = ""
-ssh_public_key = ""
-ssh_private_key = ""
-sshd_public_key = ""
-sshd_private_key = ""
