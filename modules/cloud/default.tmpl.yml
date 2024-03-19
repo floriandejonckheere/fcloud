@@ -77,7 +77,5 @@ runcmd:
   - apt-get update -y
   - apt-get install -y docker-ce docker-ce-cli containerd.io docker-compose-plugin
   - systemctl enable --now docker
-  # Install other dependencies
-  - apt-get install -y git
 
 final_message: "The system is finally up, after $UPTIME seconds"
