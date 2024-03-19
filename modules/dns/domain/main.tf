@@ -1,14 +1,10 @@
 ##
 # Domain
 #
-data "gandi_livedns_domain_ns" "default" {
-  name = var.zone
-}
 
 resource "gandi_domain" "default" {
   name = var.zone
   autorenew = var.autorenew
-  nameservers = data.gandi_livedns_domain_ns.default.nameservers
 
   admin {
     type = "person"
@@ -90,7 +86,6 @@ resource "gandi_domain" "default" {
 
 resource "gandi_livedns_domain" "default" {
   name = var.zone
-  ttl = 0
   automatic_snapshots = true
 }
 

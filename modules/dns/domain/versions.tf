@@ -1,8 +1,8 @@
 terraform {
   required_providers {
     gandi = {
-      source = "psychopenguin/gandi"
-      version = "2.0.0-rc3"
+      source = "go-gandi/gandi"
+      version = "2.3.0"
     }
   }
   required_version = ">= 0.13"

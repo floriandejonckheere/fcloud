@@ -25,5 +25,5 @@ provider "hcloud" {
 }
 
 provider "gandi" {
-  key = var.gandi_key
+  personal_access_token = var.gandi_key
 }
