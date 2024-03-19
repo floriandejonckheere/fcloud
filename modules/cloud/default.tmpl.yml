@@ -38,7 +38,7 @@ mounts:
 
 packages:
   - fail2ban
-  - fuse
+  - fuse3
   - sshfs
   - apt-transport-https
   - ca-certificates
