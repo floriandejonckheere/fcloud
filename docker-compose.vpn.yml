@@ -58,5 +58,36 @@ services:
       traefik.frontend.headers.contentTypeNosniff: true
       traefik.frontend.headers.frameDeny: true
 
+  ##
+  # qBittorrent
+  #
+  qbittorrent:
+    image: linuxserver/qbittorrent
+    environment:
+      PUID: 1000
+      PGID: 1000
+    volumes:
+      - qbittorrent:/config
+      - /mnt/box/data:/data
+    ports:
+      - "0.0.0.0:6881:6881"
+      - "0.0.0.0:6881:6881/udp"
+    restart: unless-stopped
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.qbittorrent-tls.redirectscheme.scheme: "https"
+
+      traefik.http.routers.qbittorrent.rule: "Host(`qbittorrent.vpn.cloud.dejonckhee.re`)"
+      traefik.http.routers.qbittorrent.entrypoints: "web"
+      traefik.http.routers.qbittorrent.middlewares: "qbittorrent-tls"
+
+      traefik.http.routers.qbittorrent-tls.rule: "Host(`qbittorrent.vpn.cloud.dejonckhee.re`)"
+      traefik.http.routers.qbittorrent-tls.entrypoints: "websecure"
+      traefik.http.routers.qbittorrent-tls.tls: "true"
+      traefik.http.routers.qbittorrent-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.qbittorrent.loadbalancer.server.port: "8080"
+
 volumes:
   acme:
+  qbittorrent:
