@@ -88,6 +88,31 @@ services:
 
       traefik.http.services.qbittorrent.loadbalancer.server.port: "8080"
 
+  ##
+  # Gossa
+  #
+  gossa:
+    image: pldubouilh/gossa:v1.0.0
+    volumes:
+      - /mnt/box/data:/shared
+    restart: unless-stopped
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.gossa-tls.redirectscheme.scheme: "https"
+      traefik.http.middlewares.gossa-auth.basicauth.users: "${FILESERVER_AUTH}"
+
+      traefik.http.routers.gossa.rule: "Host(`gossa.vpn.cloud.dejonckhee.re`)"
+      traefik.http.routers.gossa.entrypoints: "web"
+      traefik.http.routers.gossa.middlewares: "gossa-tls"
+
+      traefik.http.routers.gossa-tls.rule: "Host(`gossa.vpn.cloud.dejonckhee.re`)"
+      traefik.http.routers.gossa-tls.entrypoints: "websecure"
+      traefik.http.routers.gossa-tls.middlewares: "gossa-auth"
+      traefik.http.routers.gossa-tls.tls: "true"
+      traefik.http.routers.gossa-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.gossa.loadbalancer.server.port: "8001"
+
 volumes:
   acme:
   qbittorrent:
