@@ -62,7 +62,7 @@ services:
   # qBittorrent
   #
   qbittorrent:
-    image: linuxserver/qbittorrent
+    image: linuxserver/qbittorrent:4.6.3
     environment:
       PUID: 1000
       PGID: 1000
