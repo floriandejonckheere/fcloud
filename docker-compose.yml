@@ -314,10 +314,38 @@ services:
 
       traefik.http.services.changedetection.loadbalancer.server.port: "5000"
 
+  ##
+  # Dashboard
+  #
+  dashboard:
+    image: b4bz/homer:v23.10.1
+    # Copy dashboard configuration
+    volumes:
+      - dashboard:/www/assets/
+    restart: unless-stopped
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.homer-tls.redirectscheme.scheme: "https"
+      traefik.http.middlewares.homer-auth.basicauth.users: "${HOMER_AUTH}"
+
+      traefik.http.routers.homer.rule: "Host(`dashboard.dejonckhee.re`)"
+      traefik.http.routers.homer.entrypoints: "web"
+      traefik.http.routers.homer.middlewares: "homer-tls"
+
+      traefik.http.routers.homer-tls.rule: "Host(`dashboard.dejonckhee.re`)"
+      traefik.http.routers.homer-tls.entrypoints: "websecure"
+      traefik.http.routers.homer-tls.middlewares: "homer-auth"
+      traefik.http.routers.homer-tls.tls: "true"
+      traefik.http.routers.homer-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.homer.loadbalancer.server.port: "8080"
+
+
 volumes:
   acme:
   bitwarden:
   changedetection:
+  dashboard:
   http:
   nginx:
   postgres:
