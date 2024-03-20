@@ -1,0 +1,62 @@
+version: "3.8"
+
+services:
+  ##
+  # Reverse proxy
+  #
+  traefik:
+    image: traefik:v2.11
+    command: >-
+      --log.level=INFO
+      --api.dashboard=true
+      --providers.docker
+      --providers.docker.watch=true
+      --providers.docker.exposedbydefault=false
+      --entrypoints.websecure.address=:443
+      --entrypoints.web.address=:80
+      --entrypoints.web.http.redirections.entryPoint.to=websecure
+      --serverstransport.insecureskipverify=true
+      --certificatesresolvers.letsencrypt.acme.dnschallenge=true
+      --certificatesresolvers.letsencrypt.acme.dnschallenge.provider=gandiv5
+      --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53
+      --certificatesresolvers.letsencrypt.acme.email=florian@floriandejonckheere.be
+      --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json
+    env_file: .env
+    volumes:
+      - "/var/run/docker.sock:/var/run/docker.sock:ro"
+      - "acme:/etc/traefik/acme/"
+    ports:
+      - "80:80"
+      - "443:443"
+    restart: unless-stopped
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.traefik-tls.redirectscheme.scheme: "https"
+      traefik.http.middlewares.traefik-auth.basicauth.users: "${TRAEFIK_AUTH}"
+
+      traefik.http.routers.traefik.rule: "Host(`traefik.vpn.cloud.dejonckhee.re`)"
+      traefik.http.routers.traefik.entrypoints: "web"
+      traefik.http.routers.traefik.middlewares: "traefik-tls"
+
+      traefik.http.routers.traefik-tls.rule: "Host(`traefik.vpn.cloud.dejonckhee.re`)"
+      traefik.http.routers.traefik-tls.service: "api@internal"
+      traefik.http.routers.traefik-tls.entrypoints: "websecure"
+      traefik.http.routers.traefik-tls.middlewares: "traefik-auth"
+      traefik.http.routers.traefik-tls.tls: "true"
+      traefik.http.routers.traefik-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.traefik.loadbalancer.server.port: "80"
+
+      traefik.http.middlewares.secured.chain.middlewares: "traefik-tls,traefik-auth"
+
+      traefik.frontend.headers.SSLRedirect: true
+      traefik.frontend.headers.forceSTSHeader: true
+      traefik.frontend.headers.STSSeconds: 15552000
+      traefik.frontend.headers.STSIncludeSubdomains: true
+      traefik.frontend.headers.STSPreload: true
+      traefik.frontend.headers.browserXSSFilter: true
+      traefik.frontend.headers.contentTypeNosniff: true
+      traefik.frontend.headers.frameDeny: true
+
+volumes:
+  acme:
