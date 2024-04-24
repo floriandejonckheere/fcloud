@@ -111,6 +111,23 @@ services:
 
       traefik.http.services.gossa.loadbalancer.server.port: "8001"
 
+  ##
+  # Remote desktop
+  #
+  rdesktop:
+    image: lscr.io/linuxserver/rdesktop:latest
+    security_opt:
+      - seccomp:unconfined
+    env_file: rdesktop.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - rdesktop:/config
+      - /mnt/box/data:/data
+    ports:
+      - 3389:3389
+    restart: unless-stopped
+
 volumes:
   acme:
   qbittorrent:
+  rdesktop:
