@@ -3,7 +3,7 @@ services:
   # Reverse proxy
   #
   traefik:
-    image: traefik:v2.11
+    image: traefik:v3.0
     command: >-
       --log.level=INFO
       --api.dashboard=true
