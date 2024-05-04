@@ -16,11 +16,11 @@ module "dejonckhee_re" {
   ]
 }
 
-module "box_cloud_dejonckhee_re" {
+module "box_dejonckhee_re" {
   source = "./modules/dns/record"
 
   zone = "dejonckhee.re"
-  name = "box.cloud"
+  name = "box"
   type = "CNAME"
   values = [var.additional_domains.box]
 }
