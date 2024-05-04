@@ -222,9 +222,19 @@ services:
       traefik.enable: "true"
       traefik.http.middlewares.codered-tls.redirectscheme.scheme: "https"
 
+      traefik.http.middlewares.codered-redirect.redirectregex.regex: "^(https?://)([^/]*)/(.*)$$"
+      traefik.http.middlewares.codered-redirect.redirectregex.replacement: "$${1}codered.dejonckhee.re/$${3}"
+
       traefik.http.routers.codered.rule: "Host(`codered.dejonckhee.re`)"
       traefik.http.routers.codered.entrypoints: "web"
       traefik.http.routers.codered.middlewares: "codered-tls"
+
+      traefik.http.routers.codered-redirect.rule: "Host(`codered.pm`)"
+      traefik.http.routers.codered-redirect.entrypoints: "websecure"
+      traefik.http.routers.codered-redirect.tls: "true"
+      traefik.http.routers.codered-redirect.tls.domains[0].main: "codered.dejonckhee.re"
+      traefik.http.routers.codered-redirect.middlewares: "codered-redirect"
+      traefik.http.routers.codered-redirect.tls.certresolver: "letsencrypt"
 
       traefik.http.routers.codered-tls.rule: "Host(`codered.dejonckhee.re`)"
       traefik.http.routers.codered-tls.entrypoints: "websecure"
