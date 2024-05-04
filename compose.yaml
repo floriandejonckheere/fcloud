@@ -214,16 +214,17 @@ services:
       - traefik
       - postgres
       - redis
+    command: /bin/sh -c "sed -e 's/codered.pm/codered.dejonckhee.re/g' -i config/environments/production.rb; bundle exec puma -C config/puma.rb"
     restart: unless-stopped
     labels:
       traefik.enable: "true"
       traefik.http.middlewares.codered-tls.redirectscheme.scheme: "https"
 
-      traefik.http.routers.codered.rule: "Host(`codered.pm`)"
+      traefik.http.routers.codered.rule: "Host(`codered.dejonckhee.re`)"
       traefik.http.routers.codered.entrypoints: "web"
       traefik.http.routers.codered.middlewares: "codered-tls"
 
-      traefik.http.routers.codered-tls.rule: "Host(`codered.pm`)"
+      traefik.http.routers.codered-tls.rule: "Host(`codered.dejonckhee.re`)"
       traefik.http.routers.codered-tls.entrypoints: "websecure"
       traefik.http.routers.codered-tls.tls: "true"
       traefik.http.routers.codered-tls.tls.certresolver: "letsencrypt"
