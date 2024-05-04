@@ -93,11 +93,11 @@ services:
       traefik.http.middlewares.nginx-redirect.redirectregex.regex: "^(https?://)([^/]*)/(.*)$$"
       traefik.http.middlewares.nginx-redirect.redirectregex.replacement: "$${1}florian.dejonckhee.re/$${3}"
 
-      traefik.http.routers.nginx.rule: "HostRegexp(`^(florian.dejonckhee.re|dejonckhee.re|floriandejonckheere.be|www.floriandejonckheere.be)$`)"
+      traefik.http.routers.nginx.rule: "Host(`florian.dejonckhee.re`) || Host(`dejonckhee.re`) || Host(`floriandejonckheere.be`) || Host(`www.floriandejonckheere.be`)"
       traefik.http.routers.nginx.entrypoints: "web"
       traefik.http.routers.nginx.middlewares: "nginx-tls"
 
-      traefik.http.routers.nginx-redirect.rule: "HostRegexp(`^(dejonckhee.re|floriandejonckheere.be|www.floriandejonckheere.be)$`)"
+      traefik.http.routers.nginx-redirect.rule: "Host(`dejonckhee.re`) || Host(`floriandejonckheere.be`) || Host(`www.floriandejonckheere.be`)"
       traefik.http.routers.nginx-redirect.entrypoints: "websecure"
       traefik.http.routers.nginx-redirect.tls: "true"
       traefik.http.routers.nginx-redirect.tls.domains[0].main: "dejonckhee.re"
