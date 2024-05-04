@@ -338,6 +338,21 @@ services:
 
       traefik.http.services.homer.loadbalancer.server.port: "8080"
 
+  ##
+  # Remote desktop
+  #
+  rdesktop:
+    image: lscr.io/linuxserver/rdesktop:latest
+    security_opt:
+      - seccomp:unconfined
+    env_file: rdesktop.env
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - rdesktop:/config
+    ports:
+      - 3389:3389
+    restart: unless-stopped
+
 volumes:
   acme:
   bitwarden:
@@ -346,6 +361,7 @@ volumes:
   http:
   nginx:
   postgres:
+  rdesktop:
   redis:
   registry:
   pairdrop:

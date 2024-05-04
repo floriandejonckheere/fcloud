@@ -236,4 +236,12 @@ resource "hcloud_firewall" "default" {
     port = "123"
     destination_ips = ["0.0.0.0/0", "::/0"]
   }
+
+  # RDP
+  rule {
+    direction = "in"
+    protocol = "tcp"
+    port = "3389"
+    source_ips = ["0.0.0.0/0", "::/0"]
+  }
 }
