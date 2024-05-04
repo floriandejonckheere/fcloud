@@ -39,6 +39,8 @@ services:
       --certificatesresolvers.letsencrypt.acme.email=florian@floriandejonckheere.be
       --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json
     env_file: .env
+    environment:
+      LEGO_DISABLE_CNAME_SUPPORT: true
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "acme:/etc/traefik/acme/"
