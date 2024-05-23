@@ -366,9 +366,36 @@ services:
       - 3389:3389
     restart: unless-stopped
 
+  ##
+  # Calibre Web
+  #
+  calibre:
+    image: lscr.io/linuxserver/calibre-web:latest
+    env_file: calibre.env
+    volumes:
+      - calibre_config:/config
+      - calibre_data:/books
+    restart: unless-stopped
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.calibre-tls.redirectscheme.scheme: "https"
+
+      traefik.http.routers.calibre.rule: "Host(`calibre.dejonckhee.re`)"
+      traefik.http.routers.calibre.entrypoints: "web"
+      traefik.http.routers.calibre.middlewares: "calibre-tls"
+
+      traefik.http.routers.calibre-tls.rule: "Host(`calibre.dejonckhee.re`)"
+      traefik.http.routers.calibre-tls.entrypoints: "websecure"
+      traefik.http.routers.calibre-tls.tls: "true"
+      traefik.http.routers.calibre-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.calibre.loadbalancer.server.port: "8083"
+
 volumes:
   acme:
   bitwarden:
+  calibre_config:
+  calibre_data:
   changedetection:
   dashboard:
   http:
