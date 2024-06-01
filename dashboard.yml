@@ -104,7 +104,7 @@ services:
         icon: "fa fa-download"
         subtitle: "Torrent client"
         url: "https://qbittorrent.vpn.cloud.dejonckhee.re/"
-      - name: "File manager"
+      - name: "Gossa"
         icon: "fa fa-folder"
         subtitle: "Web file manager"
         url: "https://gossa.vpn.dejonckhee.re/"
@@ -125,4 +125,4 @@ services:
       - name: "Calibre web"
         icon: "fa fa-book"
         subtitle: "E-book library"
-        url: "https://calibre.dejonckhee.re/"g
+        url: "https://calibre.dejonckhee.re/"
