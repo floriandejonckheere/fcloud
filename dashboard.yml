@@ -119,3 +119,10 @@ services:
         icon: "fa fa-traffic-light"
         subtitle: "HTTP reverse proxy and load balancer"
         url: "https://traefik.vpn.cloud.dejonckhee.re/"
+  - name: "Entertainment"
+    icon: "fas fa-tv"
+    items:
+      - name: "Calibre web"
+        icon: "fa fa-book"
+        subtitle: "E-book library"
+        url: "https://calibre.dejonckhee.re/"g
