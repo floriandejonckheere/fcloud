@@ -104,6 +104,10 @@ services:
         icon: "fa fa-download"
         subtitle: "Torrent client"
         url: "https://qbittorrent.vpn.cloud.dejonckhee.re/"
+      - name: "File manager"
+        icon: "fa fa-folder"
+        subtitle: "Web file manager"
+        url: "https://gossa.vpn.dejonckhee.re/"
   - name: "System"
     icon: "fas fa-server"
     items:
