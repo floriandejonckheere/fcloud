@@ -78,3 +78,8 @@ Copy NGINX configuration to remote host:
 docker-compose exec -T nginx tee /config/nginx/nginx.conf < nginx.conf
 docker-compose exec nginx nginx -s reload
 ```
+
+Copy dashboard configuration to remote host:
+```
+docker-compose --context cloud cp dashboard.yml dashboard:/www/assets/config.yml
+```
