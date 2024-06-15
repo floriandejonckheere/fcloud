@@ -23,7 +23,7 @@ module "cloud" {
   # cpx41   8    16G    0.046/h  27.71/mo
   # cx51    8    32G    0.061/h  36.18/mo
   # cpx51   16   32G    0.097/h  60.38/mo
-  server_type = "cx11"
+  server_type = "cx22"
 }
 
 # module "minecraft" {
