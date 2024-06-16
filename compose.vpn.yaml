@@ -30,7 +30,6 @@ services:
     labels:
       traefik.enable: "true"
       traefik.http.middlewares.traefik-tls.redirectscheme.scheme: "https"
-      traefik.http.middlewares.traefik-auth.basicauth.users: "${TRAEFIK_AUTH}"
 
       traefik.http.routers.traefik.rule: "Host(`traefik.vpn.cloud.dejonckhee.re`)"
       traefik.http.routers.traefik.entrypoints: "web"
@@ -39,13 +38,13 @@ services:
       traefik.http.routers.traefik-tls.rule: "Host(`traefik.vpn.cloud.dejonckhee.re`)"
       traefik.http.routers.traefik-tls.service: "api@internal"
       traefik.http.routers.traefik-tls.entrypoints: "websecure"
-      traefik.http.routers.traefik-tls.middlewares: "traefik-auth"
+      traefik.http.routers.traefik-tls.middlewares: "traefik-forward-auth"
       traefik.http.routers.traefik-tls.tls: "true"
       traefik.http.routers.traefik-tls.tls.certresolver: "letsencrypt"
 
       traefik.http.services.traefik.loadbalancer.server.port: "80"
 
-      traefik.http.middlewares.secured.chain.middlewares: "traefik-tls,traefik-auth"
+      traefik.http.middlewares.secured.chain.middlewares: "traefik-tls,traefik-forward-auth"
 
       traefik.frontend.headers.SSLRedirect: true
       traefik.frontend.headers.forceSTSHeader: true
@@ -55,6 +54,22 @@ services:
       traefik.frontend.headers.browserXSSFilter: true
       traefik.frontend.headers.contentTypeNosniff: true
       traefik.frontend.headers.frameDeny: true
+
+  ##
+  # Authentication server
+  #
+  traefik-forward-auth:
+    image: thomseddon/traefik-forward-auth:2.1.0
+    env_file: traefik-forward-auth.env
+    restart: unless-stopped
+    labels:
+      traefik.enable: "true"
+
+      traefik.http.middlewares.traefik-forward-auth.forwardauth.address: "http://traefik-forward-auth:4181"
+      traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders: "X-Forwarded-User"
+      traefik.http.middlewares.traefik-forward-auth.forwardauth.trustForwardHeader: "true"
+
+      traefik.http.services.auth.loadbalancer.server.port: "4181"
 
   ##
   # qBittorrent
