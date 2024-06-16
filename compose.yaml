@@ -78,6 +78,33 @@ services:
       traefik.frontend.headers.frameDeny: true
 
   ##
+  # Authentication server
+  #
+  traefik-forward-auth:
+    image: thomseddon/traefik-forward-auth:2.1.0
+    env_file: traefik-forward-auth.env
+    restart: unless-stopped
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.traefik-forward-auth-tls.redirectscheme.scheme: "https"
+
+      traefik.http.middlewares.traefik-forward-auth.forwardauth.address: "http://traefik-forward-auth:4181"
+      traefik.http.middlewares.traefik-forward-auth.forwardauth.authResponseHeaders: "X-Forwarded-User"
+      traefik.http.middlewares.traefik-forward-auth.forwardauth.trustForwardHeader: "true"
+
+      traefik.http.routers.traefik-forward-auth.rule: "Host(`auth.dejonckhee.re`)"
+      traefik.http.routers.traefik-forward-auth.entrypoints: "web"
+      traefik.http.routers.traefik-forward-auth.middlewares: "traefik-forward-auth-tls"
+
+      traefik.http.routers.traefik-forward-auth-tls.rule: "Host(`auth.dejonckhee.re`)"
+      traefik.http.routers.traefik-forward-auth-tls.entrypoints: "websecure"
+      traefik.http.routers.traefik-forward-auth-tls.middlewares: "traefik-forward-auth"
+      traefik.http.routers.traefik-forward-auth-tls.tls: "true"
+      traefik.http.routers.traefik-forward-auth-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.auth.loadbalancer.server.port: "4181"
+
+  ##
   # Web server
   #
   nginx:
