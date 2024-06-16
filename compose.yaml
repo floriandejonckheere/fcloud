@@ -104,6 +104,25 @@ services:
 
       traefik.http.services.auth.loadbalancer.server.port: "4181"
 
+  whoami:
+    image: containous/whoami
+    restart: no
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.whoami-tls.redirectscheme.scheme: "https"
+
+      traefik.http.routers.whoami.rule: "Host(`whoami.dejonckhee.re`)"
+      traefik.http.routers.whoami.entrypoints: "web"
+      traefik.http.routers.whoami.middlewares: "whoami-tls"
+
+      traefik.http.routers.whoami-tls.rule: "Host(`whoami.dejonckhee.re`)"
+      traefik.http.routers.whoami-tls.entrypoints: "websecure"
+      traefik.http.routers.whoami-tls.middlewares: "traefik-forward-auth"
+      traefik.http.routers.whoami-tls.tls: "true"
+      traefik.http.routers.whoami-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.whoami.loadbalancer.server.port: "80"
+
   ##
   # Web server
   #
