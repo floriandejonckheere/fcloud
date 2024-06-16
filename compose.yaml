@@ -383,7 +383,6 @@ services:
     labels:
       traefik.enable: "true"
       traefik.http.middlewares.homer-tls.redirectscheme.scheme: "https"
-      traefik.http.middlewares.homer-auth.basicauth.users: "${HOMER_AUTH}"
 
       traefik.http.routers.homer.rule: "Host(`dashboard.dejonckhee.re`)"
       traefik.http.routers.homer.entrypoints: "web"
@@ -391,7 +390,7 @@ services:
 
       traefik.http.routers.homer-tls.rule: "Host(`dashboard.dejonckhee.re`)"
       traefik.http.routers.homer-tls.entrypoints: "websecure"
-      traefik.http.routers.homer-tls.middlewares: "homer-auth"
+      traefik.http.routers.homer-tls.middlewares: "traefik-forward-auth"
       traefik.http.routers.homer-tls.tls: "true"
       traefik.http.routers.homer-tls.tls.certresolver: "letsencrypt"
 
