@@ -38,7 +38,9 @@ services:
       --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53
       --certificatesresolvers.letsencrypt.acme.email=florian@floriandejonckheere.be
       --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json
-    env_file: .env
+    env_file:
+      - .env
+      - traefik.env
     environment:
       LEGO_DISABLE_CNAME_SUPPORT: true
     volumes:
