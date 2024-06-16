@@ -415,7 +415,9 @@ services:
   #
   calibre:
     image: lscr.io/linuxserver/calibre-web:latest
-    env_file: calibre.env
+    environment:
+      DOCKER_MODS: "linuxserver/mods:universal-calibre"
+      OAUTHLIB_RELAX_TOKEN_SCOPE: "1"
     volumes:
       - calibre_config:/config
       - calibre_data:/books
