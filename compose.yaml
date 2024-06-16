@@ -403,7 +403,6 @@ services:
     image: lscr.io/linuxserver/rdesktop:latest
     security_opt:
       - seccomp:unconfined
-    env_file: rdesktop.env
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - rdesktop:/config
