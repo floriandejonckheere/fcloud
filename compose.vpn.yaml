@@ -1,8 +1,20 @@
 services:
   ##
+  # Base service
+  #
+  base:
+    image: scratch
+    environment:
+      - PUID
+      - PGID
+      - TZ
+
+  ##
   # Reverse proxy
   #
   traefik:
+    extends:
+      service: base
     image: traefik:v3.0
     command: >-
       --log.level=INFO
@@ -75,10 +87,9 @@ services:
   # qBittorrent
   #
   qbittorrent:
+    extends:
+      service: base
     image: linuxserver/qbittorrent:4.6.3
-    environment:
-      PUID: 1000
-      PGID: 1000
     volumes:
       - qbittorrent:/config
       - /mnt/box/data:/data
@@ -129,6 +140,8 @@ services:
   # Remote desktop
   #
   rdesktop:
+    extends:
+      service: base
     image: lscr.io/linuxserver/rdesktop:latest
     security_opt:
       - seccomp:unconfined

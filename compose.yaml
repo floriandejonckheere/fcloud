@@ -1,5 +1,15 @@
 services:
   ##
+  # Base service
+  #
+  base:
+    image: scratch
+    environment:
+      - PUID
+      - PGID
+      - TZ
+
+  ##
   # Database
   #
   postgres:
@@ -38,9 +48,7 @@ services:
       --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53
       --certificatesresolvers.letsencrypt.acme.email=florian@floriandejonckheere.be
       --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json
-    env_file:
-      - .env
-      - traefik.env
+    env_file: traefik.env
     environment:
       LEGO_DISABLE_CNAME_SUPPORT: true
     volumes:
@@ -128,6 +136,8 @@ services:
   # Web server
   #
   nginx:
+    extends:
+      service: base
     image: lscr.io/linuxserver/nginx:1.24.0
     depends_on:
       - traefik
@@ -326,8 +336,9 @@ services:
   # PairDrop
   #
   pairdrop:
+    extends:
+      service: base
     image: lscr.io/linuxserver/pairdrop:1.10.8
-    env_file: pairdrop.env
     volumes:
       - pairdrop:/config
     restart: unless-stopped
@@ -350,6 +361,8 @@ services:
   # Change detection
   #
   changedetection:
+    extends:
+      service: base
     image: lscr.io/linuxserver/changedetection.io:0.45.20
     env_file: changedetection.env
     volumes:
@@ -400,6 +413,8 @@ services:
   # Remote desktop
   #
   rdesktop:
+    extends:
+      service: base
     image: lscr.io/linuxserver/rdesktop:latest
     security_opt:
       - seccomp:unconfined
@@ -414,6 +429,8 @@ services:
   # Calibre Web
   #
   calibre:
+    extends:
+      service: base
     image: lscr.io/linuxserver/calibre-web:latest
     environment:
       DOCKER_MODS: "linuxserver/mods:universal-calibre"
