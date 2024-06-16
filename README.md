@@ -63,7 +63,7 @@ nano .env
 Configure applications:
 
 ```
-for APP in bitwarden codered trivial wireguard; do cp ${APP}.env.example ${APP}.env; nano ${APP}.env; done
+for CONFIG in *.env.example; do cp -i${CONFIG} ${CONFIG//.example}; nano ${CONFIG//.example}; done
 ```
 
 Deploy applications:
