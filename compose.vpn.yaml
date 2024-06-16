@@ -112,7 +112,6 @@ services:
     labels:
       traefik.enable: "true"
       traefik.http.middlewares.gossa-tls.redirectscheme.scheme: "https"
-      traefik.http.middlewares.gossa-auth.basicauth.users: "${FILESERVER_AUTH}"
 
       traefik.http.routers.gossa.rule: "Host(`gossa.vpn.cloud.dejonckhee.re`)"
       traefik.http.routers.gossa.entrypoints: "web"
@@ -120,7 +119,7 @@ services:
 
       traefik.http.routers.gossa-tls.rule: "Host(`gossa.vpn.cloud.dejonckhee.re`)"
       traefik.http.routers.gossa-tls.entrypoints: "websecure"
-      traefik.http.routers.gossa-tls.middlewares: "gossa-auth"
+      traefik.http.routers.gossa-tls.middlewares: "traefik-forward-auth"
       traefik.http.routers.gossa-tls.tls: "true"
       traefik.http.routers.gossa-tls.tls.certresolver: "letsencrypt"
 
