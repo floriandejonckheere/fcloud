@@ -454,6 +454,32 @@ services:
 
       traefik.http.services.calibre.loadbalancer.server.port: "8083"
 
+  ##
+  # File manager
+  #
+  files:
+    image: filegator/filegator
+    user: 1000:1000
+    volumes:
+      - filegator:/var/www/filegator/private
+      - http:/var/www/filegator/repository
+    restart: unless-stopped
+    labels:
+      traefik.enable: "true"
+      traefik.http.middlewares.files-tls.redirectscheme.scheme: "https"
+
+      traefik.http.routers.files.rule: "Host(`files.dejonckhee.re`)"
+      traefik.http.routers.files.entrypoints: "web"
+      traefik.http.routers.files.middlewares: "files-tls"
+
+      traefik.http.routers.files-tls.rule: "Host(`files.dejonckhee.re`)"
+      traefik.http.routers.files-tls.entrypoints: "websecure"
+      traefik.http.routers.files-tls.middlewares: "traefik-forward-auth"
+      traefik.http.routers.files-tls.tls: "true"
+      traefik.http.routers.files-tls.tls.certresolver: "letsencrypt"
+
+      traefik.http.services.files.loadbalancer.server.port: "8080"
+
 volumes:
   acme:
   bitwarden:
@@ -461,6 +487,7 @@ volumes:
   calibre_data:
   changedetection:
   dashboard:
+  filegator:
   http:
   nginx:
   postgres:
