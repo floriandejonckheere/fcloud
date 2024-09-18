@@ -90,7 +90,7 @@ services:
   # Authentication server
   #
   traefik-forward-auth:
-    image: thomseddon/traefik-forward-auth:2.1.0
+    image: thomseddon/traefik-forward-auth:2.2.0
     env_file: traefik-forward-auth.env
     restart: unless-stopped
     labels:
