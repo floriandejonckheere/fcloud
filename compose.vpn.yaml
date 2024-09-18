@@ -15,7 +15,7 @@ services:
   traefik:
     extends:
       service: base
-    image: traefik:v3.0
+    image: traefik:v3.1
     command: >-
       --log.level=INFO
       --api.dashboard=true
