@@ -184,7 +184,7 @@ services:
     restart: unless-stopped
 
   registry-ui:
-    image: joxit/docker-registry-ui:2.5
+    image: joxit/docker-registry-ui:2.5.7
     environment:
       DELETE_IMAGES: "true"
       REGISTRY_TITLE: "Private Docker Registry"
