@@ -89,7 +89,7 @@ services:
   qbittorrent:
     extends:
       service: base
-    image: linuxserver/qbittorrent:4.6.3
+    image: lscr.io/linuxserver/qbittorrent:4.6.7
     volumes:
       - qbittorrent:/config
       - /mnt/box/data:/data
