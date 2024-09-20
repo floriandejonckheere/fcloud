@@ -116,7 +116,7 @@ services:
   # Gossa
   #
   gossa:
-    image: pldubouilh/gossa:v1.0.0
+    image: pldubouilh/gossa:v1.1.2
     volumes:
       - /mnt/box/data:/shared
     restart: unless-stopped
