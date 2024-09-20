@@ -338,7 +338,7 @@ services:
   pairdrop:
     extends:
       service: base
-    image: lscr.io/linuxserver/pairdrop:1.10.8
+    image: lscr.io/linuxserver/pairdrop:1.10.10
     volumes:
       - pairdrop:/config
     restart: unless-stopped
