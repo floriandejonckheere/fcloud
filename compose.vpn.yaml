@@ -113,28 +113,30 @@ services:
       traefik.http.services.qbittorrent.loadbalancer.server.port: "8080"
 
   ##
-  # Gossa
+  # File manager
   #
-  gossa:
-    image: pldubouilh/gossa:v1.1.2
+  files:
+    image: filegator/filegator:v7.10.1
+    user: 1000:1000
     volumes:
-      - /mnt/box/data:/shared
+      - filegator:/var/www/filegator/private
+      - /mnt/box/data:/var/www/filegator/repository
     restart: unless-stopped
     labels:
       traefik.enable: "true"
-      traefik.http.middlewares.gossa-tls.redirectscheme.scheme: "https"
+      traefik.http.middlewares.files-tls.redirectscheme.scheme: "https"
 
-      traefik.http.routers.gossa.rule: "Host(`gossa.vpn.cloud.dejonckhee.re`)"
-      traefik.http.routers.gossa.entrypoints: "web"
-      traefik.http.routers.gossa.middlewares: "gossa-tls"
+      traefik.http.routers.files.rule: "Host(`files.vpn.cloud.dejonckhee.re`)"
+      traefik.http.routers.files.entrypoints: "web"
+      traefik.http.routers.files.middlewares: "files-tls"
 
-      traefik.http.routers.gossa-tls.rule: "Host(`gossa.vpn.cloud.dejonckhee.re`)"
-      traefik.http.routers.gossa-tls.entrypoints: "websecure"
-      traefik.http.routers.gossa-tls.middlewares: "traefik-forward-auth"
-      traefik.http.routers.gossa-tls.tls: "true"
-      traefik.http.routers.gossa-tls.tls.certresolver: "letsencrypt"
+      traefik.http.routers.files-tls.rule: "Host(`files.vpn.cloud.dejonckhee.re`)"
+      traefik.http.routers.files-tls.entrypoints: "websecure"
+      traefik.http.routers.files-tls.middlewares: "traefik-forward-auth"
+      traefik.http.routers.files-tls.tls: "true"
+      traefik.http.routers.files-tls.tls.certresolver: "letsencrypt"
 
-      traefik.http.services.gossa.loadbalancer.server.port: "8001"
+      traefik.http.services.files.loadbalancer.server.port: "8080"
 
   ##
   # Remote desktop
@@ -155,5 +157,6 @@ services:
 
 volumes:
   acme:
+  filegator:
   qbittorrent:
   rdesktop:

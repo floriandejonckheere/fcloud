@@ -110,10 +110,10 @@ services:
         icon: "fa fa-folder"
         subtitle: "Web file manager"
         url: "https://files.dejonckhee.re/"
-      - name: "Gossa"
+      - name: "FileGator (VPN)"
         icon: "fa fa-folder"
-        subtitle: "Web file manager (VPN)"
-        url: "https://gossa.vpn.dejonckhee.re/"
+        subtitle: "Web file manager"
+        url: "https://files.vpn.cloud.dejonckhee.re/"
   - name: "System"
     icon: "fas fa-server"
     items:
