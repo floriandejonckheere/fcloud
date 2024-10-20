@@ -13,7 +13,7 @@ services:
   # Database
   #
   postgres:
-    image: postgres:15.6-alpine
+    image: postgres:15.8-alpine
     env_file: postgres.env
     volumes:
       - "postgres:/var/lib/postgresql/data/"
