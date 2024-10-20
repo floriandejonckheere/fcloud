@@ -215,7 +215,7 @@ services:
   # Password manager
   #
   bitwarden:
-    image: vaultwarden/server:1.32.0-alpine
+    image: vaultwarden/server:1.32.2-alpine
     env_file: bitwarden.env
     depends_on:
       - traefik
