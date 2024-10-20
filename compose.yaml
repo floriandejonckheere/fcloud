@@ -388,7 +388,7 @@ services:
   # Dashboard
   #
   dashboard:
-    image: b4bz/homer:v24.05.1
+    image: b4bz/homer:v24.10.1
     # Copy dashboard configuration
     volumes:
       - dashboard:/www/assets/
