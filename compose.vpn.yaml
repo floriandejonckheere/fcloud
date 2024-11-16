@@ -15,7 +15,7 @@ services:
   traefik:
     extends:
       service: base
-    image: traefik:v3.1
+    image: traefik:v3.2
     command: >-
       --log.level=INFO
       --api.dashboard=true
@@ -31,7 +31,7 @@ services:
       --certificatesresolvers.letsencrypt.acme.dnschallenge.resolvers=1.1.1.1:53,8.8.8.8:53
       --certificatesresolvers.letsencrypt.acme.email=florian@floriandejonckheere.be
       --certificatesresolvers.letsencrypt.acme.storage=/etc/traefik/acme/acme.json
-    env_file: .env
+    env_file: traefik.env
     volumes:
       - "/var/run/docker.sock:/var/run/docker.sock:ro"
       - "acme:/etc/traefik/acme/"
