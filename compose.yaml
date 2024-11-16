@@ -164,7 +164,7 @@ services:
       traefik.http.routers.nginx-redirect.middlewares: "nginx-redirect"
       traefik.http.routers.nginx-redirect.tls.certresolver: "letsencrypt"
 
-      traefik.http.routers.nginx-tls.rule: "Host(`florian.dejonckhee.re`)"
+      traefik.http.routers.nginx-tls.rule: "Host(`florian.dejonckhee.re`) || Host(`docs.falqon.dev`)"
       traefik.http.routers.nginx-tls.entrypoints: "websecure"
       traefik.http.routers.nginx-tls.tls: "true"
       traefik.http.routers.nginx-tls.tls.certresolver: "letsencrypt"
