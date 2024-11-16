@@ -74,7 +74,10 @@ module "falqon_dev" {
   dkim = lookup(var.dkim, "falqon_dev")
   gsf = lookup(var.gsf, "falqon_dev")
 
+  autorenew = false
+
   subdomains = [
     "www",
+    "docs",
   ]
 }
